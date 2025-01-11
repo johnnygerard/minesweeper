@@ -1,3 +1,9 @@
+import { Board } from "@/components/board";
+
 export default function Home() {
-  return <h1>Deployment successful!</h1>;
+  return (
+    <>
+      <Board rows={8} columns={8} mines={10} />
+    </>
+  );
 }
