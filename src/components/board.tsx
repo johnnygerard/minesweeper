@@ -1,6 +1,8 @@
 "use client";
 import { Cell } from "@/components/cell";
+import { AdjacentMines } from "@/types/adjacent-mines";
 import { generateBoard } from "@/utils/generate-board";
+import { getAdjacentCells } from "@/utils/get-adjacent-cells";
 import { JSX, useState } from "react";
 
 export interface BoardProps {
@@ -15,12 +17,16 @@ export const Board = ({ rows, columns, mines }: BoardProps): JSX.Element => {
   const revealCell = (index: number): void => {
     setBoard((board) => {
       const cell = board[index];
+      const newCell = { ...cell, isRevealed: true };
 
-      return [
-        ...board.slice(0, index),
-        { ...cell, isRevealed: true },
-        ...board.slice(index + 1),
-      ];
+      if (!cell.isMined) {
+        newCell.adjacentMines = getAdjacentCells(index, rows, columns).reduce(
+          (count, index) => count + (board[index].isMined ? 1 : 0),
+          0,
+        ) as AdjacentMines;
+      }
+
+      return [...board.slice(0, index), newCell, ...board.slice(index + 1)];
     });
   };
 
