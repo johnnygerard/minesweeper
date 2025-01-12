@@ -1,5 +1,6 @@
 import { AdjacentMines } from "@/types/adjacent-mines";
-import { JSX, MouseEvent } from "react";
+import { BoardAction } from "@/types/board-action";
+import { Dispatch, JSX, MouseEvent } from "react";
 
 export interface CellProps {
   adjacentMines?: AdjacentMines;
@@ -15,13 +16,22 @@ export const Cell = ({
   isRevealed = false,
   isFlagged = false,
   index,
-  revealCell,
-  toggleFlag,
+  dispatch,
 }: CellProps & {
-  revealCell: (index: number) => void;
-  toggleFlag: (index: number) => void;
+  dispatch: Dispatch<BoardAction>;
 }): JSX.Element => {
   let display: string;
+
+  const handleClick = (): void => {
+    if (isFlagged || isRevealed) return;
+    dispatch({ type: "REVEAL", index });
+  };
+
+  const handleContextMenu = (event: MouseEvent): void => {
+    event.preventDefault();
+    if (isRevealed) return;
+    dispatch({ type: "TOGGLE_FLAG", index });
+  };
 
   if (isRevealed) {
     if (isMined) display = "💣";
@@ -29,17 +39,6 @@ export const Cell = ({
   } else {
     display = isFlagged ? "🚩" : "";
   }
-
-  const handleClick = (): void => {
-    if (isFlagged || isRevealed) return;
-    revealCell(index);
-  };
-
-  const handleContextMenu = (e: MouseEvent): void => {
-    e.preventDefault();
-    if (isRevealed) return;
-    toggleFlag(index);
-  };
 
   return (
     <div
