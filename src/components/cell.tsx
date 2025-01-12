@@ -1,10 +1,10 @@
-import { BoardAction } from "@/types/board-action";
 import { CellState } from "@/types/cell-state";
+import { GameAction } from "@/types/game-action";
 import { Dispatch, JSX, MouseEvent } from "react";
 
 interface CellProps {
   state: CellState;
-  dispatch: Dispatch<BoardAction>;
+  dispatch: Dispatch<GameAction>;
 }
 
 export const Cell = ({ state, dispatch }: CellProps): JSX.Element => {

@@ -7,9 +7,9 @@ export class BoardState {
   cells: CellState[];
 
   constructor(
-    readonly mines: number,
-    readonly rows: number,
-    readonly columns: number,
+    readonly mines = 10,
+    readonly rows = 8,
+    readonly columns = 8,
   ) {
     const cells = new Array<CellState>(this.rows * this.columns);
     let remainingCells = cells.length;
