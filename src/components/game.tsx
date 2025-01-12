@@ -1,5 +1,6 @@
 "use client";
 import { Board } from "@/components/board";
+import { MineCounter } from "@/components/mine-counter";
 import { BoardState } from "@/types/board-state";
 import { gameReducer } from "@/utils/game-reducer";
 import { JSX } from "react";
@@ -13,6 +14,7 @@ export const Game = (): JSX.Element => {
 
   return (
     <main className="flex flex-col items-center gap-8">
+      <MineCounter remaining={state.board.mines - state.board.flags} />
       <Board board={state.board} dispatch={dispatch} />
       <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
         Start New Game
