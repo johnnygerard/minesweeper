@@ -8,7 +8,7 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
 });
 
-const TITLE = "minesweeper.jgerard.dev";
+const TITLE = "Minesweeper";
 const DESCRIPTION =
   "A modern recreation of the classic Minesweeper game from Microsoft Windows.";
 
