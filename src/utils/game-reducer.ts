@@ -11,6 +11,7 @@ export const gameReducer = (
   switch (action.type) {
     case "REVEAL": {
       const cell = draft.board.cells[action.index];
+      if (cell.isRevealed || cell.isFlagged || draft.isGameOver) return;
 
       if (cell.isMined) {
         cell.isRevealed = true;
@@ -23,6 +24,7 @@ export const gameReducer = (
     }
     case "TOGGLE_FLAG": {
       const cell = draft.board.cells[action.index];
+      if (cell.isRevealed || draft.isGameOver) return;
       cell.isFlagged = !cell.isFlagged;
       break;
     }
