@@ -2,12 +2,12 @@ import { CellState } from "@/types/cell-state";
 import { GameAction } from "@/types/game-action";
 import { Dispatch, JSX } from "react";
 
-interface CellProps {
+interface Props {
   state: CellState;
   dispatch: Dispatch<GameAction>;
 }
 
-export const Cell = ({ state, dispatch }: CellProps): JSX.Element => {
+export const Cell = ({ state, dispatch }: Props): JSX.Element => {
   const {
     isFlagged = false,
     isMined,

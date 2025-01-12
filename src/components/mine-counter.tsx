@@ -1,9 +1,9 @@
 import { JSX } from "react";
 
-interface MineCounterProps {
+interface Props {
   remaining: number;
 }
 
-export const MineCounter = ({ remaining }: MineCounterProps): JSX.Element => {
+export const MineCounter = ({ remaining }: Props): JSX.Element => {
   return <p>Mines: {remaining}</p>;
 };

@@ -3,12 +3,12 @@ import { BoardState } from "@/types/board-state";
 import { GameAction } from "@/types/game-action";
 import { Dispatch, JSX } from "react";
 
-interface BoardProps {
+interface Props {
   board: BoardState;
   dispatch: Dispatch<GameAction>;
 }
 
-export const Board = ({ board, dispatch }: BoardProps): JSX.Element => {
+export const Board = ({ board, dispatch }: Props): JSX.Element => {
   return (
     <div
       className="grid gap-1"
