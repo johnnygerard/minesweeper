@@ -1,25 +1,20 @@
-import { AdjacentMines } from "@/types/adjacent-mines";
 import { BoardAction } from "@/types/board-action";
+import { CellState } from "@/types/cell-state";
 import { Dispatch, JSX, MouseEvent } from "react";
 
-export interface CellProps {
-  adjacentMines?: AdjacentMines;
-  isMined: boolean;
-  isRevealed?: boolean;
-  isFlagged?: boolean;
-  index: number;
+interface CellProps {
+  state: CellState;
+  dispatch: Dispatch<BoardAction>;
 }
 
-export const Cell = ({
-  adjacentMines,
-  isMined,
-  isRevealed = false,
-  isFlagged = false,
-  index,
-  dispatch,
-}: CellProps & {
-  dispatch: Dispatch<BoardAction>;
-}): JSX.Element => {
+export const Cell = ({ state, dispatch }: CellProps): JSX.Element => {
+  const {
+    isFlagged = false,
+    isMined,
+    isRevealed = false,
+    adjacentMines,
+    index,
+  } = state;
   let display: string;
 
   const handleClick = (): void => {

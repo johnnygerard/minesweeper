@@ -22,8 +22,8 @@ export const Board = ({ mines, rows, columns }: BoardProps): JSX.Element => {
       className="grid gap-1"
       style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
     >
-      {state.cells.map((cellProps, index) => (
-        <Cell key={index} {...cellProps} dispatch={dispatch} />
+      {state.cells.map((cell, index) => (
+        <Cell key={index} state={cell} dispatch={dispatch} />
       ))}
     </div>
   );

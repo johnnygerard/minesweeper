@@ -1,5 +1,5 @@
-import { CellProps } from "@/components/cell";
 import { BoardState } from "@/types/board-state";
+import { CellState } from "@/types/cell-state";
 
 /**
  * Return the adjacent cells of a target cell
@@ -7,9 +7,9 @@ import { BoardState } from "@/types/board-state";
  * @param board - The board state
  */
 export const getAdjacentCells = (
-  cell: CellProps,
+  cell: CellState,
   board: BoardState,
-): readonly CellProps[] => {
+): readonly CellState[] => {
   const { index } = cell;
   const { rows, columns } = board;
   const hasLeft = index % columns !== 0;

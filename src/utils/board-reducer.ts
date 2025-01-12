@@ -1,12 +1,12 @@
-import { CellProps } from "@/components/cell";
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { BoardAction } from "@/types/board-action";
 import { BoardState } from "@/types/board-state";
+import { CellState } from "@/types/cell-state";
 import { getAdjacentCells } from "@/utils/get-adjacent-cells";
 import { Draft } from "immer";
 
 // Recursively reveal cells
-const reveal = (cell: CellProps, draft: Draft<BoardState>): void => {
+const reveal = (cell: CellState, draft: Draft<BoardState>): void => {
   if (cell.isRevealed || cell.isFlagged) return;
 
   const adjacentCells = getAdjacentCells(cell, draft);
