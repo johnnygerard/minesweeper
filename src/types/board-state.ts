@@ -5,6 +5,7 @@ export class BoardState {
   [immerable] = true;
   // Linear storage with row-major order
   cells: CellState[];
+  flags = 0;
 
   constructor(
     readonly mines = 10,

@@ -25,7 +25,14 @@ export const gameReducer = (
     case "TOGGLE_FLAG": {
       const cell = draft.board.cells[action.index];
       if (cell.isRevealed || draft.isGameOver) return;
-      cell.isFlagged = !cell.isFlagged;
+
+      if (cell.isFlagged) {
+        cell.isFlagged = false;
+        draft.board.flags--;
+      } else if (draft.board.flags < draft.board.mines) {
+        cell.isFlagged = true;
+        draft.board.flags++;
+      }
       break;
     }
     case "RESTART":
