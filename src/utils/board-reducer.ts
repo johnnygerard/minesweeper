@@ -1,3 +1,4 @@
+import { CellProps } from "@/components/cell";
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { BoardAction } from "@/types/board-action";
 import { BoardState } from "@/types/board-state";
@@ -5,21 +6,18 @@ import { getAdjacentCells } from "@/utils/get-adjacent-cells";
 import { Draft } from "immer";
 
 // Recursively reveal cells
-const reveal = (index: number, draft: Draft<BoardState>): void => {
-  const cell = draft.cells[index];
+const reveal = (cell: CellProps, draft: Draft<BoardState>): void => {
   if (cell.isRevealed || cell.isFlagged) return;
 
-  const adjacentCells = getAdjacentCells(index, draft.rows, draft.columns);
-
+  const adjacentCells = getAdjacentCells(cell, draft);
   const adjacentMines = adjacentCells.reduce(
-    (acc, index) => acc + (draft.cells[index].isMined ? 1 : 0),
+    (acc, cell) => acc + (cell.isMined ? 1 : 0),
     0,
   );
 
   cell.isRevealed = true;
   cell.adjacentMines = adjacentMines as AdjacentMines;
-  if (adjacentMines === 0)
-    adjacentCells.forEach((index) => reveal(index, draft));
+  if (adjacentMines === 0) adjacentCells.forEach((cell) => reveal(cell, draft));
 };
 
 export const boardReducer = (
@@ -35,7 +33,7 @@ export const boardReducer = (
         return; // TODO: handle game over
       }
 
-      reveal(action.index, draft);
+      reveal(cell, draft);
       break;
     }
     case "TOGGLE_FLAG": {

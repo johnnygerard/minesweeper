@@ -1,14 +1,17 @@
+import { CellProps } from "@/components/cell";
+import { BoardState } from "@/types/board-state";
+
 /**
- * Compute all adjacent cells indexes for the given cell index.
- * @param index - The target cell index
- * @param rows - The number of rows in the grid
- * @param columns - The number of columns in the grid
+ * Return the adjacent cells of a target cell
+ * @param cell - The target cell
+ * @param board - The board state
  */
 export const getAdjacentCells = (
-  index: number,
-  rows: number,
-  columns: number,
-): readonly number[] => {
+  cell: CellProps,
+  board: BoardState,
+): readonly CellProps[] => {
+  const { index } = cell;
+  const { rows, columns } = board;
   const hasLeft = index % columns !== 0;
   const hasRight = index % columns !== columns - 1;
   const hasTop = index - columns >= 0;
@@ -33,5 +36,5 @@ export const getAdjacentCells = (
     ...diagonalOffsets,
   ];
 
-  return relativeOffsets.map((offset) => index + offset);
+  return relativeOffsets.map((offset) => board.cells[index + offset]);
 };
