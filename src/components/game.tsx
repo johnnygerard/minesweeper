@@ -1,6 +1,7 @@
 "use client";
 import { Board } from "@/components/board";
 import { MineCounter } from "@/components/mine-counter";
+import { Stopwatch } from "@/components/stopwatch";
 import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
 import { gameReducer } from "@/utils/game-reducer";
@@ -15,7 +16,10 @@ export const Game = (): JSX.Element => {
 
   return (
     <main className="flex flex-col items-center gap-8">
-      <MineCounter remaining={state.board.mines - state.board.flags} />
+      <div className="flex w-full justify-between">
+        <Stopwatch gameStatus={state.status} />
+        <MineCounter remaining={state.board.mines - state.board.flags} />
+      </div>
       <Board board={state.board} dispatch={dispatch} />
       {state.status !== "INITIAL" && (
         <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
