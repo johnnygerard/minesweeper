@@ -1,7 +1,6 @@
 import { BoardState } from "@/types/board-state";
 import { GameAction } from "@/types/game-action";
 import { GameState } from "@/types/game-state";
-import { autoReveal } from "@/utils/auto-reveal";
 import { Draft } from "immer";
 
 export const gameReducer = (
@@ -17,22 +16,15 @@ export const gameReducer = (
         cell.isRevealed = true;
         draft.isGameOver = true;
       } else {
-        autoReveal(cell, draft.board);
+        draft.board.autoReveal(cell);
       }
 
       break;
     }
     case "TOGGLE_FLAG": {
+      if (draft.isGameOver) return;
       const cell = draft.board.cells[action.index];
-      if (cell.isRevealed || draft.isGameOver) return;
-
-      if (cell.isFlagged) {
-        cell.isFlagged = false;
-        draft.board.flags--;
-      } else if (draft.board.flags < draft.board.mines) {
-        cell.isFlagged = true;
-        draft.board.flags++;
-      }
+      draft.board.toggleFlag(cell);
       break;
     }
     case "RESTART":
