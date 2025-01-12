@@ -17,9 +17,17 @@ export const Game = (): JSX.Element => {
     <main className="flex flex-col items-center gap-8">
       <MineCounter remaining={state.board.mines - state.board.flags} />
       <Board board={state.board} dispatch={dispatch} />
-      <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
-        Start New Game
-      </button>
+      {state.status !== "INITIAL" && (
+        <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
+          {
+            {
+              PLAYING: "Restart",
+              WON: "Play again",
+              LOST: "Try again",
+            }[state.status]
+          }
+        </button>
+      )}
     </main>
   );
 };
