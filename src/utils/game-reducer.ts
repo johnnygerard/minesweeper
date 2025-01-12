@@ -1,6 +1,7 @@
 import { BoardState } from "@/types/board-state";
 import { GameAction } from "@/types/game-action";
 import { GameState } from "@/types/game-state";
+import { GAME_STATUS } from "@/types/game-status";
 import { Draft } from "immer";
 
 export const gameReducer = (
@@ -13,10 +14,13 @@ export const gameReducer = (
       if (cell.isRevealed || cell.isFlagged || draft.isGameOver) return;
 
       if (cell.isMined) {
+        draft.status = GAME_STATUS.LOST;
         cell.isRevealed = true;
-        draft.isGameOver = true;
       } else {
         draft.board.autoReveal(cell);
+        draft.status = draft.board.hasWon
+          ? GAME_STATUS.WON
+          : GAME_STATUS.PLAYING;
       }
 
       break;
@@ -28,7 +32,7 @@ export const gameReducer = (
       break;
     }
     case "RESTART":
-      draft.isGameOver = false;
+      draft.status = GAME_STATUS.INITIAL;
       draft.board = new BoardState();
       break;
   }

@@ -31,6 +31,10 @@ export class BoardState {
     this.cells = cells;
   }
 
+  get hasWon(): boolean {
+    return this.cells.every((cell) => cell.isMined || cell.isRevealed);
+  }
+
   /**
    * Toggle a cell flag without exceeding the total number of mines
    * @param cell - The cell to toggle the flag
