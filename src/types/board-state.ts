@@ -20,7 +20,7 @@ export class BoardState {
       const mineProbability = remainingMines / remainingCells;
       const isMined = Math.random() < mineProbability;
 
-      cells[i] = { index: i, isMined };
+      cells[i] = new CellState(i, isMined);
       if (isMined) remainingMines--;
       remainingCells--;
     }
