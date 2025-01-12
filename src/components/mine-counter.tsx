@@ -5,5 +5,5 @@ interface Props {
 }
 
 export const MineCounter = ({ remaining }: Props): JSX.Element => {
-  return <p>Mines: {remaining}</p>;
+  return <p>{remaining} 💣</p>;
 };
