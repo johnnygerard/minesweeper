@@ -57,6 +57,19 @@ export class BoardState {
     else this.flag(cell);
   }
 
+  autoFlag(cell: CellState): void {
+    const hiddenAdjacentCells = getAdjacentCells(cell, this).filter(
+      (cell) => !cell.isRevealed,
+    );
+
+    if (hiddenAdjacentCells.length === cell.adjacentMines) {
+      for (const cell of hiddenAdjacentCells) {
+        if (cell.isFlagged) continue;
+        this.flag(cell);
+      }
+    }
+  }
+
   revealSafeCell(initial: CellState): void {
     const stack = [initial];
     let cell: CellState | undefined;

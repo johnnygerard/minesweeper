@@ -26,7 +26,7 @@ const Cell = (p: Props) => {
         dispatch({ type: "REVEAL", index });
       }}
       onContextMenu={() => {
-        dispatch({ type: "TOGGLE_FLAG", index });
+        dispatch({ type: isRevealed ? "AUTO_FLAG" : "TOGGLE_FLAG", index });
       }}
     >
       {display}
