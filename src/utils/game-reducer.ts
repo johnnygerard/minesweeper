@@ -5,33 +5,33 @@ import { GAME_STATUS } from "@/types/game-status";
 import { Draft } from "immer";
 
 export const gameReducer = (
-  draft: Draft<GameState>,
+  game: Draft<GameState>,
   action: GameAction,
 ): void => {
   switch (action.type) {
     case "REVEAL": {
-      const cell = draft.board.cells[action.index];
+      const cell = game.board.cells[action.index];
 
       if (cell.isMined) {
         cell.isRevealed = true;
-        draft.status = GAME_STATUS.LOST;
+        game.status = GAME_STATUS.LOST;
         break;
       }
 
-      draft.board.revealSafeCell(cell);
-      draft.status = draft.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
+      game.board.revealSafeCell(cell);
+      game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
       break;
     }
     case "TOGGLE_FLAG": {
-      const cell = draft.board.cells[action.index];
+      const cell = game.board.cells[action.index];
 
-      if (cell.isFlagged) draft.board.unflag(cell);
-      else draft.board.flag(cell);
+      if (cell.isFlagged) game.board.unflag(cell);
+      else game.board.flag(cell);
       break;
     }
     case "RESTART":
-      draft.status = GAME_STATUS.INITIAL;
-      draft.board = new BoardState();
+      game.status = GAME_STATUS.INITIAL;
+      game.board = new BoardState();
       break;
   }
 };
