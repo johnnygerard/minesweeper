@@ -1,13 +1,13 @@
 import { CellState } from "@/types/cell-state";
-import { GameAction } from "@/types/game-action";
-import { Dispatch, JSX } from "react";
+import { DispatchContext } from "@/utils/dispatch-context";
+import { JSX, useContext } from "react";
 
 interface Props {
   state: CellState;
-  dispatch: Dispatch<GameAction>;
 }
 
-export const Cell = ({ state, dispatch }: Props): JSX.Element => {
+export const Cell = ({ state }: Props): JSX.Element => {
+  const dispatch = useContext(DispatchContext);
   const {
     isFlagged = false,
     isMined,
