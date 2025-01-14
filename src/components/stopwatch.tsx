@@ -6,7 +6,7 @@ interface Props {
   gameStatus: GameStatus;
 }
 
-export const Stopwatch = ({ gameStatus }: Props) => {
+export default function Stopwatch({ gameStatus }: Props) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
@@ -24,4 +24,4 @@ export const Stopwatch = ({ gameStatus }: Props) => {
   }, [gameStatus]);
 
   return <p>{formatTime(elapsedSeconds)}</p>;
-};
+}

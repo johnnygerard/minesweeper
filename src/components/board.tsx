@@ -6,7 +6,7 @@ interface Props {
   board: BoardState;
 }
 
-export const Board = ({ board }: Props): JSX.Element => {
+export default function Board({ board }: Props): JSX.Element {
   return (
     <div
       className="grid gap-1"
@@ -17,4 +17,4 @@ export const Board = ({ board }: Props): JSX.Element => {
       ))}
     </div>
   );
-};
+}

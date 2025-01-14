@@ -1,7 +1,7 @@
 "use client";
-import { Board } from "@/components/board";
-import { MineCounter } from "@/components/mine-counter";
-import { Stopwatch } from "@/components/stopwatch";
+import Board from "@/components/board";
+import MineCounter from "@/components/mine-counter";
+import Stopwatch from "@/components/stopwatch";
 import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
 import { DispatchContext } from "@/utils/dispatch-context";
@@ -9,7 +9,7 @@ import { gameReducer } from "@/utils/game-reducer";
 import { JSX } from "react";
 import { useImmerReducer } from "use-immer";
 
-export const Game = (): JSX.Element => {
+export default function Game(): JSX.Element {
   const [state, dispatch] = useImmerReducer(
     gameReducer,
     new GameState(new BoardState()),
@@ -37,4 +37,4 @@ export const Game = (): JSX.Element => {
       )}
     </main>
   );
-};
+}
