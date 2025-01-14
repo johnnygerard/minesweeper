@@ -2,9 +2,9 @@ import { GAME_STATUS, GameStatus } from "@/types/game-status";
 import { formatTime } from "@/utils/format-time";
 import { JSX, memo, useEffect, useState } from "react";
 
-interface Props {
+type Props = Readonly<{
   gameStatus: GameStatus;
-}
+}>;
 
 const Stopwatch = ({ gameStatus }: Props): JSX.Element => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);

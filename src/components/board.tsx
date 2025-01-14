@@ -2,9 +2,9 @@ import Cell from "@/components/cell";
 import { BoardState } from "@/types/board-state";
 import { JSX, memo } from "react";
 
-interface Props {
+type Props = Readonly<{
   board: BoardState;
-}
+}>;
 
 const Board = ({ board }: Props): JSX.Element => {
   return (
