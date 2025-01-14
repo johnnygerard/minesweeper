@@ -21,11 +21,11 @@ const Game = () => {
         <Stopwatch gameStatus={game.status} />
         <MineCounter remaining={game.board.mines - game.board.flags} />
       </div>
-      <IsGameOverContext value={game.isOver}>
+      <IsGameOverContext.Provider value={game.isOver}>
         <DispatchContext.Provider value={dispatch}>
           <Board cells={game.board.cells} columns={game.board.columns} />
         </DispatchContext.Provider>
-      </IsGameOverContext>
+      </IsGameOverContext.Provider>
       {game.status !== "INITIAL" && (
         <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
           {
