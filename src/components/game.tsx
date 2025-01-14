@@ -2,8 +2,7 @@
 import Board from "@/components/board";
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
-import { DispatchContext } from "@/contexts/dispatch-context";
-import { IsGameOverContext } from "@/contexts/is-game-over-context";
+import { DispatchContext, IsGameOverContext } from "@/contexts";
 import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
 import { gameReducer } from "@/utils/game-reducer";

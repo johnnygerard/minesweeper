@@ -1,5 +1,4 @@
-import { DispatchContext } from "@/contexts/dispatch-context";
-import { IsGameOverContext } from "@/contexts/is-game-over-context";
+import { DispatchContext, IsGameOverContext } from "@/contexts";
 import { CellState } from "@/types/cell-state";
 import { memo, useContext } from "react";
 
