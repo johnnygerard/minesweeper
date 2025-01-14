@@ -8,7 +8,7 @@ export class GameState {
 
   constructor(public board: BoardState) {}
 
-  get isGameOver(): boolean {
+  get isOver(): boolean {
     return this.status === GAME_STATUS.WON || this.status === GAME_STATUS.LOST;
   }
 }

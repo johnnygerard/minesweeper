@@ -22,7 +22,7 @@ const Game = () => {
         <Stopwatch gameStatus={game.status} />
         <MineCounter remaining={game.board.mines - game.board.flags} />
       </div>
-      <IsGameOverContext value={game.isGameOver}>
+      <IsGameOverContext value={game.isOver}>
         <DispatchContext.Provider value={dispatch}>
           <Board cells={game.board.cells} columns={game.board.columns} />
         </DispatchContext.Provider>
