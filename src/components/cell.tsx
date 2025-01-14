@@ -1,6 +1,6 @@
+import { DispatchContext } from "@/contexts/dispatch-context";
+import { IsGameOverContext } from "@/contexts/is-game-over-context";
 import { CellState } from "@/types/cell-state";
-import { DispatchContext } from "@/utils/dispatch-context";
-import { IsGameOverContext } from "@/utils/is-game-over-context";
 import { memo, useContext } from "react";
 
 type Props = Readonly<CellState>;

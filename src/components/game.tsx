@@ -2,11 +2,11 @@
 import Board from "@/components/board";
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
+import { DispatchContext } from "@/contexts/dispatch-context";
+import { IsGameOverContext } from "@/contexts/is-game-over-context";
 import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
-import { DispatchContext } from "@/utils/dispatch-context";
 import { gameReducer } from "@/utils/game-reducer";
-import { IsGameOverContext } from "@/utils/is-game-over-context";
 import { memo } from "react";
 import { useImmerReducer } from "use-immer";
 
