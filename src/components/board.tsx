@@ -1,12 +1,12 @@
 import Cell from "@/components/cell";
 import { BoardState } from "@/types/board-state";
-import { JSX } from "react";
+import { JSX, memo } from "react";
 
 interface Props {
   board: BoardState;
 }
 
-export default function Board({ board }: Props): JSX.Element {
+export default memo(function Board({ board }: Props): JSX.Element {
   return (
     <div
       className="grid gap-1"
@@ -17,4 +17,4 @@ export default function Board({ board }: Props): JSX.Element {
       ))}
     </div>
   );
-}
+});

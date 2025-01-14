@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import { memo } from "react";
 
 const geistSans = Geist({
   display: "swap",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default memo(function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -81,4 +82,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+});

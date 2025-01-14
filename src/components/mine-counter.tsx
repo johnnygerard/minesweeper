@@ -1,9 +1,9 @@
-import { JSX } from "react";
+import { JSX, memo } from "react";
 
 interface Props {
   remaining: number;
 }
 
-export default function MineCounter({ remaining }: Props): JSX.Element {
+export default memo(function MineCounter({ remaining }: Props): JSX.Element {
   return <p>{remaining} 💣</p>;
-}
+});
