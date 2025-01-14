@@ -11,4 +11,8 @@ export class CellState {
     readonly index: number,
     readonly isMined: boolean,
   ) {}
+
+  get cannotReveal(): boolean {
+    return this.isRevealed || this.isFlagged;
+  }
 }

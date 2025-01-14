@@ -13,15 +13,13 @@ export const gameReducer = (
       const cell = draft.board.cells[action.index];
 
       if (cell.isMined) {
-        draft.status = GAME_STATUS.LOST;
         cell.isRevealed = true;
-      } else {
-        draft.board.autoReveal(cell);
-        draft.status = draft.board.hasWon
-          ? GAME_STATUS.WON
-          : GAME_STATUS.PLAYING;
+        draft.status = GAME_STATUS.LOST;
+        break;
       }
 
+      draft.board.revealSafeCell(cell);
+      draft.status = draft.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
       break;
     }
     case "TOGGLE_FLAG": {

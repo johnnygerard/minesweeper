@@ -52,23 +52,21 @@ export class BoardState {
     this.remainingFlags++;
   }
 
-  /**
-   * Starting from the given cell, recursively reveal adjacent cells of cells
-   * with no adjacent mines.
-   * @param cell - The initial cell to reveal
-   */
-  autoReveal(cell: CellState): void {
-    if (cell.isRevealed || cell.isFlagged) return;
+  revealSafeCell(initial: CellState): void {
+    const stack = [initial];
+    let cell: CellState | undefined;
 
-    const adjacentCells = getAdjacentCells(cell, this);
-    const adjacentMines = adjacentCells.reduce(
-      (acc, cell) => acc + (cell.isMined ? 1 : 0),
-      0,
-    );
+    while ((cell = stack.pop())) {
+      if (cell.cannotReveal) continue;
+      const adjacentCells = getAdjacentCells(cell, this);
+      const adjacentMines = adjacentCells.reduce(
+        (acc, cell) => acc + (cell.isMined ? 1 : 0),
+        0,
+      );
 
-    cell.isRevealed = true;
-    cell.adjacentMines = adjacentMines as AdjacentMines;
-    if (adjacentMines === 0)
-      adjacentCells.forEach((cell) => this.autoReveal(cell));
+      cell.adjacentMines = adjacentMines as AdjacentMines;
+      cell.isRevealed = true;
+      if (adjacentMines === 0) stack.push(...adjacentCells);
+    }
   }
 }
