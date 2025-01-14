@@ -8,32 +8,31 @@ export const gameReducer = (
   game: Draft<GameState>,
   action: GameAction,
 ): void => {
+  if (action.type === "RESTART") {
+    game.status = GAME_STATUS.INITIAL;
+    game.board = new BoardState();
+    return;
+  }
+
+  if (game.isOver) return;
+  const cell = game.board.cells[action.index];
+
   switch (action.type) {
-    case "REVEAL": {
-      const cell = game.board.cells[action.index];
-      if (cell.cannotReveal || game.isOver) break;
+    case "REVEAL":
+      if (cell.cannotReveal) return;
 
       if (cell.isMined) {
         cell.isRevealed = true;
         game.status = GAME_STATUS.LOST;
-        break;
+        return;
       }
 
       game.board.revealSafeCell(cell);
       game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
-      break;
-    }
-    case "TOGGLE_FLAG": {
-      const cell = game.board.cells[action.index];
-      if (cell.isRevealed || game.isOver) break;
-
-      if (cell.isFlagged) game.board.unflag(cell);
-      else game.board.flag(cell);
-      break;
-    }
-    case "RESTART":
-      game.status = GAME_STATUS.INITIAL;
-      game.board = new BoardState();
-      break;
+      return;
+    case "TOGGLE_FLAG":
+      if (cell.isRevealed) return;
+      game.board.toggleFlag(cell);
+      return;
   }
 };

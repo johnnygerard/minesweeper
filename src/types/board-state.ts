@@ -52,6 +52,11 @@ export class BoardState {
     this.remainingFlags++;
   }
 
+  toggleFlag(cell: CellState): void {
+    if (cell.isFlagged) this.unflag(cell);
+    else this.flag(cell);
+  }
+
   revealSafeCell(initial: CellState): void {
     const stack = [initial];
     let cell: CellState | undefined;
