@@ -1,4 +1,4 @@
-import { DispatchContext, IsGameOverContext } from "@/contexts";
+import { DispatchContext } from "@/contexts";
 import { CellState } from "@/types/cell-state";
 import { memo, useContext } from "react";
 
@@ -9,7 +9,6 @@ type Props = Readonly<{
 const Cell = (p: Props) => {
   const { cell } = p;
   const { isRevealed, isMined, adjacentMines, isFlagged, index } = cell;
-  const isGameOver = useContext(IsGameOverContext);
   const dispatch = useContext(DispatchContext);
   let display: string;
 
@@ -24,11 +23,9 @@ const Cell = (p: Props) => {
     <div
       className={`${!isRevealed && "bg-gray-400"} grid h-12 w-12 place-items-center border border-black`}
       onClick={() => {
-        if (isGameOver || cell.cannotReveal) return;
         dispatch({ type: "REVEAL", index });
       }}
       onContextMenu={() => {
-        if (isGameOver || isRevealed) return;
         dispatch({ type: "TOGGLE_FLAG", index });
       }}
     >

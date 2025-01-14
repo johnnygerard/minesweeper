@@ -11,6 +11,7 @@ export const gameReducer = (
   switch (action.type) {
     case "REVEAL": {
       const cell = game.board.cells[action.index];
+      if (cell.cannotReveal || game.isOver) break;
 
       if (cell.isMined) {
         cell.isRevealed = true;
@@ -24,6 +25,7 @@ export const gameReducer = (
     }
     case "TOGGLE_FLAG": {
       const cell = game.board.cells[action.index];
+      if (cell.isRevealed || game.isOver) break;
 
       if (cell.isFlagged) game.board.unflag(cell);
       else game.board.flag(cell);
