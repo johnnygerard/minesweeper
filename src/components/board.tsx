@@ -14,7 +14,7 @@ const Board = (p: Props) => {
       style={{ gridTemplateColumns: `repeat(${p.columns}, 1fr)` }}
     >
       {p.cells.map((cell, index) => (
-        <Cell key={index} {...cell} />
+        <Cell key={index} cell={cell} />
       ))}
     </div>
   );
