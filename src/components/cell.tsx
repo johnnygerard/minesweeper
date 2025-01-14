@@ -1,14 +1,14 @@
 import { CellState } from "@/types/cell-state";
 import { DispatchContext } from "@/utils/dispatch-context";
-import { JSX, useContext } from "react";
+import { JSX, memo, useContext } from "react";
 
-export const Cell = ({
+export default memo(function Cell({
   isFlagged = false,
   isMined,
   isRevealed = false,
   adjacentMines,
   index,
-}: CellState): JSX.Element => {
+}: CellState): JSX.Element {
   const dispatch = useContext(DispatchContext);
   let display: string;
 
@@ -33,4 +33,4 @@ export const Cell = ({
       {display}
     </div>
   );
-};
+});

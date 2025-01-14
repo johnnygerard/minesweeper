@@ -1,4 +1,4 @@
-import { Cell } from "@/components/cell";
+import Cell from "@/components/cell";
 import { BoardState } from "@/types/board-state";
 import { JSX } from "react";
 
