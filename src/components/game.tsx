@@ -6,6 +6,7 @@ import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
 import { DispatchContext } from "@/utils/dispatch-context";
 import { gameReducer } from "@/utils/game-reducer";
+import { IsGameOverContext } from "@/utils/is-game-over-context";
 import { memo } from "react";
 import { useImmerReducer } from "use-immer";
 
@@ -21,9 +22,11 @@ const Game = () => {
         <Stopwatch gameStatus={state.status} />
         <MineCounter remaining={state.board.mines - state.board.flags} />
       </div>
-      <DispatchContext.Provider value={dispatch}>
-        <Board cells={state.board.cells} columns={state.board.columns} />
-      </DispatchContext.Provider>
+      <IsGameOverContext value={state.isGameOver}>
+        <DispatchContext.Provider value={dispatch}>
+          <Board cells={state.board.cells} columns={state.board.columns} />
+        </DispatchContext.Provider>
+      </IsGameOverContext>
       {state.status !== "INITIAL" && (
         <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
           {
