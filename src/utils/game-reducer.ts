@@ -31,7 +31,7 @@ export const gameReducer = (
       game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
       return;
     case "TOGGLE_FLAG":
-      if (cell.isRevealed) return;
+      if (cell.isRevealed || game.status === "INITIAL") return;
       game.board.toggleFlag(cell);
       return;
   }
