@@ -1,16 +1,14 @@
 import Cell from "@/components/cell";
-import { BoardState } from "@/types/board-state";
+import { CellState } from "@/types/cell-state";
 import { JSX, memo } from "react";
 
-const Board = (props: { board: BoardState }): JSX.Element => {
-  const { board } = props;
-
+const Board = (p: { cells: CellState[]; columns: number }): JSX.Element => {
   return (
     <div
       className="grid gap-1"
-      style={{ gridTemplateColumns: `repeat(${board.columns}, 1fr)` }}
+      style={{ gridTemplateColumns: `repeat(${p.columns}, 1fr)` }}
     >
-      {board.cells.map((cell, index) => (
+      {p.cells.map((cell, index) => (
         <Cell key={index} {...cell} />
       ))}
     </div>

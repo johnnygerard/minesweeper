@@ -22,7 +22,7 @@ const Game = (): JSX.Element => {
         <MineCounter remaining={state.board.mines - state.board.flags} />
       </div>
       <DispatchContext.Provider value={dispatch}>
-        <Board board={state.board} />
+        <Board cells={state.board.cells} columns={state.board.columns} />
       </DispatchContext.Provider>
       {state.status !== "INITIAL" && (
         <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
