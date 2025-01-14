@@ -2,13 +2,8 @@ import { CellState } from "@/types/cell-state";
 import { DispatchContext } from "@/utils/dispatch-context";
 import { JSX, memo, useContext } from "react";
 
-const Cell = ({
-  isFlagged = false,
-  isMined,
-  isRevealed = false,
-  adjacentMines,
-  index,
-}: CellState): JSX.Element => {
+const Cell = (props: CellState): JSX.Element => {
+  const { isFlagged, isMined, isRevealed, adjacentMines, index } = props;
   const dispatch = useContext(DispatchContext);
   let display: string;
 

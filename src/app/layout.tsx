@@ -33,11 +33,9 @@ export const metadata: Metadata = {
   },
 };
 
-type Props = Readonly<{
-  children: ReactNode;
-}>;
+const RootLayout = (props: { children: ReactNode }): JSX.Element => {
+  const { children } = props;
 
-const RootLayout = ({ children }: Props): JSX.Element => {
   return (
     <html
       className={`${geistSans.variable} font-sans antialiased`}

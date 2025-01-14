@@ -1,10 +1,7 @@
 import { JSX, memo } from "react";
 
-type Props = Readonly<{
-  remaining: number;
-}>;
-
-const MineCounter = ({ remaining }: Props): JSX.Element => {
+const MineCounter = (props: { remaining: number }): JSX.Element => {
+  const { remaining } = props;
   return <p>{remaining} 💣</p>;
 };
 

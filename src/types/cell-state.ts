@@ -4,8 +4,8 @@ import { immerable } from "immer";
 export class CellState {
   [immerable] = true;
   adjacentMines?: AdjacentMines;
-  isFlagged?: boolean;
-  isRevealed?: boolean;
+  isFlagged = false;
+  isRevealed = false;
 
   constructor(
     readonly index: number,

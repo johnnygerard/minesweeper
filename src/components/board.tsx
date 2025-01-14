@@ -2,11 +2,9 @@ import Cell from "@/components/cell";
 import { BoardState } from "@/types/board-state";
 import { JSX, memo } from "react";
 
-type Props = Readonly<{
-  board: BoardState;
-}>;
+const Board = (props: { board: BoardState }): JSX.Element => {
+  const { board } = props;
 
-const Board = ({ board }: Props): JSX.Element => {
   return (
     <div
       className="grid gap-1"
