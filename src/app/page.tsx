@@ -1,11 +1,13 @@
 import Game from "@/components/game";
-import { memo } from "react";
+import { JSX, memo } from "react";
 
-export default memo(function Home() {
+const Home = (): JSX.Element => {
   return (
     <div>
       <h1 className="text-center">Minesweeper</h1>
       <Game />
     </div>
   );
-});
+};
+
+export default memo(Home);

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { memo } from "react";
+import { JSX, memo } from "react";
 
-export default memo(function NotFound() {
+const NotFound = (): JSX.Element => {
   return (
     <div>
       <h1>404 Not Found</h1>
@@ -9,4 +9,6 @@ export default memo(function NotFound() {
       <Link href="/">Back to Home</Link>
     </div>
   );
-});
+};
+
+export default memo(NotFound);

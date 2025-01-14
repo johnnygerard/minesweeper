@@ -9,7 +9,7 @@ import { gameReducer } from "@/utils/game-reducer";
 import { JSX, memo } from "react";
 import { useImmerReducer } from "use-immer";
 
-export default memo(function Game(): JSX.Element {
+const Game = (): JSX.Element => {
   const [state, dispatch] = useImmerReducer(
     gameReducer,
     new GameState(new BoardState()),
@@ -37,4 +37,6 @@ export default memo(function Game(): JSX.Element {
       )}
     </main>
   );
-});
+};
+
+export default memo(Game);

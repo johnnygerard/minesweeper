@@ -1,12 +1,12 @@
 import { GAME_STATUS, GameStatus } from "@/types/game-status";
 import { formatTime } from "@/utils/format-time";
-import { memo, useEffect, useState } from "react";
+import { JSX, memo, useEffect, useState } from "react";
 
 interface Props {
   gameStatus: GameStatus;
 }
 
-export default memo(function Stopwatch({ gameStatus }: Props) {
+const Stopwatch = ({ gameStatus }: Props): JSX.Element => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
@@ -24,4 +24,6 @@ export default memo(function Stopwatch({ gameStatus }: Props) {
   }, [gameStatus]);
 
   return <p>{formatTime(elapsedSeconds)}</p>;
-});
+};
+
+export default memo(Stopwatch);

@@ -4,6 +4,8 @@ interface Props {
   remaining: number;
 }
 
-export default memo(function MineCounter({ remaining }: Props): JSX.Element {
+const MineCounter = ({ remaining }: Props): JSX.Element => {
   return <p>{remaining} 💣</p>;
-});
+};
+
+export default memo(MineCounter);
