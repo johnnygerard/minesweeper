@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
-import { JSX, memo } from "react";
+import { JSX, memo, ReactNode } from "react";
 
 const geistSans = Geist({
   display: "swap",
@@ -33,11 +33,11 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>): JSX.Element => {
+type Props = Readonly<{
+  children: ReactNode;
+}>;
+
+const RootLayout = ({ children }: Props): JSX.Element => {
   return (
     <html
       className={`${geistSans.variable} font-sans antialiased`}
