@@ -19,7 +19,7 @@ const Game = () => {
     <main className="flex flex-col items-center gap-8">
       <div className="flex w-full justify-between">
         <Stopwatch gameStatus={game.status} />
-        <MineCounter remaining={game.board.mines - game.board.flags} />
+        <MineCounter remaining={game.board.remainingFlags} />
       </div>
       <IsGameOverContext.Provider value={game.isOver}>
         <DispatchContext.Provider value={dispatch}>

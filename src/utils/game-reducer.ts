@@ -26,7 +26,9 @@ export const gameReducer = (
     }
     case "TOGGLE_FLAG": {
       const cell = draft.board.cells[action.index];
-      draft.board.toggleFlag(cell);
+
+      if (cell.isFlagged) draft.board.unflag(cell);
+      else draft.board.flag(cell);
       break;
     }
     case "RESTART":

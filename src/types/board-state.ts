@@ -7,7 +7,7 @@ export class BoardState {
   [immerable] = true;
   // Linear storage with row-major order
   cells: CellState[];
-  flags = 0;
+  remainingFlags = this.mines;
 
   constructor(
     readonly mines = 10,
@@ -36,19 +36,20 @@ export class BoardState {
   }
 
   /**
-   * Toggle a cell flag without exceeding the total number of mines
-   * @param cell - The cell to toggle the flag
+   * Flag the target cell if there is at least one remaining flag
    */
-  toggleFlag(cell: CellState): void {
-    if (cell.isRevealed) return;
+  flag(cell: CellState): void {
+    if (this.remainingFlags === 0) return;
+    cell.isFlagged = true;
+    this.remainingFlags--;
+  }
 
-    if (cell.isFlagged) {
-      cell.isFlagged = false;
-      this.flags--;
-    } else if (this.flags < this.mines) {
-      cell.isFlagged = true;
-      this.flags++;
-    }
+  /**
+   * Unflag the target cell
+   */
+  unflag(cell: CellState): void {
+    cell.isFlagged = false;
+    this.remainingFlags++;
   }
 
   /**
