@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
-import { JSX, memo, ReactNode } from "react";
+import { memo, ReactNode } from "react";
 
 const geistSans = Geist({
   display: "swap",
@@ -33,9 +33,11 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = (props: { children: ReactNode }): JSX.Element => {
-  const { children } = props;
+type Props = Readonly<{
+  children: ReactNode;
+}>;
 
+const RootLayout = (p: Props) => {
   return (
     <html
       className={`${geistSans.variable} font-sans antialiased`}
@@ -43,7 +45,7 @@ const RootLayout = (props: { children: ReactNode }): JSX.Element => {
     >
       <body>
         <div className="grid min-h-screen place-items-center" role="main">
-          {children}
+          {p.children}
         </div>
         <noscript>
           <div

@@ -1,8 +1,13 @@
 import Cell from "@/components/cell";
 import { CellState } from "@/types/cell-state";
-import { JSX, memo } from "react";
+import { memo } from "react";
 
-const Board = (p: { cells: CellState[]; columns: number }): JSX.Element => {
+type Props = Readonly<{
+  cells: CellState[];
+  columns: number;
+}>;
+
+const Board = (p: Props) => {
   return (
     <div
       className="grid gap-1"

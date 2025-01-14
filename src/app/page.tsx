@@ -1,7 +1,7 @@
 import Game from "@/components/game";
-import { JSX, memo } from "react";
+import { memo } from "react";
 
-const Home = (): JSX.Element => {
+const Home = () => {
   return (
     <div>
       <h1 className="text-center">Minesweeper</h1>

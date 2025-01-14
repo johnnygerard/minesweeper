@@ -6,10 +6,10 @@ import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
 import { DispatchContext } from "@/utils/dispatch-context";
 import { gameReducer } from "@/utils/game-reducer";
-import { JSX, memo } from "react";
+import { memo } from "react";
 import { useImmerReducer } from "use-immer";
 
-const Game = (): JSX.Element => {
+const Game = () => {
   const [state, dispatch] = useImmerReducer(
     gameReducer,
     new GameState(new BoardState()),

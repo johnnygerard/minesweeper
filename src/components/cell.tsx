@@ -1,28 +1,29 @@
 import { CellState } from "@/types/cell-state";
 import { DispatchContext } from "@/utils/dispatch-context";
-import { JSX, memo, useContext } from "react";
+import { memo, useContext } from "react";
 
-const Cell = (props: CellState): JSX.Element => {
-  const { isFlagged, isMined, isRevealed, adjacentMines, index } = props;
+type Props = Readonly<CellState>;
+
+const Cell = (p: Props) => {
   const dispatch = useContext(DispatchContext);
   let display: string;
 
-  if (isRevealed) {
-    if (isMined) display = "💣";
-    else display = adjacentMines ? adjacentMines.toString() : "";
+  if (p.isRevealed) {
+    if (p.isMined) display = "💣";
+    else display = p.adjacentMines ? p.adjacentMines.toString() : "";
   } else {
-    display = isFlagged ? "🚩" : "";
+    display = p.isFlagged ? "🚩" : "";
   }
 
   return (
     <div
-      className={`${!isRevealed && "bg-gray-400"} grid h-12 w-12 place-items-center border border-black`}
+      className={`${!p.isRevealed && "bg-gray-400"} grid h-12 w-12 place-items-center border border-black`}
       onClick={() => {
-        dispatch({ type: "REVEAL", index });
+        dispatch({ type: "REVEAL", index: p.index });
       }}
       onContextMenu={(event) => {
         event.preventDefault();
-        dispatch({ type: "TOGGLE_FLAG", index });
+        dispatch({ type: "TOGGLE_FLAG", index: p.index });
       }}
     >
       {display}

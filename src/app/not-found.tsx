@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { JSX, memo } from "react";
+import { memo } from "react";
 
-const NotFound = (): JSX.Element => {
+const NotFound = () => {
   return (
     <div>
       <h1>404 Not Found</h1>
