@@ -13,7 +13,7 @@ export const Board = ({ board }: Props): JSX.Element => {
       style={{ gridTemplateColumns: `repeat(${board.columns}, 1fr)` }}
     >
       {board.cells.map((cell, index) => (
-        <Cell key={index} state={cell} />
+        <Cell key={index} {...cell} />
       ))}
     </div>
   );
