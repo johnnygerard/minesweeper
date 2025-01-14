@@ -12,6 +12,7 @@ const Board = (p: Props) => {
     <div
       className="grid gap-1"
       style={{ gridTemplateColumns: `repeat(${p.columns}, 1fr)` }}
+      onContextMenu={(e) => e.preventDefault()}
     >
       {p.cells.map((cell, index) => (
         <Cell key={index} cell={cell} />

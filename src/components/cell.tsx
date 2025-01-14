@@ -27,8 +27,7 @@ const Cell = (p: Props) => {
         if (isGameOver || cell.cannotReveal) return;
         dispatch({ type: "REVEAL", index });
       }}
-      onContextMenu={(event) => {
-        event.preventDefault();
+      onContextMenu={() => {
         if (isGameOver || isRevealed) return;
         dispatch({ type: "TOGGLE_FLAG", index });
       }}
