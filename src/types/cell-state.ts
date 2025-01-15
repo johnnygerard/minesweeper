@@ -12,7 +12,10 @@ export class CellState {
     readonly isMined: boolean,
   ) {}
 
-  get cannotReveal(): boolean {
+  /**
+   * @returns True if this cell is in a non-default state, false otherwise.
+   */
+  get isDirty(): boolean {
     return this.isRevealed || this.isFlagged;
   }
 }

@@ -19,7 +19,7 @@ export const gameReducer = (
 
   switch (action.type) {
     case "REVEAL":
-      if (cell.cannotReveal) return;
+      if (cell.isDirty) return;
 
       if (cell.isMined) {
         cell.isRevealed = true;

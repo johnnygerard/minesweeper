@@ -36,25 +36,23 @@ export class BoardState {
   }
 
   /**
-   * Flag the target cell if there is at least one remaining flag
+   * Flag the target cell if possible.
+   * @param cell - The target cell
    */
   flag(cell: CellState): void {
-    if (this.remainingFlags === 0) return;
+    if (cell.isDirty || this.remainingFlags === 0) return;
     cell.isFlagged = true;
     this.remainingFlags--;
   }
 
-  /**
-   * Unflag the target cell
-   */
-  unflag(cell: CellState): void {
-    cell.isFlagged = false;
-    this.remainingFlags++;
-  }
-
   toggleFlag(cell: CellState): void {
-    if (cell.isFlagged) this.unflag(cell);
-    else this.flag(cell);
+    if (cell.isFlagged) {
+      cell.isFlagged = false;
+      this.remainingFlags++;
+      return;
+    }
+
+    this.flag(cell);
   }
 
   autoFlag(cell: CellState): void {
@@ -62,12 +60,8 @@ export class BoardState {
       (cell) => !cell.isRevealed,
     );
 
-    if (hiddenAdjacentCells.length === cell.adjacentMines) {
-      for (const cell of hiddenAdjacentCells) {
-        if (cell.isFlagged) continue;
-        this.flag(cell);
-      }
-    }
+    if (hiddenAdjacentCells.length === cell.adjacentMines)
+      for (const cell of hiddenAdjacentCells) this.flag(cell);
   }
 
   revealSafeCell(initial: CellState): void {
@@ -75,7 +69,7 @@ export class BoardState {
     let cell: CellState | undefined;
 
     while ((cell = stack.pop())) {
-      if (cell.cannotReveal) continue;
+      if (cell.isDirty) continue;
       const adjacentCells = getAdjacentCells(cell, this);
       const adjacentMines = adjacentCells.reduce(
         (acc, cell) => acc + (cell.isMined ? 1 : 0),
