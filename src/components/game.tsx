@@ -2,7 +2,7 @@
 import Board from "@/components/board";
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
-import { DispatchContext, IsGameOverContext } from "@/contexts";
+import { DispatchContext } from "@/contexts";
 import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
 import { gameReducer } from "@/utils/game-reducer";
@@ -21,11 +21,9 @@ const Game = () => {
         <Stopwatch gameStatus={game.status} />
         <MineCounter remaining={game.board.remainingFlags} />
       </div>
-      <IsGameOverContext.Provider value={game.isOver}>
-        <DispatchContext.Provider value={dispatch}>
-          <Board cells={game.board.cells} columns={game.board.columns} />
-        </DispatchContext.Provider>
-      </IsGameOverContext.Provider>
+      <DispatchContext.Provider value={dispatch}>
+        <Board cells={game.board.cells} columns={game.board.columns} />
+      </DispatchContext.Provider>
       {game.status !== "INITIAL" && (
         <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
           {
