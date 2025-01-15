@@ -8,7 +8,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ["var(--font-geist-sans)"],
+      sans: ["var(--font-aldrich)"],
     },
   },
   plugins: [],
