@@ -25,7 +25,11 @@ const Game = () => {
         <Board cells={game.board.cells} columns={game.board.columns} />
       </DispatchContext.Provider>
       {game.status !== "INITIAL" && (
-        <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
+        <button
+          type="button"
+          onClick={() => dispatch({ type: "RESTART" })}
+          className="text-lg uppercase tracking-wide"
+        >
           {
             {
               PLAYING: "Restart",

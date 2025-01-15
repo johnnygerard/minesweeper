@@ -23,7 +23,9 @@ const Stopwatch = (p: Props) => {
     }
   }, [p.gameStatus]);
 
-  return <p>{formatTime(elapsedSeconds)}</p>;
+  return (
+    <p className="text-2xl tracking-wider">{formatTime(elapsedSeconds)}</p>
+  );
 };
 
 export default memo(Stopwatch);
