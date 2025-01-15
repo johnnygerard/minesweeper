@@ -31,6 +31,13 @@ export const gameReducer = (
       game.board.revealSafeCell(cell);
       game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
       return;
+    case "AUTO_FLAG":
+      game.board.autoFlag(cell);
+      return;
+    case "TOGGLE_FLAG":
+      if (game.status === "INITIAL") return;
+      game.board.toggleFlag(cell);
+      return;
     case "AUTO_REVEAL": {
       const adjacentCells = getAdjacentCells(cell, game.board);
       const flaggedAdjacentCells = adjacentCells.filter(
@@ -52,12 +59,5 @@ export const gameReducer = (
       game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
       return;
     }
-    case "AUTO_FLAG":
-      game.board.autoFlag(cell);
-      return;
-    case "TOGGLE_FLAG":
-      if (game.status === "INITIAL") return;
-      game.board.toggleFlag(cell);
-      return;
   }
 };
