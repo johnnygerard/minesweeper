@@ -1,6 +1,5 @@
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { CellState } from "@/types/cell-state";
-import { getAdjacentCells } from "@/utils/get-adjacent-cells";
 import { immerable } from "immer";
 
 export class BoardState {
@@ -62,7 +61,7 @@ export class BoardState {
   }
 
   autoFlag(cell: CellState): void {
-    const hiddenAdjacentCells = getAdjacentCells(cell, this).filter(
+    const hiddenAdjacentCells = this.getAdjacentCells(cell).filter(
       (cell) => !cell.isRevealed,
     );
 
@@ -76,7 +75,7 @@ export class BoardState {
 
     while ((cell = stack.pop())) {
       if (cell.isDirty) continue;
-      const adjacentCells = getAdjacentCells(cell, this);
+      const adjacentCells = this.getAdjacentCells(cell);
       const adjacentMines = adjacentCells.reduce(
         (acc, cell) => acc + (cell.isMined ? 1 : 0),
         0,
@@ -86,5 +85,38 @@ export class BoardState {
       cell.isRevealed = true;
       if (adjacentMines === 0) stack.push(...adjacentCells);
     }
+  }
+
+  /**
+   * Return the adjacent cells of a target cell
+   * @param cell - The target cell
+   */
+  getAdjacentCells(cell: CellState): readonly CellState[] {
+    const { index } = cell;
+    const hasLeft = index % this.columns !== 0;
+    const hasRight = index % this.columns !== this.columns - 1;
+    const hasTop = index - this.columns >= 0;
+    const hasBottom = index + this.columns < this.columns * this.rows;
+
+    const horizontalOffsets = [];
+    if (hasLeft) horizontalOffsets.push(-1);
+    if (hasRight) horizontalOffsets.push(1);
+
+    const verticalOffsets = [];
+    if (hasTop) verticalOffsets.push(-this.columns);
+    if (hasBottom) verticalOffsets.push(this.columns);
+
+    const diagonalOffsets = [];
+    for (const horizontalOffset of horizontalOffsets)
+      for (const verticalOffset of verticalOffsets)
+        diagonalOffsets.push(horizontalOffset + verticalOffset);
+
+    const relativeOffsets = [
+      ...horizontalOffsets,
+      ...verticalOffsets,
+      ...diagonalOffsets,
+    ];
+
+    return relativeOffsets.map((offset) => this.cells[index + offset]);
   }
 }

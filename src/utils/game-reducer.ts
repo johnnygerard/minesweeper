@@ -2,7 +2,6 @@ import { BoardState } from "@/types/board-state";
 import { GameAction } from "@/types/game-action";
 import { GameState } from "@/types/game-state";
 import { GAME_STATUS } from "@/types/game-status";
-import { getAdjacentCells } from "@/utils/get-adjacent-cells";
 import { Draft } from "immer";
 
 export const gameReducer = (
@@ -39,7 +38,7 @@ export const gameReducer = (
       game.board.switchMark(cell);
       return;
     case "AUTO_REVEAL": {
-      const adjacentCells = getAdjacentCells(cell, game.board);
+      const adjacentCells = game.board.getAdjacentCells(cell);
       const flaggedAdjacentCells = adjacentCells.filter(
         (cell) => cell.isFlagged,
       );
