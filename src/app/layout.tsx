@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    url: "https://example.com/placeholder",
-    siteName: "placeholder",
+    url: "https://minesweeper.jgerard.dev/",
+    siteName: "Minesweeper",
     title: TITLE,
     description: DESCRIPTION,
   },
