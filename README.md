@@ -9,22 +9,16 @@
 ### Frontend
 
 - **Framework**: [Next.js](https://nextjs.org/)
-- **UI Library**: [Radix UI](https://www.radix-ui.com/)
 - **Style**: [Tailwind CSS](https://tailwindcss.com/)
 
 ### Backend
 
 - **CDN**: Static assets served from [Vercel Edge Network](https://vercel.com/docs/edge-network/overview).
 
-### Testing
-
-- [Jest](https://jestjs.io/)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-
 ## Dev Environment & Tools
 
 - System: [Ubuntu](https://ubuntu.com/desktop)
-- Editor: [VS Code](https://code.visualstudio.com/)
+- Editor: [WebStorm](https://www.jetbrains.com/webstorm/)
 - Formatter: [Prettier](https://prettier.io/)
 - Linter: [ESLint](https://eslint.org/)
 - AI assistant: [GitHub Copilot](https://github.com/features/copilot)
