@@ -4,6 +4,7 @@ import { immerable } from "immer";
 export class CellState {
   [immerable] = true;
   adjacentMines?: AdjacentMines;
+  hasQuestionMark = false;
   isFlagged = false;
   isRevealed = false;
 
@@ -16,6 +17,6 @@ export class CellState {
    * @returns True if this cell is in a non-default state, false otherwise.
    */
   get isDirty(): boolean {
-    return this.isRevealed || this.isFlagged;
+    return this.isRevealed || this.isFlagged || this.hasQuestionMark;
   }
 }

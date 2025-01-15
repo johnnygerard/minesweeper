@@ -46,9 +46,15 @@ export class BoardState {
   }
 
   toggleFlag(cell: CellState): void {
+    if (cell.hasQuestionMark) {
+      cell.hasQuestionMark = false;
+      return;
+    }
+
     if (cell.isFlagged) {
       cell.isFlagged = false;
       this.remainingFlags++;
+      cell.hasQuestionMark = true;
       return;
     }
 

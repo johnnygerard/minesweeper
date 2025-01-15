@@ -8,7 +8,14 @@ type Props = Readonly<{
 
 const Cell = (p: Props) => {
   const { cell } = p;
-  const { isRevealed, isMined, adjacentMines, isFlagged, index } = cell;
+  const {
+    hasQuestionMark,
+    isRevealed,
+    isMined,
+    adjacentMines,
+    isFlagged,
+    index,
+  } = cell;
   const dispatch = useContext(DispatchContext);
   let display: string;
 
@@ -16,7 +23,7 @@ const Cell = (p: Props) => {
     if (isMined) display = "💣";
     else display = adjacentMines ? adjacentMines.toString() : "";
   } else {
-    display = isFlagged ? "🚩" : "";
+    display = isFlagged ? "🚩" : hasQuestionMark ? "?" : "";
   }
 
   return (
