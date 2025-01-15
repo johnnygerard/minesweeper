@@ -34,9 +34,9 @@ export const gameReducer = (
     case "AUTO_FLAG":
       game.board.autoFlag(cell);
       return;
-    case "TOGGLE_FLAG":
+    case "SWITCH_MARK":
       if (game.status === "INITIAL") return;
-      game.board.toggleFlag(cell);
+      game.board.switchMark(cell);
       return;
     case "AUTO_REVEAL": {
       const adjacentCells = getAdjacentCells(cell, game.board);
