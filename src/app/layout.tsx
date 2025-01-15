@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import { memo, ReactNode } from "react";
 
 const geistSans = Geist({
   display: "swap",
@@ -8,8 +9,9 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
 });
 
-const TITLE = "placeholder";
-const DESCRIPTION = "placeholder";
+const TITLE = "Minesweeper";
+const DESCRIPTION =
+  "A modern recreation of the classic Minesweeper game from Microsoft Windows.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -31,11 +33,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+type Props = Readonly<{
+  children: ReactNode;
+}>;
+
+const RootLayout = (p: Props) => {
   return (
     <html
       className={`${geistSans.variable} font-sans antialiased`}
@@ -43,7 +45,7 @@ export default function RootLayout({
     >
       <body>
         <div className="grid min-h-screen place-items-center" role="main">
-          {children}
+          {p.children}
         </div>
         <noscript>
           <div
@@ -80,4 +82,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default memo(RootLayout);
