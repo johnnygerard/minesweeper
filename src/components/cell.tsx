@@ -23,7 +23,7 @@ const Cell = (p: Props) => {
     <div
       className={`${!isRevealed && "bg-gray-400"} grid h-12 w-12 place-items-center border border-black`}
       onClick={() => {
-        dispatch({ type: "REVEAL", index });
+        dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}
       onContextMenu={() => {
         dispatch({ type: isRevealed ? "AUTO_FLAG" : "TOGGLE_FLAG", index });

@@ -2,6 +2,7 @@ import { BoardState } from "@/types/board-state";
 import { GameAction } from "@/types/game-action";
 import { GameState } from "@/types/game-state";
 import { GAME_STATUS } from "@/types/game-status";
+import { getAdjacentCells } from "@/utils/get-adjacent-cells";
 import { Draft } from "immer";
 
 export const gameReducer = (
@@ -30,6 +31,27 @@ export const gameReducer = (
       game.board.revealSafeCell(cell);
       game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
       return;
+    case "AUTO_REVEAL": {
+      const adjacentCells = getAdjacentCells(cell, game.board);
+      const flaggedAdjacentCells = adjacentCells.filter(
+        (cell) => cell.isFlagged,
+      );
+
+      if (flaggedAdjacentCells.length < cell.adjacentMines!) return;
+
+      for (const adjacentCell of adjacentCells) {
+        if (adjacentCell.isDirty) continue;
+        if (adjacentCell.isMined) {
+          adjacentCell.isRevealed = true;
+          game.status = GAME_STATUS.LOST;
+          return;
+        }
+        game.board.revealSafeCell(adjacentCell);
+      }
+
+      game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
+      return;
+    }
     case "AUTO_FLAG":
       game.board.autoFlag(cell);
       return;
