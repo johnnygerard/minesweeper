@@ -1,5 +1,5 @@
-import { DispatchContext } from "@/contexts";
 import { CellState } from "@/types/cell-state";
+import { DispatchContext } from "@/utils/dispatch-context";
 import { memo, useContext } from "react";
 
 type Props = Readonly<{
