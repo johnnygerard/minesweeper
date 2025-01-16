@@ -5,7 +5,7 @@ type Props = Readonly<{
 }>;
 
 const MineCounter = (p: Props) => {
-  return <p>{p.remaining} 💣</p>;
+  return <p className="text-2xl tracking-wider">{p.remaining} 💣</p>;
 };
 
 export default memo(MineCounter);

@@ -4,7 +4,7 @@ import { memo } from "react";
 const Home = () => {
   return (
     <div>
-      <h1 className="text-center">Minesweeper</h1>
+      <h1 className="mb-12 text-4xl uppercase tracking-widest">Minesweeper</h1>
       <Game />
     </div>
   );

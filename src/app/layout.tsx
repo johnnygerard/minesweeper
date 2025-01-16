@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Aldrich } from "next/font/google";
 import "./globals.css";
 import { memo, ReactNode } from "react";
 
-const geistSans = Geist({
+const aldrich = Aldrich({
+  weight: "400",
   display: "swap",
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-aldrich",
 });
 
 const TITLE = "Minesweeper";
@@ -39,11 +40,8 @@ type Props = Readonly<{
 
 const RootLayout = (p: Props) => {
   return (
-    <html
-      className={`${geistSans.variable} font-sans antialiased`}
-      lang="en-US"
-    >
-      <body>
+    <html className={`${aldrich.variable} font-sans antialiased`} lang="en-US">
+      <body className="bg-zinc-50">
         <div className="grid min-h-screen place-items-center" role="main">
           {p.children}
         </div>
