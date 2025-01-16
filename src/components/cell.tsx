@@ -21,7 +21,7 @@ const Cell = ({
 }: Props) => {
   const dispatch = useContext(DispatchContext);
   let display = "";
-  let digitColorClass = "";
+  let digitColorClass = hasQuestionMark ? "" : "text-zinc-200";
 
   if (isRevealed) {
     if (isMined) {
