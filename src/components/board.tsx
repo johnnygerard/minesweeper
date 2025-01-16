@@ -7,15 +7,15 @@ type Props = Readonly<{
   columns: number;
 }>;
 
-const Board = (p: Props) => {
+const Board = ({ cells, columns }: Props) => {
   return (
     <div
       className="grid gap-1"
-      style={{ gridTemplateColumns: `repeat(${p.columns}, 1fr)` }}
+      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
       onContextMenu={(e) => e.preventDefault()}
     >
-      {p.cells.map((cell, index) => (
-        <Cell key={index} cell={cell} />
+      {cells.map((cell, index) => (
+        <Cell key={index} {...cell} />
       ))}
     </div>
   );

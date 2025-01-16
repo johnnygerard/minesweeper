@@ -1,21 +1,24 @@
-import { CellState } from "@/types/cell-state";
+import { AdjacentMines } from "@/types/adjacent-mines";
 import { DispatchContext } from "@/utils/dispatch-context";
 import { memo, useContext } from "react";
 
 type Props = Readonly<{
-  cell: CellState;
+  adjacentMines?: AdjacentMines;
+  hasQuestionMark: boolean;
+  index: number;
+  isFlagged: boolean;
+  isMined: boolean;
+  isRevealed: boolean;
 }>;
 
-const Cell = (p: Props) => {
-  const { cell } = p;
-  const {
-    hasQuestionMark,
-    isRevealed,
-    isMined,
-    adjacentMines,
-    isFlagged,
-    index,
-  } = cell;
+const Cell = ({
+  adjacentMines,
+  hasQuestionMark,
+  index,
+  isFlagged,
+  isMined,
+  isRevealed,
+}: Props) => {
   const dispatch = useContext(DispatchContext);
   let display = "";
   let digitColorClass = "";

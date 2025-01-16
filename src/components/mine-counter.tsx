@@ -4,8 +4,8 @@ type Props = Readonly<{
   remaining: number;
 }>;
 
-const MineCounter = (p: Props) => {
-  return <p className="text-2xl tracking-wider">{p.remaining} 💣</p>;
+const MineCounter = ({ remaining }: Props) => {
+  return <p className="text-2xl tracking-wider">{remaining} 💣</p>;
 };
 
 export default memo(MineCounter);
