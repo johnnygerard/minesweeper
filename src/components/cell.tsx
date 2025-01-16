@@ -18,14 +18,27 @@ const Cell = (p: Props) => {
   } = cell;
   const dispatch = useContext(DispatchContext);
   let display = "";
+  let digitColorClass = "";
 
   if (isRevealed) {
     if (isMined) {
       display = "💣";
     } else if (adjacentMines === undefined) {
       throw new Error("Missing adjacent mines count");
-    } else if (adjacentMines > 0) {
+    } else if (adjacentMines !== 0) {
       display = adjacentMines.toString();
+      digitColorClass = `text-${
+        {
+          1: "blue-600",
+          2: "emerald-600",
+          3: "red-600",
+          4: "indigo-700",
+          5: "amber-700",
+          6: "teal-600",
+          7: "violet-700",
+          8: "rose-700",
+        }[adjacentMines]
+      }`;
     }
   } else if (isFlagged) {
     display = "🚩";
@@ -37,7 +50,7 @@ const Cell = (p: Props) => {
     <div
       className={`${
         isRevealed ? "bg-white" : "bg-zinc-200"
-      } grid h-12 w-12 place-items-center border border-zinc-300 text-xl shadow-sm transition-colors`}
+      } grid h-12 w-12 place-items-center border border-zinc-300 text-xl shadow-sm ${digitColorClass} transition-colors`}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}
