@@ -17,19 +17,21 @@ const Cell = (p: Props) => {
     index,
   } = cell;
   const dispatch = useContext(DispatchContext);
+  let display = "";
 
-  const getDisplay = (): string => {
-    if (isRevealed) {
-      if (isMined) return "💣";
-      if (adjacentMines === undefined)
-        throw new Error("Missing adjacent mines count");
-      return adjacentMines === 0 ? "" : adjacentMines.toString();
+  if (isRevealed) {
+    if (isMined) {
+      display = "💣";
+    } else if (adjacentMines === undefined) {
+      throw new Error("Missing adjacent mines count");
+    } else if (adjacentMines > 0) {
+      display = adjacentMines.toString();
     }
-
-    if (isFlagged) return "🚩";
-    if (hasQuestionMark) return "?";
-    return "";
-  };
+  } else if (isFlagged) {
+    display = "🚩";
+  } else if (hasQuestionMark) {
+    display = "?";
+  }
 
   return (
     <div
@@ -43,7 +45,7 @@ const Cell = (p: Props) => {
         dispatch({ type: isRevealed ? "AUTO_FLAG" : "SWITCH_MARK", index });
       }}
     >
-      {getDisplay()}
+      {display}
     </div>
   );
 };
