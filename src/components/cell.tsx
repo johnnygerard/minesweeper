@@ -28,7 +28,9 @@ const Cell = (p: Props) => {
 
   return (
     <div
-      className={`${!isRevealed && "bg-gray-400"} grid h-12 w-12 place-items-center border border-black text-xl`}
+      className={`${
+        isRevealed ? "bg-white" : "bg-zinc-200"
+      } grid h-12 w-12 place-items-center border border-zinc-300 text-xl shadow-sm transition-colors`}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}

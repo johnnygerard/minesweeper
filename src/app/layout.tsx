@@ -41,7 +41,7 @@ type Props = Readonly<{
 const RootLayout = (p: Props) => {
   return (
     <html className={`${aldrich.variable} font-sans antialiased`} lang="en-US">
-      <body>
+      <body className="bg-zinc-50">
         <div className="grid min-h-screen place-items-center" role="main">
           {p.children}
         </div>
