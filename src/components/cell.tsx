@@ -30,18 +30,16 @@ const Cell = ({
       throw new Error("Missing adjacent mines count");
     } else if (adjacentMines !== 0) {
       display = adjacentMines.toString();
-      digitColorClass = `text-${
-        {
-          1: "blue-600",
-          2: "emerald-600",
-          3: "red-600",
-          4: "indigo-700",
-          5: "amber-700",
-          6: "teal-600",
-          7: "violet-700",
-          8: "rose-700",
-        }[adjacentMines]
-      }`;
+      digitColorClass = {
+        1: "text-blue-600",
+        2: "text-emerald-600",
+        3: "text-red-600",
+        4: "text-indigo-700",
+        5: "text-amber-700",
+        6: "text-teal-600",
+        7: "text-violet-700",
+        8: "text-rose-700",
+      }[adjacentMines];
     }
   } else if (isFlagged) {
     display = "🚩";
