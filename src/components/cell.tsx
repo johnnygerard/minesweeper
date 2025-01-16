@@ -1,21 +1,24 @@
-import { CellState } from "@/types/cell-state";
+import { AdjacentMines } from "@/types/adjacent-mines";
 import { DispatchContext } from "@/utils/dispatch-context";
 import { memo, useContext } from "react";
 
 type Props = Readonly<{
-  cell: CellState;
+  adjacentMines?: AdjacentMines;
+  hasQuestionMark: boolean;
+  index: number;
+  isFlagged: boolean;
+  isMined: boolean;
+  isRevealed: boolean;
 }>;
 
-const Cell = (p: Props) => {
-  const { cell } = p;
-  const {
-    hasQuestionMark,
-    isRevealed,
-    isMined,
-    adjacentMines,
-    isFlagged,
-    index,
-  } = cell;
+const Cell = ({
+  adjacentMines,
+  hasQuestionMark,
+  index,
+  isFlagged,
+  isMined,
+  isRevealed,
+}: Props) => {
   const dispatch = useContext(DispatchContext);
   let display = "";
   let digitColorClass = "";
@@ -27,18 +30,16 @@ const Cell = (p: Props) => {
       throw new Error("Missing adjacent mines count");
     } else if (adjacentMines !== 0) {
       display = adjacentMines.toString();
-      digitColorClass = `text-${
-        {
-          1: "blue-600",
-          2: "emerald-600",
-          3: "red-600",
-          4: "indigo-700",
-          5: "amber-700",
-          6: "teal-600",
-          7: "violet-700",
-          8: "rose-700",
-        }[adjacentMines]
-      }`;
+      digitColorClass = {
+        1: "text-blue-600",
+        2: "text-emerald-600",
+        3: "text-red-600",
+        4: "text-indigo-700",
+        5: "text-amber-700",
+        6: "text-teal-600",
+        7: "text-violet-700",
+        8: "text-rose-700",
+      }[adjacentMines];
     }
   } else if (isFlagged) {
     display = "🚩";

@@ -6,13 +6,13 @@ type Props = Readonly<{
   gameStatus: GameStatus;
 }>;
 
-const Stopwatch = (p: Props) => {
+const Stopwatch = ({ gameStatus }: Props) => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
-    if (p.gameStatus === GAME_STATUS.INITIAL) {
+    if (gameStatus === GAME_STATUS.INITIAL) {
       setElapsedSeconds(0);
-    } else if (p.gameStatus === GAME_STATUS.PLAYING) {
+    } else if (gameStatus === GAME_STATUS.PLAYING) {
       const id = window.setInterval(() => {
         setElapsedSeconds((prev) => prev + 1);
       }, 1000);
@@ -21,7 +21,7 @@ const Stopwatch = (p: Props) => {
         window.clearInterval(id);
       };
     }
-  }, [p.gameStatus]);
+  }, [gameStatus]);
 
   return (
     <p className="text-2xl tracking-wider">{formatTime(elapsedSeconds)}</p>

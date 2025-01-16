@@ -38,12 +38,12 @@ type Props = Readonly<{
   children: ReactNode;
 }>;
 
-const RootLayout = (p: Props) => {
+const RootLayout = ({ children }: Props) => {
   return (
     <html className={`${aldrich.variable} font-sans antialiased`} lang="en-US">
       <body className="bg-zinc-50">
         <div className="grid min-h-screen place-items-center" role="main">
-          {p.children}
+          {children}
         </div>
         <noscript>
           <div
