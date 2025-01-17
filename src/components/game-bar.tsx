@@ -1,21 +1,20 @@
 "use client";
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
-import { DispatchContext } from "@/contexts";
-import { GameStatus } from "@/types/game-status";
+import { DispatchContext, GameStatusContext } from "@/contexts";
 import { memo, useContext } from "react";
 
 type Props = Readonly<{
-  gameStatus: GameStatus;
   remainingFlags: number;
 }>;
 
-const GameBar = ({ gameStatus, remainingFlags }: Props) => {
+const GameBar = ({ remainingFlags }: Props) => {
+  const gameStatus = useContext(GameStatusContext);
   const dispatch = useContext(DispatchContext);
 
   return (
     <div className="relative flex w-full justify-between text-xl">
-      <Stopwatch gameStatus={gameStatus} />
+      <Stopwatch />
       <MineCounter remaining={remainingFlags} />
       {gameStatus !== "INITIAL" && (
         <button
