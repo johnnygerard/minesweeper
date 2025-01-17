@@ -1,5 +1,6 @@
-import { DispatchContext } from "@/contexts";
+import { DispatchContext, GameStatusContext } from "@/contexts";
 import { AdjacentMines } from "@/types/adjacent-mines";
+import { GAME_STATUS } from "@/types/game-status";
 import {
   Bomb,
   FlagPennant,
@@ -32,9 +33,13 @@ const Cell = ({
   isMined,
   isRevealed,
 }: Props) => {
+  const gameStatus = useContext(GameStatusContext);
   const dispatch = useContext(DispatchContext);
   const ICON_SIZE = "50%";
-  const isNotPlayable = isRevealed && (adjacentMines === 0 || isMined);
+  const isNotPlayable =
+    (isRevealed && (adjacentMines === 0 || isMined)) ||
+    gameStatus === GAME_STATUS.WON ||
+    gameStatus === GAME_STATUS.LOST;
   let content: JSX.Element | null = null;
 
   if (isRevealed) {
