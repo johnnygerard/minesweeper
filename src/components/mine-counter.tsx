@@ -7,7 +7,7 @@ type Props = Readonly<{
 
 const MineCounter = ({ remaining }: Props) => {
   return (
-    <p className="flex gap-2 text-2xl tracking-wider">
+    <p className="flex gap-2 tracking-wider">
       {remaining}
       <Bomb weight="fill" />
     </p>
