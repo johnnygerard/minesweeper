@@ -1,9 +1,9 @@
 "use client";
 import Board from "@/components/board";
 import GameBar from "@/components/game-bar";
+import { DispatchContext } from "@/contexts/dispatch-context";
 import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
-import { DispatchContext } from "@/utils/dispatch-context";
 import { gameReducer } from "@/utils/game-reducer";
 import { memo } from "react";
 import { useImmerReducer } from "use-immer";

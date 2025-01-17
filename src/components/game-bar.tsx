@@ -1,8 +1,8 @@
 "use client";
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
+import { DispatchContext } from "@/contexts/dispatch-context";
 import { GameStatus } from "@/types/game-status";
-import { DispatchContext } from "@/utils/dispatch-context";
 import { memo, useContext } from "react";
 
 type Props = Readonly<{
