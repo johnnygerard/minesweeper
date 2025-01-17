@@ -7,6 +7,17 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    extend: {
+      animation: {
+        icon: "fadeIn 0.15s ease-in-out",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
+    },
     fontFamily: {
       sans: ["var(--font-aldrich)"],
     },
