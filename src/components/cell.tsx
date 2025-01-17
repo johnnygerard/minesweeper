@@ -1,5 +1,6 @@
+import { DispatchContext, GameStatusContext } from "@/contexts";
 import { AdjacentMines } from "@/types/adjacent-mines";
-import { DispatchContext } from "@/utils/dispatch-context";
+import { GAME_STATUS } from "@/types/game-status";
 import {
   Bomb,
   FlagPennant,
@@ -32,8 +33,13 @@ const Cell = ({
   isMined,
   isRevealed,
 }: Props) => {
+  const gameStatus = useContext(GameStatusContext);
   const dispatch = useContext(DispatchContext);
   const ICON_SIZE = "50%";
+  const isNotPlayable =
+    (isRevealed && (adjacentMines === 0 || isMined)) ||
+    gameStatus === GAME_STATUS.WON ||
+    gameStatus === GAME_STATUS.LOST;
   let content: JSX.Element | null = null;
 
   if (isRevealed) {
@@ -124,7 +130,7 @@ const Cell = ({
     <div
       className={`${
         isRevealed ? "bg-white" : "bg-zinc-200"
-      } grid h-12 w-12 place-items-center border border-zinc-300 text-xl shadow-sm transition-colors`}
+      } ${isNotPlayable ? "" : "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50"} grid h-12 w-12 place-items-center border border-zinc-300 text-xl shadow-sm transition-colors`}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}

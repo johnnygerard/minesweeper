@@ -1,12 +1,10 @@
-import { GAME_STATUS, GameStatus } from "@/types/game-status";
+import { GameStatusContext } from "@/contexts";
+import { GAME_STATUS } from "@/types/game-status";
 import { formatTime } from "@/utils/format-time";
-import { memo, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 
-type Props = Readonly<{
-  gameStatus: GameStatus;
-}>;
-
-const Stopwatch = ({ gameStatus }: Props) => {
+const Stopwatch = () => {
+  const gameStatus = useContext(GameStatusContext);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
