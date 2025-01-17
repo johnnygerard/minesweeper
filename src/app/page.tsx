@@ -3,7 +3,7 @@ import { memo } from "react";
 
 const Home = () => {
   return (
-    <div>
+    <div className="px-4 py-8">
       <h1 className="mb-12 text-4xl uppercase tracking-widest">Minesweeper</h1>
       <Game />
     </div>
