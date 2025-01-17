@@ -1,7 +1,7 @@
 "use client";
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
-import { DispatchContext } from "@/contexts/dispatch-context";
+import { DispatchContext } from "@/contexts";
 import { GameStatus } from "@/types/game-status";
 import { memo, useContext } from "react";
 

@@ -1,4 +1,4 @@
-import { DispatchContext } from "@/contexts/dispatch-context";
+import { DispatchContext } from "@/contexts";
 import { AdjacentMines } from "@/types/adjacent-mines";
 import {
   Bomb,

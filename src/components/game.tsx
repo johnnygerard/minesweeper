@@ -1,7 +1,7 @@
 "use client";
 import Board from "@/components/board";
 import GameBar from "@/components/game-bar";
-import { DispatchContext } from "@/contexts/dispatch-context";
+import { DispatchContext } from "@/contexts";
 import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
 import { gameReducer } from "@/utils/game-reducer";
