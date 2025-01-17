@@ -1,7 +1,6 @@
 "use client";
 import Board from "@/components/board";
-import MineCounter from "@/components/mine-counter";
-import Stopwatch from "@/components/stopwatch";
+import GameBar from "@/components/game-bar";
 import { BoardState } from "@/types/board-state";
 import { GameState } from "@/types/game-state";
 import { DispatchContext } from "@/utils/dispatch-context";
@@ -16,30 +15,15 @@ const Game = () => {
   );
 
   return (
-    <main className="flex flex-col items-center gap-8">
-      <div className="flex w-full justify-between">
-        <Stopwatch gameStatus={game.status} />
-        <MineCounter remaining={game.board.remainingFlags} />
-      </div>
-      <DispatchContext.Provider value={dispatch}>
+    <DispatchContext.Provider value={dispatch}>
+      <main className="flex flex-col items-center gap-8">
+        <GameBar
+          gameStatus={game.status}
+          remainingFlags={game.board.remainingFlags}
+        />
         <Board cells={game.board.cells} columns={game.board.columns} />
-      </DispatchContext.Provider>
-      {game.status !== "INITIAL" && (
-        <button
-          type="button"
-          onClick={() => dispatch({ type: "RESTART" })}
-          className="text-lg uppercase tracking-wide"
-        >
-          {
-            {
-              PLAYING: "Restart",
-              WON: "Play again",
-              LOST: "Try again",
-            }[game.status]
-          }
-        </button>
-      )}
-    </main>
+      </main>
+    </DispatchContext.Provider>
   );
 };
 
