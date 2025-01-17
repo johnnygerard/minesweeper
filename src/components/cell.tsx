@@ -1,6 +1,19 @@
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { DispatchContext } from "@/utils/dispatch-context";
-import { memo, useContext } from "react";
+import {
+  Bomb,
+  FlagPennant,
+  NumberEight,
+  NumberFive,
+  NumberFour,
+  NumberOne,
+  NumberSeven,
+  NumberSix,
+  NumberThree,
+  NumberTwo,
+  QuestionMark,
+} from "@phosphor-icons/react/dist/ssr";
+import { JSX, memo, useContext } from "react";
 
 type Props = Readonly<{
   adjacentMines?: AdjacentMines;
@@ -20,38 +33,98 @@ const Cell = ({
   isRevealed,
 }: Props) => {
   const dispatch = useContext(DispatchContext);
-  let display = "";
-  let digitColorClass = hasQuestionMark ? "" : "text-zinc-200";
+  const ICON_SIZE = "50%";
+  let content: JSX.Element | null = null;
 
   if (isRevealed) {
     if (isMined) {
-      display = "💣";
-    } else if (adjacentMines === undefined) {
-      throw new Error("Missing adjacent mines count");
-    } else if (adjacentMines !== 0) {
-      display = adjacentMines.toString();
-      digitColorClass = {
-        1: "text-blue-600",
-        2: "text-emerald-600",
-        3: "text-red-600",
-        4: "text-indigo-700",
-        5: "text-amber-700",
-        6: "text-teal-600",
-        7: "text-violet-700",
-        8: "text-rose-700",
-      }[adjacentMines];
+      content = (
+        <Bomb weight="fill" className="animate-icon" size={ICON_SIZE} />
+      );
+    } else {
+      switch (adjacentMines) {
+        case 1:
+          content = (
+            <NumberOne
+              className="animate-icon text-blue-600"
+              size={ICON_SIZE}
+            />
+          );
+          break;
+        case 2:
+          content = (
+            <NumberTwo
+              className="animate-icon text-emerald-600"
+              size={ICON_SIZE}
+            />
+          );
+          break;
+        case 3:
+          content = (
+            <NumberThree
+              className="animate-icon text-red-600"
+              size={ICON_SIZE}
+            />
+          );
+          break;
+        case 4:
+          content = (
+            <NumberFour
+              className="animate-icon text-indigo-700"
+              size={ICON_SIZE}
+            />
+          );
+          break;
+        case 5:
+          content = (
+            <NumberFive
+              className="animate-icon text-amber-700"
+              size={ICON_SIZE}
+            />
+          );
+          break;
+        case 6:
+          content = (
+            <NumberSix
+              className="animate-icon text-teal-600"
+              size={ICON_SIZE}
+            />
+          );
+          break;
+        case 7:
+          content = (
+            <NumberSeven
+              className="animate-icon text-violet-700"
+              size={ICON_SIZE}
+            />
+          );
+          break;
+        case 8:
+          content = (
+            <NumberEight
+              className="animate-icon text-rose-700"
+              size={ICON_SIZE}
+            />
+          );
+          break;
+        default:
+          if (adjacentMines === undefined)
+            throw new Error("Missing adjacent mines count");
+      }
     }
   } else if (isFlagged) {
-    display = "🚩";
+    content = (
+      <FlagPennant className="animate-icon text-red-600" size={ICON_SIZE} />
+    );
   } else if (hasQuestionMark) {
-    display = "?";
+    content = <QuestionMark size={ICON_SIZE} />;
   }
 
   return (
     <div
       className={`${
         isRevealed ? "bg-white" : "bg-zinc-200"
-      } grid h-12 w-12 place-items-center border border-zinc-300 text-xl shadow-sm ${digitColorClass} transition-colors`}
+      } grid h-12 w-12 place-items-center border border-zinc-300 text-xl shadow-sm transition-colors`}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}
@@ -59,7 +132,7 @@ const Cell = ({
         dispatch({ type: isRevealed ? "AUTO_FLAG" : "SWITCH_MARK", index });
       }}
     >
-      {display}
+      {content}
     </div>
   );
 };
