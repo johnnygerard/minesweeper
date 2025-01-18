@@ -5,33 +5,41 @@ import { immerable } from "immer";
 
 export class BoardState {
   [immerable] = true;
-  cells: CellState[]; // Linear storage with row-major order
-  remainingFlags: number;
   readonly rows = this.mode.rows;
   readonly columns = this.mode.columns;
   readonly mines = this.mode.mines;
+  // Linear storage with row-major order
+  cells = Array.from(
+    { length: this.rows * this.columns },
+    (_, index) => new CellState(index),
+  );
+  // Number of flags that can be placed by the player
+  remainingFlags = this.mines;
+  // Number of cells without a determined mine status
+  remainingCells = this.cells.length;
+  // Number of mines not yet assigned to a cell
+  remainingMines = this.mines;
 
-  constructor(readonly mode = GAME_MODES.EASY) {
-    const cells = new Array<CellState>(this.rows * this.columns);
-    let remainingCells = cells.length;
-    let remainingMines = this.mines;
-    this.remainingFlags = this.mines;
-
-    // Initialize the board with mines randomly positioned
-    for (let i = 0; i < cells.length; i++) {
-      const mineProbability = remainingMines / remainingCells;
-      const isMined = Math.random() < mineProbability;
-
-      cells[i] = new CellState(i, isMined);
-      if (isMined) remainingMines--;
-      remainingCells--;
-    }
-
-    this.cells = cells;
-  }
+  constructor(readonly mode = GAME_MODES.EASY) {}
 
   get hasWon(): boolean {
     return this.cells.every((cell) => cell.isMined || cell.isRevealed);
+  }
+
+  /**
+   * Determine if the target cell is mined.
+   * @param cell - The target cell
+   * @returns True if the cell is mined, false otherwise.
+   */
+  computeMine(cell: CellState): boolean {
+    if (cell.isMined !== undefined) return cell.isMined;
+
+    const mineProbability = this.remainingMines / this.remainingCells;
+    const isMined = Math.random() < mineProbability;
+
+    this.remainingCells--;
+    if (isMined) this.remainingMines--;
+    return (cell.isMined = isMined);
   }
 
   /**
@@ -69,21 +77,31 @@ export class BoardState {
       for (const cell of hiddenAdjacentCells) this.flag(cell);
   }
 
+  computeOpening(cell: CellState): void {
+    const adjacentCells = this.getAdjacentCells(cell);
+    for (const cell of adjacentCells) cell.isMined = false;
+    this.remainingCells -= adjacentCells.length;
+    cell.isMined = false;
+    this.remainingCells--;
+    this.revealSafeCell(cell);
+  }
+
   revealSafeCell(initial: CellState): void {
     const stack = [initial];
     let cell: CellState | undefined;
 
     while ((cell = stack.pop())) {
       if (cell.isDirty) continue;
+
       const adjacentCells = this.getAdjacentCells(cell);
       const adjacentMines = adjacentCells.reduce(
-        (acc, cell) => acc + (cell.isMined ? 1 : 0),
+        (acc, cell) => acc + (this.computeMine(cell) ? 1 : 0),
         0,
       );
 
       cell.adjacentMines = adjacentMines as AdjacentMines;
       cell.isRevealed = true;
-      if (adjacentMines === 0) stack.push(...adjacentCells);
+      if (cell.adjacentMines === 0) stack.push(...adjacentCells);
     }
   }
 

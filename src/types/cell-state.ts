@@ -6,12 +6,10 @@ export class CellState {
   adjacentMines?: AdjacentMines;
   hasQuestionMark = false;
   isFlagged = false;
+  isMined?: boolean;
   isRevealed = false;
 
-  constructor(
-    readonly index: number,
-    readonly isMined: boolean,
-  ) {}
+  constructor(readonly index: number) {}
 
   /**
    * @returns True if this cell is in a non-default state, false otherwise.

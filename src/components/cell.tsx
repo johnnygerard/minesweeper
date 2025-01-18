@@ -22,7 +22,7 @@ type Props = Readonly<{
   hasQuestionMark: boolean;
   index: number;
   isFlagged: boolean;
-  isMined: boolean;
+  isMined?: boolean;
   isRevealed: boolean;
   size: string;
 }>;
@@ -41,7 +41,7 @@ const Cell = ({
   const dispatch = useContext(DispatchContext);
   const ICON_SIZE = "50%";
   const isNotPlayable =
-    (isRevealed && (adjacentMines === 0 || isMined)) ||
+    (isRevealed && adjacentMines === 0) ||
     gameStatus === GAME_STATUS.WON ||
     gameStatus === GAME_STATUS.LOST;
   let content: JSX.Element | null = null;
