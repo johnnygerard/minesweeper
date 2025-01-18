@@ -18,6 +18,7 @@ import { JSX, memo, useContext } from "react";
 
 type Props = Readonly<{
   adjacentMines?: AdjacentMines;
+  borderColor: string;
   hasQuestionMark: boolean;
   index: number;
   isFlagged: boolean;
@@ -27,6 +28,7 @@ type Props = Readonly<{
 
 const Cell = ({
   adjacentMines,
+  borderColor,
   hasQuestionMark,
   index,
   isFlagged,
@@ -130,7 +132,7 @@ const Cell = ({
     <div
       className={`${
         isRevealed ? "bg-white" : "bg-zinc-200"
-      } ${isNotPlayable ? "" : "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50"} grid h-12 w-12 place-items-center border border-zinc-300 text-xl shadow-sm transition-colors`}
+      } ${isNotPlayable ? "" : "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50"} grid h-12 w-12 place-items-center border-b border-r ${borderColor} text-xl shadow-sm transition-colors`}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}

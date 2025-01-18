@@ -17,10 +17,10 @@ const Game = () => {
   return (
     <GameStatusContext.Provider value={game.status}>
       <DispatchContext.Provider value={dispatch}>
-        <main className="flex flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-8">
           <GameBar remainingFlags={game.board.remainingFlags} />
           <Board cells={game.board.cells} columns={game.board.columns} />
-        </main>
+        </div>
       </DispatchContext.Provider>
     </GameStatusContext.Provider>
   );
