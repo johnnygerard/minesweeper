@@ -21,7 +21,7 @@ export const gameReducer = (
     case "REVEAL":
       if (cell.isDirty) return;
 
-      if (cell.isMined) {
+      if (game.board.computeMine(cell)) {
         cell.isRevealed = true;
         game.status = GAME_STATUS.LOST;
         return;
