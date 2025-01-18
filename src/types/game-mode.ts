@@ -1,5 +1,7 @@
 export type GameMode = Readonly<{
-  rows: number;
+  name: string;
+  urlPath: string;
   columns: number;
+  rows: number;
   mines: number;
 }>;
