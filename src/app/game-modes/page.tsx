@@ -1,6 +1,12 @@
 import { GAME_MODES } from "@/constants/game-modes";
+import { Metadata } from "next";
 import Link from "next/link";
 import { memo } from "react";
+
+export const metadata: Metadata = {
+  title: "Game Modes",
+  description: "Select a game mode",
+};
 
 const Page = () => {
   const modes = [

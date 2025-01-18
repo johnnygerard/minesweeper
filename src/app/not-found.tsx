@@ -1,5 +1,10 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { memo } from "react";
+
+export const metadata: Metadata = {
+  title: "404 Not Found",
+};
 
 const NotFound = () => {
   return (

@@ -10,12 +10,15 @@ const aldrich = Aldrich({
   variable: "--font-aldrich",
 });
 
-const TITLE = "Minesweeper";
+const APP_NAME = "Minesweeper";
 const DESCRIPTION =
   "A modern recreation of the classic Minesweeper game from Microsoft Windows.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: {
+    template: `%s | ${APP_NAME}`,
+    default: APP_NAME,
+  },
   description: DESCRIPTION,
   icons: [
     {
@@ -28,8 +31,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://minesweeper.jgerard.dev/",
-    siteName: "Minesweeper",
-    title: TITLE,
+    siteName: APP_NAME,
+    title: APP_NAME,
     description: DESCRIPTION,
   },
 };
