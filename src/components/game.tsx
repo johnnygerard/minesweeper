@@ -27,7 +27,7 @@ const Game = ({ mode }: Props) => {
             remainingFlags={game.board.remainingFlags}
             mode={game.board.mode}
           />
-          <Board cells={game.board.cells} columns={game.board.columns} />
+          <Board board={game.board} />
         </div>
       </DispatchContext.Provider>
     </GameStatusContext.Provider>

@@ -1,13 +1,13 @@
 import Cell from "@/components/cell";
-import { CellState } from "@/types/cell-state";
+import { BoardState } from "@/types/board-state";
 import { memo } from "react";
 
 type Props = Readonly<{
-  cells: CellState[];
-  columns: number;
+  board: BoardState;
 }>;
 
-const Board = ({ cells, columns }: Props) => {
+const Board = ({ board }: Props) => {
+  const { cells, columns } = board;
   const BORDER_COLOR = "border-zinc-300";
 
   return (
