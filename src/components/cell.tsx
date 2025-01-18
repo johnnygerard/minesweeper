@@ -24,6 +24,7 @@ type Props = Readonly<{
   isFlagged: boolean;
   isMined: boolean;
   isRevealed: boolean;
+  size: string;
 }>;
 
 const Cell = ({
@@ -34,6 +35,7 @@ const Cell = ({
   isFlagged,
   isMined,
   isRevealed,
+  size,
 }: Props) => {
   const gameStatus = useContext(GameStatusContext);
   const dispatch = useContext(DispatchContext);
@@ -132,7 +134,7 @@ const Cell = ({
     <div
       className={`${
         isRevealed ? "bg-white" : "bg-zinc-200"
-      } ${isNotPlayable ? "" : "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50"} grid h-12 w-12 place-items-center border-b border-r ${borderColor} text-xl shadow-sm transition-colors`}
+      } ${isNotPlayable ? "" : "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50"} grid ${size} place-items-center border-b border-r ${borderColor} text-xl shadow-sm transition-colors`}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}

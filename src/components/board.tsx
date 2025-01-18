@@ -7,8 +7,9 @@ type Props = Readonly<{
 }>;
 
 const Board = ({ board }: Props) => {
-  const { cells, columns } = board;
+  const { cells, columns, mode } = board;
   const BORDER_COLOR = "border-zinc-300";
+  const cellSize = mode.name === "Easy" ? "h-12 w-12" : "h-10 w-10";
 
   return (
     <div
@@ -17,7 +18,12 @@ const Board = ({ board }: Props) => {
       onContextMenu={(e) => e.preventDefault()}
     >
       {cells.map((cell, index) => (
-        <Cell key={index} {...cell} borderColor={BORDER_COLOR} />
+        <Cell
+          key={index}
+          {...cell}
+          borderColor={BORDER_COLOR}
+          size={cellSize}
+        />
       ))}
     </div>
   );
