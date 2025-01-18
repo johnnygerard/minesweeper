@@ -3,7 +3,7 @@ import { GameMode } from "@/types/game-mode";
 import Link from "next/link";
 import { memo } from "react";
 
-const GameModes = () => {
+const Page = () => {
   const modes: (GameMode & {
     name: string;
     path: string;
@@ -53,4 +53,4 @@ const GameModes = () => {
   );
 };
 
-export default memo(GameModes);
+export default memo(Page);

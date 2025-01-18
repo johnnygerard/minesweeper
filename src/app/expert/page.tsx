@@ -2,8 +2,8 @@ import GamePage from "@/components/game-page";
 import { GAME_MODES } from "@/constants/game-modes";
 import { memo } from "react";
 
-const Expert = () => {
+const Page = () => {
   return <GamePage mode={GAME_MODES.HARD} />;
 };
 
-export default memo(Expert);
+export default memo(Page);
