@@ -77,6 +77,15 @@ export class BoardState {
       for (const cell of hiddenAdjacentCells) this.flag(cell);
   }
 
+  computeOpening(cell: CellState): void {
+    const adjacentCells = this.getAdjacentCells(cell);
+    for (const cell of adjacentCells) cell.isMined = false;
+    this.remainingCells -= adjacentCells.length;
+    cell.isMined = false;
+    this.remainingCells--;
+    this.revealSafeCell(cell);
+  }
+
   revealSafeCell(initial: CellState): void {
     const stack = [initial];
     let cell: CellState | undefined;
