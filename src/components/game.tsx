@@ -23,7 +23,10 @@ const Game = ({ mode }: Props) => {
     <GameStatusContext.Provider value={game.status}>
       <DispatchContext.Provider value={dispatch}>
         <div className="flex flex-col items-center gap-8">
-          <GameBar remainingFlags={game.board.remainingFlags} />
+          <GameBar
+            remainingFlags={game.board.remainingFlags}
+            mode={game.board.mode}
+          />
           <Board cells={game.board.cells} columns={game.board.columns} />
         </div>
       </DispatchContext.Provider>
