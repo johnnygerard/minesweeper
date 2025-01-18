@@ -1,37 +1,17 @@
+import { GAME_MODES } from "@/constants/game-modes";
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { CellState } from "@/types/cell-state";
-import { GAME_DIFFICULTY, GameDifficulty } from "@/types/game-difficulty";
 import { immerable } from "immer";
 
 export class BoardState {
   [immerable] = true;
   cells: CellState[]; // Linear storage with row-major order
-  readonly mines: number;
   remainingFlags: number;
-  readonly rows: number;
-  readonly columns: number;
+  readonly rows = this.mode.rows;
+  readonly columns = this.mode.columns;
+  readonly mines = this.mode.mines;
 
-  constructor(difficulty: GameDifficulty = GAME_DIFFICULTY.EASY) {
-    switch (difficulty) {
-      case "EASY":
-        this.mines = 10;
-        this.rows = 9;
-        this.columns = 9;
-        break;
-      case "MEDIUM":
-        this.mines = 40;
-        this.rows = 16;
-        this.columns = 16;
-        break;
-      case "HARD":
-        this.mines = 99;
-        this.rows = 16;
-        this.columns = 30;
-        break;
-      default:
-        throw new Error("Invalid game difficulty");
-    }
-
+  constructor(readonly mode = GAME_MODES.EASY) {
     const cells = new Array<CellState>(this.rows * this.columns);
     let remainingCells = cells.length;
     let remainingMines = this.mines;

@@ -1,29 +1,29 @@
+import { GAME_MODES } from "@/constants/game-modes";
+import { GameMode } from "@/types/game-mode";
 import Link from "next/link";
 import { memo } from "react";
 
 const GameModes = () => {
-  const modes = [
+  const modes: (GameMode & {
+    name: string;
+    path: string;
+    className: string;
+  })[] = [
     {
+      ...GAME_MODES.EASY,
       name: "Easy",
-      rows: 9,
-      columns: 9,
-      mines: 10,
       path: "/",
       className: "bg-emerald-50 hover:bg-emerald-100 border-emerald-200",
     },
     {
+      ...GAME_MODES.MEDIUM,
       name: "Medium",
-      rows: 16,
-      columns: 16,
-      mines: 40,
       path: "/medium",
       className: "bg-amber-50 hover:bg-amber-100 border-amber-200",
     },
     {
+      ...GAME_MODES.HARD,
       name: "Expert",
-      rows: 16,
-      columns: 30,
-      mines: 99,
       path: "/expert",
       className: "bg-rose-50 hover:bg-rose-100 border-rose-200",
     },
