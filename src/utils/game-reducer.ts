@@ -10,7 +10,7 @@ export const gameReducer = (
 ): void => {
   if (action.type === "RESTART") {
     game.status = GAME_STATUS.INITIAL;
-    game.board = new BoardState();
+    game.board = new BoardState(action.mode);
     return;
   }
 
