@@ -1,6 +1,7 @@
 import { GAME_MODES } from "@/constants/game-modes";
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { CellState } from "@/types/cell-state";
+import { GameMode } from "@/types/game-mode";
 import { immerable } from "immer";
 
 export class BoardState {
@@ -11,7 +12,7 @@ export class BoardState {
   readonly columns = this.mode.columns;
   readonly mines = this.mode.mines;
 
-  constructor(readonly mode = GAME_MODES.EASY) {
+  constructor(readonly mode: GameMode = GAME_MODES.EASY) {
     const cells = new Array<CellState>(this.rows * this.columns);
     let remainingCells = cells.length;
     let remainingMines = this.mines;
