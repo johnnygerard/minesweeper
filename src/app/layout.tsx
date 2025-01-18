@@ -42,9 +42,7 @@ const RootLayout = ({ children }: Props) => {
   return (
     <html className={`${aldrich.variable} font-sans antialiased`} lang="en-US">
       <body className="bg-zinc-50">
-        <div className="grid min-h-screen place-items-center" role="main">
-          {children}
-        </div>
+        <main className="grid min-h-screen place-items-center">{children}</main>
         <noscript>
           <div
             style={{
