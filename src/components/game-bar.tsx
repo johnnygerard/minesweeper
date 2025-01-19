@@ -1,6 +1,7 @@
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
 import { useGameContext } from "@/hooks/use-game-context";
+import { GAME_STATUS } from "@/types/game-status";
 import { memo } from "react";
 
 type Props = Readonly<{
@@ -13,7 +14,9 @@ const GameBar = ({ remainingFlags }: Props) => {
   return (
     <div className="relative flex w-full justify-between text-xl">
       <Stopwatch />
-      <MineCounter remaining={remainingFlags} />
+      <MineCounter
+        remaining={game.status === GAME_STATUS.WON ? 0 : remainingFlags}
+      />
       {game.status !== "INITIAL" && (
         <button
           type="button"
