@@ -10,6 +10,7 @@ export default {
     extend: {
       animation: {
         icon: "fadeIn 0.15s ease-in-out",
+        trophy: "fadeIn 1s ease-in-out",
       },
       keyframes: {
         fadeIn: {

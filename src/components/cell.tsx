@@ -41,7 +41,7 @@ const Cell = ({
     content = (
       <Trophy
         weight="fill"
-        className="animate-icon text-amber-500"
+        className="animate-trophy text-amber-500"
         size={ICON_SIZE}
       />
     );
