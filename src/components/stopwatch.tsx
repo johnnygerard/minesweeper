@@ -8,16 +8,19 @@ const Stopwatch = () => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
-    if (gameStatus === GAME_STATUS.INITIAL) {
-      setElapsedSeconds(0);
-    } else if (gameStatus === GAME_STATUS.PLAYING) {
-      const id = window.setInterval(() => {
-        setElapsedSeconds((prev) => prev + 1);
-      }, 1000);
-
-      return () => {
-        window.clearInterval(id);
-      };
+    switch (gameStatus) {
+      case GAME_STATUS.INITIAL:
+        setElapsedSeconds(0);
+        break;
+      case GAME_STATUS.PLAYING:
+        const id = window.setInterval(() => {
+          setElapsedSeconds((prev) => prev + 1);
+        }, 1000);
+        return () => {
+          window.clearInterval(id);
+        };
+      default:
+        break;
     }
   }, [gameStatus]);
 
