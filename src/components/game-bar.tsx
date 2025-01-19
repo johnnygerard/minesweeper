@@ -1,4 +1,3 @@
-"use client";
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
 import { DispatchContext, GameStatusContext } from "@/contexts";
