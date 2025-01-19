@@ -1,8 +1,8 @@
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
-import { DispatchContext, GameStatusContext } from "@/contexts";
+import { useGameContext } from "@/hooks/use-game-context";
 import { GameMode } from "@/types/game-mode";
-import { memo, useContext } from "react";
+import { memo } from "react";
 
 type Props = Readonly<{
   mode: GameMode;
@@ -10,14 +10,13 @@ type Props = Readonly<{
 }>;
 
 const GameBar = ({ mode, remainingFlags }: Props) => {
-  const gameStatus = useContext(GameStatusContext);
-  const dispatch = useContext(DispatchContext);
+  const { game, dispatch } = useGameContext();
 
   return (
     <div className="relative flex w-full justify-between text-xl">
       <Stopwatch />
       <MineCounter remaining={remainingFlags} />
-      {gameStatus !== "INITIAL" && (
+      {game.status !== "INITIAL" && (
         <button
           type="button"
           onClick={() => dispatch({ type: "RESTART", mode })}
@@ -28,7 +27,7 @@ const GameBar = ({ mode, remainingFlags }: Props) => {
               PLAYING: "Restart",
               WON: "Play again",
               LOST: "Try again",
-            }[gameStatus]
+            }[game.status]
           }
         </button>
       )}

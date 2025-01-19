@@ -1,14 +1,14 @@
-import { GameStatusContext } from "@/contexts";
+import { useGameContext } from "@/hooks/use-game-context";
 import { GAME_STATUS } from "@/types/game-status";
 import { formatTime } from "@/utils/format-time";
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 const Stopwatch = () => {
-  const gameStatus = useContext(GameStatusContext);
+  const { game } = useGameContext();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
-    switch (gameStatus) {
+    switch (game.status) {
       case GAME_STATUS.INITIAL:
         setElapsedSeconds(0);
         break;
@@ -22,7 +22,7 @@ const Stopwatch = () => {
       default:
         break;
     }
-  }, [gameStatus]);
+  }, [game.status]);
 
   return <p className="tracking-wider">{formatTime(elapsedSeconds)}</p>;
 };

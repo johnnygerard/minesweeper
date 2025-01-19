@@ -1,5 +1,5 @@
 import NumberIcon from "@/components/number-icon";
-import { DispatchContext, GameStatusContext } from "@/contexts";
+import { useGameContext } from "@/hooks/use-game-context";
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { GAME_STATUS } from "@/types/game-status";
 import {
@@ -8,7 +8,7 @@ import {
   QuestionMark,
 } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
-import { JSX, memo, useContext } from "react";
+import { JSX, memo } from "react";
 
 type Props = Readonly<{
   adjacentMines?: AdjacentMines;
@@ -31,13 +31,12 @@ const Cell = ({
   isRevealed,
   size,
 }: Props) => {
-  const gameStatus = useContext(GameStatusContext);
-  const dispatch = useContext(DispatchContext);
+  const { game, dispatch } = useGameContext();
   const ICON_SIZE = "50%";
   const isNotPlayable =
     (isRevealed && adjacentMines === 0) ||
-    gameStatus === GAME_STATUS.WON ||
-    gameStatus === GAME_STATUS.LOST;
+    game.status === GAME_STATUS.WON ||
+    game.status === GAME_STATUS.LOST;
   let content: JSX.Element | null = null;
 
   if (isRevealed) {
