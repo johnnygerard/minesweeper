@@ -1,17 +1,10 @@
+import NumberIcon from "@/components/number-icon";
 import { DispatchContext, GameStatusContext } from "@/contexts";
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { GAME_STATUS } from "@/types/game-status";
 import {
   Bomb,
   FlagPennant,
-  NumberEight,
-  NumberFive,
-  NumberFour,
-  NumberOne,
-  NumberSeven,
-  NumberSix,
-  NumberThree,
-  NumberTwo,
   QuestionMark,
 } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
@@ -52,76 +45,14 @@ const Cell = ({
       content = (
         <Bomb weight="fill" className="animate-icon" size={ICON_SIZE} />
       );
-    } else {
-      switch (adjacentMines) {
-        case 1:
-          content = (
-            <NumberOne
-              className="animate-icon text-blue-600"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 2:
-          content = (
-            <NumberTwo
-              className="animate-icon text-emerald-600"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 3:
-          content = (
-            <NumberThree
-              className="animate-icon text-red-600"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 4:
-          content = (
-            <NumberFour
-              className="animate-icon text-indigo-700"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 5:
-          content = (
-            <NumberFive
-              className="animate-icon text-amber-700"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 6:
-          content = (
-            <NumberSix
-              className="animate-icon text-teal-600"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 7:
-          content = (
-            <NumberSeven
-              className="animate-icon text-violet-700"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 8:
-          content = (
-            <NumberEight
-              className="animate-icon text-rose-700"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        default:
-          if (adjacentMines === undefined)
-            throw new Error("Missing adjacent mines count");
-      }
+    } else if (adjacentMines) {
+      content = (
+        <NumberIcon
+          className="animate-icon"
+          size={ICON_SIZE}
+          value={adjacentMines}
+        />
+      );
     }
   } else if (isFlagged) {
     content = (
