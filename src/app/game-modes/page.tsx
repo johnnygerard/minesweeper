@@ -1,4 +1,5 @@
 import { GAME_MODES } from "@/constants/game-modes";
+import clsx from "clsx";
 import { Metadata } from "next";
 import Link from "next/link";
 import { memo } from "react";
@@ -27,7 +28,7 @@ const Page = () => {
   return (
     <div className="px-4 py-8">
       <h1 className="mb-12 text-4xl uppercase tracking-widest">Game Modes</h1>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 lg:auto-cols-fr lg:grid-flow-col">
         {modes.map(({ className, mode }) => {
           const { name, urlPath, columns, rows, mines } = mode;
 
@@ -35,7 +36,10 @@ const Page = () => {
             <Link
               key={name}
               href={urlPath}
-              className={`group rounded-lg border p-6 shadow-sm transition-colors ${className}`}
+              className={clsx(
+                "group rounded-lg border p-6 shadow-sm transition-colors",
+                className,
+              )}
             >
               <h2 className="text-2xl font-medium">{name}</h2>
               <p className="mt-1 text-zinc-600">

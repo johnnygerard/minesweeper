@@ -1,27 +1,23 @@
-"use client";
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
-import { DispatchContext, GameStatusContext } from "@/contexts";
-import { GameMode } from "@/types/game-mode";
-import { memo, useContext } from "react";
+import { useGameContext } from "@/hooks/use-game-context";
+import { memo } from "react";
 
 type Props = Readonly<{
-  mode: GameMode;
   remainingFlags: number;
 }>;
 
-const GameBar = ({ mode, remainingFlags }: Props) => {
-  const gameStatus = useContext(GameStatusContext);
-  const dispatch = useContext(DispatchContext);
+const GameBar = ({ remainingFlags }: Props) => {
+  const { game, dispatch } = useGameContext();
 
   return (
     <div className="relative flex w-full justify-between text-xl">
       <Stopwatch />
       <MineCounter remaining={remainingFlags} />
-      {gameStatus !== "INITIAL" && (
+      {game.status !== "INITIAL" && (
         <button
           type="button"
-          onClick={() => dispatch({ type: "RESTART", mode })}
+          onClick={() => dispatch({ type: "RESTART" })}
           className="absolute left-1/2 -translate-x-1/2 uppercase tracking-wide"
         >
           {
@@ -29,7 +25,7 @@ const GameBar = ({ mode, remainingFlags }: Props) => {
               PLAYING: "Restart",
               WON: "Play again",
               LOST: "Try again",
-            }[gameStatus]
+            }[game.status]
           }
         </button>
       )}

@@ -1,20 +1,13 @@
-import { DispatchContext, GameStatusContext } from "@/contexts";
+import NumberIcon from "@/components/number-icon";
+import { useGameContext } from "@/hooks/use-game-context";
 import { AdjacentMines } from "@/types/adjacent-mines";
-import { GAME_STATUS } from "@/types/game-status";
 import {
   Bomb,
   FlagPennant,
-  NumberEight,
-  NumberFive,
-  NumberFour,
-  NumberOne,
-  NumberSeven,
-  NumberSix,
-  NumberThree,
-  NumberTwo,
   QuestionMark,
 } from "@phosphor-icons/react/dist/ssr";
-import { JSX, memo, useContext } from "react";
+import clsx from "clsx";
+import { JSX, memo } from "react";
 
 type Props = Readonly<{
   adjacentMines?: AdjacentMines;
@@ -37,13 +30,9 @@ const Cell = ({
   isRevealed,
   size,
 }: Props) => {
-  const gameStatus = useContext(GameStatusContext);
-  const dispatch = useContext(DispatchContext);
+  const { game, dispatch } = useGameContext();
   const ICON_SIZE = "50%";
-  const isNotPlayable =
-    (isRevealed && adjacentMines === 0) ||
-    gameStatus === GAME_STATUS.WON ||
-    gameStatus === GAME_STATUS.LOST;
+  const isNotPlayable = (isRevealed && adjacentMines === 0) || game.isOver;
   let content: JSX.Element | null = null;
 
   if (isRevealed) {
@@ -51,76 +40,14 @@ const Cell = ({
       content = (
         <Bomb weight="fill" className="animate-icon" size={ICON_SIZE} />
       );
-    } else {
-      switch (adjacentMines) {
-        case 1:
-          content = (
-            <NumberOne
-              className="animate-icon text-blue-600"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 2:
-          content = (
-            <NumberTwo
-              className="animate-icon text-emerald-600"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 3:
-          content = (
-            <NumberThree
-              className="animate-icon text-red-600"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 4:
-          content = (
-            <NumberFour
-              className="animate-icon text-indigo-700"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 5:
-          content = (
-            <NumberFive
-              className="animate-icon text-amber-700"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 6:
-          content = (
-            <NumberSix
-              className="animate-icon text-teal-600"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 7:
-          content = (
-            <NumberSeven
-              className="animate-icon text-violet-700"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        case 8:
-          content = (
-            <NumberEight
-              className="animate-icon text-rose-700"
-              size={ICON_SIZE}
-            />
-          );
-          break;
-        default:
-          if (adjacentMines === undefined)
-            throw new Error("Missing adjacent mines count");
-      }
+    } else if (adjacentMines) {
+      content = (
+        <NumberIcon
+          className="animate-icon"
+          size={ICON_SIZE}
+          value={adjacentMines}
+        />
+      );
     }
   } else if (isFlagged) {
     content = (
@@ -132,9 +59,13 @@ const Cell = ({
 
   return (
     <div
-      className={`${
-        isRevealed ? "bg-white" : "bg-zinc-200"
-      } ${isNotPlayable ? "" : "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50"} grid ${size} place-items-center border-b border-r ${borderColor} text-xl shadow-sm transition-colors`}
+      className={clsx(
+        "grid place-items-center border-b border-r text-xl shadow-sm transition-colors",
+        borderColor,
+        size,
+        isNotPlayable || "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50",
+        isRevealed ? "bg-white" : "bg-zinc-200",
+      )}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}
