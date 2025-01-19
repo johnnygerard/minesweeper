@@ -1,15 +1,13 @@
 import MineCounter from "@/components/mine-counter";
 import Stopwatch from "@/components/stopwatch";
 import { useGameContext } from "@/hooks/use-game-context";
-import { GameMode } from "@/types/game-mode";
 import { memo } from "react";
 
 type Props = Readonly<{
-  mode: GameMode;
   remainingFlags: number;
 }>;
 
-const GameBar = ({ mode, remainingFlags }: Props) => {
+const GameBar = ({ remainingFlags }: Props) => {
   const { game, dispatch } = useGameContext();
 
   return (
@@ -19,7 +17,7 @@ const GameBar = ({ mode, remainingFlags }: Props) => {
       {game.status !== "INITIAL" && (
         <button
           type="button"
-          onClick={() => dispatch({ type: "RESTART", mode })}
+          onClick={() => dispatch({ type: "RESTART" })}
           className="absolute left-1/2 -translate-x-1/2 uppercase tracking-wide"
         >
           {
