@@ -1,7 +1,6 @@
 import NumberIcon from "@/components/number-icon";
 import { useGameContext } from "@/hooks/use-game-context";
 import { AdjacentMines } from "@/types/adjacent-mines";
-import { GAME_STATUS } from "@/types/game-status";
 import {
   Bomb,
   FlagPennant,
@@ -33,10 +32,7 @@ const Cell = ({
 }: Props) => {
   const { game, dispatch } = useGameContext();
   const ICON_SIZE = "50%";
-  const isNotPlayable =
-    (isRevealed && adjacentMines === 0) ||
-    game.status === GAME_STATUS.WON ||
-    game.status === GAME_STATUS.LOST;
+  const isNotPlayable = (isRevealed && adjacentMines === 0) || game.isOver;
   let content: JSX.Element | null = null;
 
   if (isRevealed) {
