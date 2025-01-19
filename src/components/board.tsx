@@ -1,5 +1,6 @@
 import Cell from "@/components/cell";
 import { BoardState } from "@/types/board-state";
+import clsx from "clsx";
 import { memo } from "react";
 
 type Props = Readonly<{
@@ -13,7 +14,7 @@ const Board = ({ board }: Props) => {
 
   return (
     <div
-      className={`grid border-l border-t ${BORDER_COLOR}`}
+      className={clsx("grid border-l border-t", BORDER_COLOR)}
       style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
       onContextMenu={(e) => e.preventDefault()}
     >

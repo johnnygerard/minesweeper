@@ -1,4 +1,5 @@
 import { GAME_MODES } from "@/constants/game-modes";
+import clsx from "clsx";
 import { Metadata } from "next";
 import Link from "next/link";
 import { memo } from "react";
@@ -35,7 +36,10 @@ const Page = () => {
             <Link
               key={name}
               href={urlPath}
-              className={`group rounded-lg border p-6 shadow-sm transition-colors ${className}`}
+              className={clsx(
+                "group rounded-lg border p-6 shadow-sm transition-colors",
+                className,
+              )}
             >
               <h2 className="text-2xl font-medium">{name}</h2>
               <p className="mt-1 text-zinc-600">

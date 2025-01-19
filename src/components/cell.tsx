@@ -14,6 +14,7 @@ import {
   NumberTwo,
   QuestionMark,
 } from "@phosphor-icons/react/dist/ssr";
+import clsx from "clsx";
 import { JSX, memo, useContext } from "react";
 
 type Props = Readonly<{
@@ -132,9 +133,13 @@ const Cell = ({
 
   return (
     <div
-      className={`${
-        isRevealed ? "bg-white" : "bg-zinc-200"
-      } ${isNotPlayable ? "" : "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50"} grid ${size} place-items-center border-b border-r ${borderColor} text-xl shadow-sm transition-colors`}
+      className={clsx(
+        "grid place-items-center border-b border-r text-xl shadow-sm transition-colors",
+        borderColor,
+        size,
+        isNotPlayable || "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50",
+        isRevealed ? "bg-white" : "bg-zinc-200",
+      )}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
       }}

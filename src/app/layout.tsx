@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { Metadata } from "next";
 import { Aldrich } from "next/font/google";
 import "./globals.css";
@@ -43,7 +44,10 @@ type Props = Readonly<{
 
 const RootLayout = ({ children }: Props) => {
   return (
-    <html className={`${aldrich.variable} font-sans antialiased`} lang="en-US">
+    <html
+      className={clsx("font-sans antialiased", aldrich.variable)}
+      lang="en-US"
+    >
       <body className="bg-zinc-50">
         <main className="grid min-h-screen place-items-center">{children}</main>
         <noscript>
