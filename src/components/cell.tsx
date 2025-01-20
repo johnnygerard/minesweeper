@@ -1,6 +1,7 @@
 import NumberIcon from "@/components/number-icon";
 import { useGameContext } from "@/hooks/use-game-context";
 import { AdjacentMines } from "@/types/adjacent-mines";
+import { GAME_STATUS, GameStatus } from "@/types/game-status";
 import {
   Bomb,
   FlagPennant,
@@ -12,6 +13,7 @@ import clsx from "clsx";
 import { JSX, memo } from "react";
 
 type Props = Readonly<{
+  gameStatus: GameStatus;
   adjacentMines: AdjacentMines | null;
   borderColor: string;
   hasQuestionMark: boolean;
@@ -23,6 +25,7 @@ type Props = Readonly<{
 }>;
 
 const Cell = ({
+  gameStatus,
   adjacentMines,
   borderColor,
   hasQuestionMark,
@@ -32,12 +35,15 @@ const Cell = ({
   isRevealed,
   size,
 }: Props) => {
-  const { game, dispatch } = useGameContext();
+  const { dispatch } = useGameContext();
   const ICON_SIZE = "50%";
-  const isNotPlayable = (isRevealed && adjacentMines === 0) || game.isOver;
+  const gameIsLost = gameStatus === GAME_STATUS.LOST;
+  const gameIsWon = gameStatus === GAME_STATUS.WON;
+  const gameIsOver = gameIsLost || gameIsWon;
+  const isNotPlayable = (isRevealed && adjacentMines === 0) || gameIsOver;
   let content: JSX.Element | null;
 
-  if (game.isWon && !isRevealed) {
+  if (gameIsWon && !isRevealed) {
     content = (
       <Trophy
         weight="fill"
@@ -46,7 +52,7 @@ const Cell = ({
       />
     );
   } else if (isFlagged) {
-    if (game.isLost) {
+    if (gameIsLost) {
       if (isMined) {
         content = (
           <Trophy
@@ -63,7 +69,7 @@ const Cell = ({
         <FlagPennant className="animate-icon text-red-600" size={ICON_SIZE} />
       );
     }
-  } else if (game.isLost && isMined) {
+  } else if (gameIsLost && isMined) {
     content = (
       <Bomb
         weight="fill"
@@ -76,7 +82,7 @@ const Cell = ({
       />
     );
   } else if (hasQuestionMark) {
-    content = game.isLost ? null : <QuestionMark size={ICON_SIZE} />;
+    content = gameIsLost ? null : <QuestionMark size={ICON_SIZE} />;
   } else if (isRevealed && adjacentMines) {
     content = (
       <NumberIcon
@@ -97,8 +103,8 @@ const Cell = ({
         size,
         isNotPlayable || "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50",
         isRevealed ? "bg-white" : "bg-zinc-200",
-        game.isWon && isMined && "bg-amber-50",
-        game.isLost && isRevealed && isMined && "bg-rose-50",
+        gameIsWon && isMined && "bg-amber-50",
+        gameIsLost && isRevealed && isMined && "bg-rose-50",
       )}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
