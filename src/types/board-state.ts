@@ -42,7 +42,7 @@ export class BoardState {
    * @returns True if the cell is mined, false otherwise.
    */
   computeMine(cell: CellState): boolean {
-    if (cell.isMined !== null) return cell.isMined;
+    if (cell.isMined !== undefined) return cell.isMined;
 
     const mineProbability = this.remainingMines / this.remainingCells;
     const isMined = Math.random() < mineProbability;
