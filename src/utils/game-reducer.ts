@@ -16,17 +16,17 @@ export const gameReducer = (
 
   switch (action.type) {
     case "REVEAL":
-      if (cell.isDirty) return;
+      if (cell.cannotReveal) return;
 
       if (game.status.isNotStarted) {
-        game.board.computeOpening(cell);
+        game.board.createOpening(cell);
         game.start();
         return;
       }
 
-      if (game.board.computeMine(cell)) {
+      if (game.board.determineMine(cell)) {
         cell.isRevealed = true;
-        game.board.computeAllMines();
+        game.board.determineAllMines();
         game.setDefeat();
         return;
       }
@@ -50,7 +50,7 @@ export const gameReducer = (
       if (flaggedAdjacentCells.length < cell.adjacentMines!) return;
 
       for (const adjacentCell of adjacentCells) {
-        if (adjacentCell.isDirty) continue;
+        if (adjacentCell.cannotReveal) continue;
         if (adjacentCell.isMined) {
           adjacentCell.isRevealed = true;
           game.setDefeat();

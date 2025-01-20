@@ -11,10 +11,11 @@ export class CellState {
 
   constructor(readonly index: number) {}
 
-  /**
-   * @returns True if this cell is in a non-default state, false otherwise.
-   */
-  get isDirty(): boolean {
+  get cannotFlag(): boolean {
+    return this.isRevealed || this.isFlagged;
+  }
+
+  get cannotReveal(): boolean {
     return this.isRevealed || this.isFlagged || this.hasQuestionMark;
   }
 }
