@@ -8,8 +8,12 @@ export class GameState {
 
   constructor(public board: BoardState) {}
 
-  get isOver(): boolean {
-    return this.isLost || this.isWon;
+  get isNotStarted(): boolean {
+    return this.status === GAME_STATUS.INITIAL;
+  }
+
+  get isInProgress(): boolean {
+    return this.status === GAME_STATUS.IN_PROGRESS;
   }
 
   get isLost(): boolean {
@@ -18,5 +22,25 @@ export class GameState {
 
   get isWon(): boolean {
     return this.status === GAME_STATUS.WON;
+  }
+
+  get isOver(): boolean {
+    return this.isLost || this.isWon;
+  }
+
+  start(): void {
+    this.status = GAME_STATUS.IN_PROGRESS;
+  }
+
+  reset(): void {
+    this.status = GAME_STATUS.INITIAL;
+  }
+
+  setDefeat(): void {
+    this.status = GAME_STATUS.LOST;
+  }
+
+  setVictory(): void {
+    this.status = GAME_STATUS.WON;
   }
 }

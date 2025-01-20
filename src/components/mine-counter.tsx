@@ -1,14 +1,22 @@
 import { useGameContext } from "@/hooks/use-game-context";
+import { GAME_STATUS } from "@/types/game-status";
 import { Bomb } from "@phosphor-icons/react/dist/ssr";
 import { memo } from "react";
 
 const MineCounter = () => {
   const { game } = useGameContext();
-  const count = game.isWon
-    ? 0
-    : game.isLost
-      ? game.board.unflaggedMines
-      : game.board.remainingFlags;
+  let count: number;
+
+  switch (game.status) {
+    case GAME_STATUS.WON:
+      count = 0;
+      break;
+    case GAME_STATUS.LOST:
+      count = game.board.unflaggedMines;
+      break;
+    default:
+      count = game.board.remainingFlags;
+  }
 
   return (
     <p className="flex gap-2 tracking-wider">

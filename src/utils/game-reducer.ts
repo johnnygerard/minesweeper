@@ -1,7 +1,6 @@
 import { BoardState } from "@/types/board-state";
 import { GameAction } from "@/types/game-action";
 import { GameState } from "@/types/game-state";
-import { GAME_STATUS } from "@/types/game-status";
 import { Draft } from "immer";
 
 export const gameReducer = (
@@ -9,7 +8,7 @@ export const gameReducer = (
   action: GameAction,
 ): void => {
   if (action.type === "RESTART") {
-    game.status = GAME_STATUS.INITIAL;
+    game.reset();
     game.board = new BoardState(game.board.mode);
     return;
   }
@@ -21,27 +20,27 @@ export const gameReducer = (
     case "REVEAL":
       if (cell.isDirty) return;
 
-      if (game.status === GAME_STATUS.INITIAL) {
+      if (game.isNotStarted) {
         game.board.computeOpening(cell);
-        game.status = GAME_STATUS.PLAYING;
+        game.start();
         return;
       }
 
       if (game.board.computeMine(cell)) {
         cell.isRevealed = true;
         game.board.computeAllMines();
-        game.status = GAME_STATUS.LOST;
+        game.setDefeat();
         return;
       }
 
       game.board.revealSafeCell(cell);
-      game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
+      if (game.board.hasWon) game.setVictory();
       return;
     case "AUTO_FLAG":
       game.board.autoFlag(cell);
       return;
     case "SWITCH_MARK":
-      if (game.status === "INITIAL") return;
+      if (game.isNotStarted) return;
       game.board.switchMark(cell);
       return;
     case "AUTO_REVEAL": {
@@ -56,13 +55,13 @@ export const gameReducer = (
         if (adjacentCell.isDirty) continue;
         if (adjacentCell.isMined) {
           adjacentCell.isRevealed = true;
-          game.status = GAME_STATUS.LOST;
+          game.setDefeat();
           return;
         }
         game.board.revealSafeCell(adjacentCell);
       }
 
-      game.status = game.board.hasWon ? GAME_STATUS.WON : GAME_STATUS.PLAYING;
+      if (game.board.hasWon) game.setVictory();
       return;
     }
   }
