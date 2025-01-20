@@ -1,7 +1,6 @@
 import NumberIcon from "@/components/number-icon";
 import { useGameContext } from "@/hooks/use-game-context";
 import { AdjacentMines } from "@/types/adjacent-mines";
-import { GAME_STATUS } from "@/types/game-status";
 import {
   Bomb,
   FlagPennant,
@@ -38,7 +37,7 @@ const Cell = ({
   const isNotPlayable = (isRevealed && adjacentMines === 0) || game.isOver;
   let content: JSX.Element | null;
 
-  if (game.status === GAME_STATUS.WON && !isRevealed) {
+  if (game.isWon && !isRevealed) {
     content = (
       <Trophy
         weight="fill"
@@ -47,7 +46,7 @@ const Cell = ({
       />
     );
   } else if (isFlagged) {
-    if (game.status === GAME_STATUS.LOST) {
+    if (game.isLost) {
       if (isMined) {
         content = (
           <Trophy
@@ -64,7 +63,7 @@ const Cell = ({
         <FlagPennant className="animate-icon text-red-600" size={ICON_SIZE} />
       );
     }
-  } else if (game.status === GAME_STATUS.LOST && isMined) {
+  } else if (game.isLost && isMined) {
     content = (
       <Bomb
         weight="fill"
@@ -77,10 +76,7 @@ const Cell = ({
       />
     );
   } else if (hasQuestionMark) {
-    content =
-      game.status === GAME_STATUS.LOST ? null : (
-        <QuestionMark size={ICON_SIZE} />
-      );
+    content = game.isLost ? null : <QuestionMark size={ICON_SIZE} />;
   } else if (isRevealed && adjacentMines) {
     content = (
       <NumberIcon
@@ -101,11 +97,8 @@ const Cell = ({
         size,
         isNotPlayable || "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50",
         isRevealed ? "bg-white" : "bg-zinc-200",
-        game.status === GAME_STATUS.WON && isMined && "bg-amber-50",
-        game.status === GAME_STATUS.LOST &&
-          isRevealed &&
-          isMined &&
-          "bg-rose-50",
+        game.isWon && isMined && "bg-amber-50",
+        game.isLost && isRevealed && isMined && "bg-rose-50",
       )}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });

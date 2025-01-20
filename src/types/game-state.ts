@@ -9,6 +9,14 @@ export class GameState {
   constructor(public board: BoardState) {}
 
   get isOver(): boolean {
-    return this.status === GAME_STATUS.WON || this.status === GAME_STATUS.LOST;
+    return this.isLost || this.isWon;
+  }
+
+  get isLost(): boolean {
+    return this.status === GAME_STATUS.LOST;
+  }
+
+  get isWon(): boolean {
+    return this.status === GAME_STATUS.WON;
   }
 }
