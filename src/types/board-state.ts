@@ -22,6 +22,16 @@ export class BoardState {
 
   constructor(readonly mode = GAME_MODES.EASY) {}
 
+  /**
+   * Return the number of unflagged mines.
+   */
+  get unflaggedMines(): number {
+    return this.cells.reduce(
+      (acc, cell) => acc + (cell.isMined && !cell.isFlagged ? 1 : 0),
+      0,
+    );
+  }
+
   get hasWon(): boolean {
     return this.cells.every((cell) => cell.isMined || cell.isRevealed);
   }

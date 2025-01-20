@@ -1,14 +1,18 @@
+import { useGameContext } from "@/hooks/use-game-context";
 import { Bomb } from "@phosphor-icons/react/dist/ssr";
 import { memo } from "react";
 
-type Props = Readonly<{
-  remaining: number;
-}>;
+const MineCounter = () => {
+  const { game } = useGameContext();
+  const count = game.isWon
+    ? 0
+    : game.isLost
+      ? game.board.unflaggedMines
+      : game.board.remainingFlags;
 
-const MineCounter = ({ remaining }: Props) => {
   return (
     <p className="flex gap-2 tracking-wider">
-      {remaining}
+      {count}
       <Bomb weight="fill" />
     </p>
   );

@@ -3,17 +3,13 @@ import Stopwatch from "@/components/stopwatch";
 import { useGameContext } from "@/hooks/use-game-context";
 import { memo } from "react";
 
-type Props = Readonly<{
-  remainingFlags: number;
-}>;
-
-const GameBar = ({ remainingFlags }: Props) => {
+const GameBar = () => {
   const { game, dispatch } = useGameContext();
 
   return (
     <div className="relative flex w-full justify-between text-xl">
       <Stopwatch />
-      <MineCounter remaining={game.isWon ? 0 : remainingFlags} />
+      <MineCounter />
       {game.status !== "INITIAL" && (
         <button
           type="button"
