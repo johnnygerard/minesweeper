@@ -11,14 +11,14 @@ export const gameReducer = (
     return;
   }
 
-  if (game.isOver) return;
+  if (game.status.isOver) return;
   const cell = game.board.cells[action.index];
 
   switch (action.type) {
     case "REVEAL":
       if (cell.isDirty) return;
 
-      if (game.isNotStarted) {
+      if (game.status.isNotStarted) {
         game.board.computeOpening(cell);
         game.start();
         return;
@@ -38,7 +38,7 @@ export const gameReducer = (
       game.board.autoFlag(cell);
       return;
     case "SWITCH_MARK":
-      if (game.isNotStarted) return;
+      if (game.status.isNotStarted) return;
       game.board.switchMark(cell);
       return;
     case "AUTO_REVEAL": {

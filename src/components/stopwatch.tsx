@@ -1,15 +1,15 @@
-import { useContextGameState } from "@/hooks/use-context-game-state";
+import { useContextGameStatus } from "@/hooks/use-context-game-status";
 import { formatTime } from "@/utils/format-time";
 import { memo, useEffect, useState } from "react";
 
 const Stopwatch = () => {
-  const game = useContextGameState();
+  const status = useContextGameStatus();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
-    if (game.isNotStarted) {
+    if (status.isNotStarted) {
       setElapsedSeconds(0);
-    } else if (game.isInProgress) {
+    } else if (status.isInProgress) {
       const id = window.setInterval(() => {
         setElapsedSeconds((prev) => prev + 1);
       }, 1000);
@@ -18,7 +18,7 @@ const Stopwatch = () => {
         window.clearInterval(id);
       };
     }
-  }, [game]);
+  }, [status]);
 
   return <p className="tracking-wider">{formatTime(elapsedSeconds)}</p>;
 };
