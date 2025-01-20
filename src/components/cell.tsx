@@ -7,6 +7,7 @@ import {
   FlagPennant,
   QuestionMark,
   Trophy,
+  X,
 } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
 import { JSX, memo } from "react";
@@ -35,9 +36,9 @@ const Cell = ({
   const { game, dispatch } = useGameContext();
   const ICON_SIZE = "50%";
   const isNotPlayable = (isRevealed && adjacentMines === 0) || game.isOver;
-  let content: JSX.Element | null = null;
+  let content: JSX.Element | null;
 
-  if (game.status === "WON" && isMined) {
+  if (game.status === GAME_STATUS.WON && !isRevealed) {
     content = (
       <Trophy
         weight="fill"
@@ -45,26 +46,51 @@ const Cell = ({
         size={ICON_SIZE}
       />
     );
-  } else if (isRevealed) {
-    if (isMined) {
+  } else if (isFlagged) {
+    if (game.status === GAME_STATUS.LOST) {
+      if (isMined) {
+        content = (
+          <Trophy
+            weight="regular"
+            size={ICON_SIZE}
+            className="animate-icon text-amber-500"
+          />
+        );
+      } else {
+        content = <X className="animate-icon text-rose-600" size={ICON_SIZE} />;
+      }
+    } else {
       content = (
-        <Bomb weight="fill" className="animate-icon" size={ICON_SIZE} />
-      );
-    } else if (adjacentMines) {
-      content = (
-        <NumberIcon
-          className="animate-icon"
-          size={ICON_SIZE}
-          value={adjacentMines}
-        />
+        <FlagPennant className="animate-icon text-red-600" size={ICON_SIZE} />
       );
     }
-  } else if (isFlagged) {
+  } else if (game.status === GAME_STATUS.LOST && isMined) {
     content = (
-      <FlagPennant className="animate-icon text-red-600" size={ICON_SIZE} />
+      <Bomb
+        weight="fill"
+        size={ICON_SIZE}
+        className={
+          isRevealed
+            ? "animate-explosion text-rose-600"
+            : "animate-icon text-zinc-700"
+        }
+      />
     );
   } else if (hasQuestionMark) {
-    content = <QuestionMark size={ICON_SIZE} />;
+    content =
+      game.status === GAME_STATUS.LOST ? null : (
+        <QuestionMark size={ICON_SIZE} />
+      );
+  } else if (isRevealed && adjacentMines) {
+    content = (
+      <NumberIcon
+        className="animate-icon"
+        size={ICON_SIZE}
+        value={adjacentMines}
+      />
+    );
+  } else {
+    content = null;
   }
 
   return (
@@ -76,6 +102,10 @@ const Cell = ({
         isNotPlayable || "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50",
         isRevealed ? "bg-white" : "bg-zinc-200",
         game.status === GAME_STATUS.WON && isMined && "bg-amber-50",
+        game.status === GAME_STATUS.LOST &&
+          isRevealed &&
+          isMined &&
+          "bg-rose-50",
       )}
       onClick={() => {
         dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
