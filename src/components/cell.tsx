@@ -12,12 +12,12 @@ import clsx from "clsx";
 import { JSX, memo } from "react";
 
 type Props = Readonly<{
-  adjacentMines?: AdjacentMines;
+  adjacentMines: AdjacentMines | null;
   borderColor: string;
   hasQuestionMark: boolean;
   index: number;
   isFlagged: boolean;
-  isMined?: boolean;
+  isMined: boolean | null;
   isRevealed: boolean;
   size: string;
 }>;

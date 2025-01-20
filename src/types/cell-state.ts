@@ -3,10 +3,10 @@ import { immerable } from "immer";
 
 export class CellState {
   [immerable] = true;
-  adjacentMines?: AdjacentMines;
+  adjacentMines: AdjacentMines | null = null;
   hasQuestionMark = false;
   isFlagged = false;
-  isMined?: boolean;
+  isMined: boolean | null = null;
   isRevealed = false;
 
   constructor(readonly index: number) {}
