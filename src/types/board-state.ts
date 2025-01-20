@@ -52,6 +52,10 @@ export class BoardState {
     return (cell.isMined = isMined);
   }
 
+  computeAllMines(): void {
+    for (const cell of this.cells) this.computeMine(cell);
+  }
+
   /**
    * Flag the target cell if possible.
    * @param cell - The target cell

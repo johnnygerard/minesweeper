@@ -29,6 +29,7 @@ export const gameReducer = (
 
       if (game.board.computeMine(cell)) {
         cell.isRevealed = true;
+        game.board.computeAllMines();
         game.status = GAME_STATUS.LOST;
         return;
       }
