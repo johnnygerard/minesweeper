@@ -1,9 +1,9 @@
-import { useGameContext } from "@/hooks/use-game-context";
+import { useContextGameState } from "@/hooks/use-context-game-state";
 import { formatTime } from "@/utils/format-time";
 import { memo, useEffect, useState } from "react";
 
 const Stopwatch = () => {
-  const { game } = useGameContext();
+  const game = useContextGameState();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import NumberIcon from "@/components/number-icon";
-import { useGameContext } from "@/hooks/use-game-context";
+import { useContextGameDispatch } from "@/hooks/use-context-game-dispatch";
 import { AdjacentMines } from "@/types/adjacent-mines";
 import { GAME_STATUS, GameStatus } from "@/types/game-status";
 import {
@@ -35,7 +35,7 @@ const Cell = ({
   isRevealed,
   size,
 }: Props) => {
-  const { dispatch } = useGameContext();
+  const dispatch = useContextGameDispatch();
   const ICON_SIZE = "50%";
   const gameIsLost = gameStatus === GAME_STATUS.LOST;
   const gameIsWon = gameStatus === GAME_STATUS.WON;

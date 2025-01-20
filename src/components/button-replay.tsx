@@ -1,9 +1,11 @@
-import { useGameContext } from "@/hooks/use-game-context";
+import { useContextGameDispatch } from "@/hooks/use-context-game-dispatch";
+import { useContextGameState } from "@/hooks/use-context-game-state";
 import { GAME_STATUS } from "@/types/game-status";
 import { memo } from "react";
 
 const ButtonReplay = () => {
-  const { game, dispatch } = useGameContext();
+  const game = useContextGameState();
+  const dispatch = useContextGameDispatch();
   let text: string | null;
 
   switch (game.status) {

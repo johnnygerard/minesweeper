@@ -1,10 +1,10 @@
-import { useGameContext } from "@/hooks/use-game-context";
+import { useContextGameState } from "@/hooks/use-context-game-state";
 import { GAME_STATUS } from "@/types/game-status";
 import { Bomb } from "@phosphor-icons/react/dist/ssr";
 import { memo } from "react";
 
 const MineCounter = () => {
-  const { game } = useGameContext();
+  const game = useContextGameState();
   let count: number;
 
   switch (game.status) {
