@@ -1,4 +1,3 @@
-import { BoardState } from "@/types/board-state";
 import { GameAction } from "@/types/game-action";
 import { GameState } from "@/types/game-state";
 import { Draft } from "immer";
@@ -9,7 +8,6 @@ export const gameReducer = (
 ): void => {
   if (action.type === "RESTART") {
     game.reset();
-    game.board = new BoardState(game.board.mode);
     return;
   }
 

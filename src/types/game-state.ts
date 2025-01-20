@@ -34,6 +34,7 @@ export class GameState {
 
   reset(): void {
     this.status = GAME_STATUS.INITIAL;
+    this.board = new BoardState(this.board.mode);
   }
 
   setDefeat(): void {
