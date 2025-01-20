@@ -11,11 +11,17 @@ export default {
       animation: {
         icon: "fadeIn 0.15s ease-in-out",
         trophy: "fadeIn 1s ease-in-out",
+        explosion: "explosion 0.5s ease-out",
       },
       keyframes: {
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
+        },
+        explosion: {
+          "0%": { transform: "scale(0.8)", opacity: "0" },
+          "50%": { transform: "scale(1.2)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "1" },
         },
       },
     },
