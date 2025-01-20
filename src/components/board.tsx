@@ -21,7 +21,7 @@ const Board = ({ board }: Props) => {
       {cells.map((cell, index) => (
         <Cell
           key={index}
-          {...cell}
+          state={cell}
           borderColor={BORDER_COLOR}
           size={cellSize}
         />

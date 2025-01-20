@@ -1,7 +1,7 @@
 import NumberIcon from "@/components/number-icon";
 import { useContextGameDispatch } from "@/hooks/use-context-game-dispatch";
 import { useContextGameStatus } from "@/hooks/use-context-game-status";
-import { AdjacentMines } from "@/types/adjacent-mines";
+import { CellState } from "@/types/cell-state";
 import {
   Bomb,
   FlagPennant,
@@ -13,25 +13,22 @@ import clsx from "clsx";
 import { JSX, memo } from "react";
 
 type Props = Readonly<{
-  adjacentMines?: AdjacentMines;
   borderColor: string;
-  hasQuestionMark: boolean;
-  index: number;
-  isFlagged: boolean;
-  isMined?: boolean;
-  isRevealed: boolean;
   size: string;
+  state: CellState;
 }>;
 
 const Cell = ({
-  adjacentMines,
   borderColor,
-  hasQuestionMark,
-  index,
-  isFlagged,
-  isMined,
-  isRevealed,
   size,
+  state: {
+    index,
+    adjacentMines,
+    isMined,
+    hasQuestionMark,
+    isFlagged,
+    isRevealed,
+  },
 }: Props) => {
   const status = useContextGameStatus();
   const dispatch = useContextGameDispatch();
