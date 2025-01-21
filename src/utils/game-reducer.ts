@@ -1,5 +1,6 @@
 import { GameAction } from "@/types/game-action";
 import { GameState } from "@/types/game-state";
+import { autoFlag } from "@/utils/auto-flag";
 import { autoReveal } from "@/utils/auto-reveal";
 import { revealCell } from "@/utils/reveal-cell";
 import { Draft } from "immer";
@@ -21,7 +22,7 @@ export const gameReducer = (
       revealCell(game, cell);
       return;
     case "AUTO_FLAG":
-      game.board.autoFlag(cell);
+      autoFlag(game, cell);
       return;
     case "SWITCH_MARK":
       if (game.status.isNotStarted) return;

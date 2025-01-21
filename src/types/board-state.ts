@@ -88,15 +88,6 @@ export class BoardState {
     this.flag(cell);
   }
 
-  autoFlag(cell: CellState): void {
-    const hiddenAdjacentCells = this.getAdjacentCells(cell).filter(
-      (cell) => !cell.isRevealed,
-    );
-
-    if (hiddenAdjacentCells.length === cell.adjacentMines)
-      for (const cell of hiddenAdjacentCells) this.flag(cell);
-  }
-
   /**
    * Create an opening by turning the target cell into a safe empty cell.
    * @param cell - The target cell
