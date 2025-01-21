@@ -43,11 +43,12 @@ export const gameReducer = (
       return;
     case "AUTO_REVEAL": {
       const adjacentCells = game.board.getAdjacentCells(cell);
-      const flaggedAdjacentCells = adjacentCells.filter(
-        (cell) => cell.isFlagged,
+      const flaggedAdjacentCellCount = adjacentCells.reduce(
+        (acc, cell) => (cell.isFlagged ? acc + 1 : acc),
+        0,
       );
 
-      if (flaggedAdjacentCells.length < cell.adjacentMines!) return;
+      if (flaggedAdjacentCellCount < cell.adjacentMines!) return;
 
       for (const adjacentCell of adjacentCells) {
         if (adjacentCell.cannotReveal) continue;
