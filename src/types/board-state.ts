@@ -72,22 +72,6 @@ export class BoardState {
     this.remainingFlags--;
   }
 
-  switchMark(cell: CellState): void {
-    if (cell.hasQuestionMark) {
-      cell.hasQuestionMark = false;
-      return;
-    }
-
-    if (cell.isFlagged) {
-      cell.isFlagged = false;
-      this.remainingFlags++;
-      cell.hasQuestionMark = true;
-      return;
-    }
-
-    this.flag(cell);
-  }
-
   /**
    * Create an opening by turning the target cell into a safe empty cell.
    * @param cell - The target cell
