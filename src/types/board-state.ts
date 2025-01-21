@@ -72,19 +72,6 @@ export class BoardState {
     this.remainingFlags--;
   }
 
-  /**
-   * Create an opening by turning the target cell into a safe empty cell.
-   * @param cell - The target cell
-   */
-  createOpening(cell: CellState): void {
-    const adjacentCells = this.getAdjacentCells(cell);
-
-    for (const cell of adjacentCells) cell.isMined = false;
-    cell.isMined = false;
-    this.remainingCells -= adjacentCells.length + 1;
-    this.revealSafeCell(cell);
-  }
-
   revealSafeCell(target: CellState): void {
     const stack: CellState[] = [];
     let cell: CellState | undefined = target;
