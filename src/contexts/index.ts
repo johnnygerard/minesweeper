@@ -1,1 +1,2 @@
-export { GameContext } from "@/contexts/game-context";
+export { GameDispatchContext } from "@/contexts/game-dispatch-context";
+export { GameStateContext } from "@/contexts/game-state-context";

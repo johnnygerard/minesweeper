@@ -4,11 +4,24 @@ import { immerable } from "immer";
 
 export class GameState {
   [immerable] = true;
-  status: GameStatus = GAME_STATUS.INITIAL;
+  status = new GameStatus();
 
   constructor(public board: BoardState) {}
 
-  get isOver(): boolean {
-    return this.status === GAME_STATUS.WON || this.status === GAME_STATUS.LOST;
+  start(): void {
+    this.status.value = GAME_STATUS.IN_PROGRESS;
+  }
+
+  reset(): void {
+    this.status.value = GAME_STATUS.INITIAL;
+    this.board = new BoardState(this.board.mode);
+  }
+
+  setDefeat(): void {
+    this.status.value = GAME_STATUS.LOST;
+  }
+
+  setVictory(): void {
+    this.status.value = GAME_STATUS.WON;
   }
 }

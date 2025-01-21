@@ -1,7 +1,8 @@
 "use client";
 import Board from "@/components/board";
 import GameBar from "@/components/game-bar";
-import { GameContext } from "@/contexts";
+import { GameDispatchContext, GameStateContext } from "@/contexts";
+import { GameStatusContext } from "@/contexts/game-status-context";
 import { BoardState } from "@/types/board-state";
 import { GameMode } from "@/types/game-mode";
 import { GameState } from "@/types/game-state";
@@ -20,12 +21,16 @@ const Game = ({ mode }: Props) => {
   );
 
   return (
-    <GameContext.Provider value={{ game, dispatch }}>
-      <div className="flex flex-col items-center gap-8">
-        <GameBar remainingFlags={game.board.remainingFlags} />
-        <Board board={game.board} />
-      </div>
-    </GameContext.Provider>
+    <GameStateContext.Provider value={game}>
+      <GameStatusContext.Provider value={game.status}>
+        <GameDispatchContext.Provider value={dispatch}>
+          <div className="flex flex-col items-center gap-8">
+            <GameBar />
+            <Board board={game.board} />
+          </div>
+        </GameDispatchContext.Provider>
+      </GameStatusContext.Provider>
+    </GameStateContext.Provider>
   );
 };
 
