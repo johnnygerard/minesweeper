@@ -1,5 +1,6 @@
 import { GameAction } from "@/types/game-action";
 import { GameState } from "@/types/game-state";
+import { revealCell } from "@/utils/reveal-cell";
 import { Draft } from "immer";
 
 export const gameReducer = (
@@ -16,23 +17,7 @@ export const gameReducer = (
 
   switch (action.type) {
     case "REVEAL":
-      if (cell.cannotReveal) return;
-
-      if (game.status.isNotStarted) {
-        game.board.createOpening(cell);
-        game.start();
-        return;
-      }
-
-      if (game.board.determineMine(cell)) {
-        cell.isRevealed = true;
-        game.board.determineAllMines();
-        game.setDefeat();
-        return;
-      }
-
-      game.board.revealSafeCell(cell);
-      if (game.board.hasWon) game.setVictory();
+      revealCell(game, cell);
       return;
     case "AUTO_FLAG":
       game.board.autoFlag(cell);
