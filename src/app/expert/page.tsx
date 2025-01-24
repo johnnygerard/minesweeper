@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const Page = () => {
-  return <GamePage mode={GAME_MODES.HARD} />;
+  return <GamePage mode={GAME_MODES.EXPERT} />;
 };
 
 export default memo(Page);

@@ -1,17 +1,19 @@
-import { useContextGameState } from "@/hooks/use-context-game-state";
+import { useContextGame } from "@/hooks/use-context-game";
+import { useContextGameStatus } from "@/hooks/use-context-game-status";
 import { Bomb } from "@phosphor-icons/react/dist/ssr";
 import { memo } from "react";
 
 const MineCounter = () => {
-  const game = useContextGameState();
+  const game = useContextGame();
+  const status = useContextGameStatus();
   let count: number;
 
-  if (game.status.isWon) {
+  if (status.isWon) {
     count = 0;
-  } else if (game.status.isLost) {
-    count = game.board.unflaggedMines;
+  } else if (status.isLost) {
+    count = game.unflaggedMineCount;
   } else {
-    count = game.board.remainingFlags;
+    count = game.mineCount - game.flaggedCellCount;
   }
 
   return (

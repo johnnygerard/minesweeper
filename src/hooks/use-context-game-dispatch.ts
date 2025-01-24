@@ -1,4 +1,4 @@
-import { GameDispatchContext } from "@/contexts";
+import { GameDispatchContext } from "@/contexts/game-dispatch-context";
 import { useContext } from "react";
 
 export const useContextGameDispatch = () => {

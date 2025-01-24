@@ -21,7 +21,7 @@ const Page = () => {
     },
     {
       className: "bg-rose-50 hover:bg-rose-100 border-rose-200",
-      mode: GAME_MODES.HARD,
+      mode: GAME_MODES.EXPERT,
     },
   ];
 
@@ -30,7 +30,7 @@ const Page = () => {
       <h1 className="mb-12 text-4xl uppercase tracking-widest">Game Modes</h1>
       <div className="grid gap-4 lg:auto-cols-fr lg:grid-flow-col">
         {modes.map(({ className, mode }) => {
-          const { name, urlPath, columns, rows, mines } = mode;
+          const { name, urlPath, columnCount, rowCount, mineCount } = mode;
 
           return (
             <Link
@@ -43,7 +43,7 @@ const Page = () => {
             >
               <h2 className="text-2xl font-medium">{name}</h2>
               <p className="mt-1 text-zinc-600">
-                {`${columns}×${rows} grid with ${mines} mines`}
+                {`${columnCount}×${rowCount} grid with ${mineCount} mines`}
               </p>
               <div className="mt-4 text-zinc-400 transition-transform group-hover:translate-x-1">
                 ⟶
