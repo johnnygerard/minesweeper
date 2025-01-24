@@ -119,6 +119,7 @@ export class Game {
       return;
     }
 
+    if (cell.isFlagged) this.flaggedCellCount--;
     cell.hasQuestionMark = true;
   }
 
