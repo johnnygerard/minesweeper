@@ -11,7 +11,7 @@ import {
   X,
 } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
-import { JSX, memo, useRef } from "react";
+import { JSX, memo, PointerEvent, useRef } from "react";
 
 type Props = Readonly<{
   cell: Cell;
@@ -36,43 +36,81 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
   const isNotPlayable =
     (isRevealed && adjacentMineCount === 0) || status.isOver;
 
-  // Detect touchscreen devices to prevent emulated mouse events
-  const isTouchDevice = useRef(false);
-  const touchStartTime = useRef(0);
+  const canHandlePointerUp = useRef(false);
   const longPressTimeoutId = useRef(0);
+  const pointerDownTime = useRef(0);
   const SHORT_PRESS_THRESHOLD = 100;
   const LONG_PRESS_THRESHOLD = 500;
 
-  const handleTouchStart = (): void => {
-    isTouchDevice.current = true;
-    touchStartTime.current = Date.now();
-    window.clearTimeout(longPressTimeoutId.current);
+  const handlePointerDown = (event: PointerEvent): void => {
+    if (event.pointerType === "touch" || event.pointerType === "pen") {
+      pointerDownTime.current = Date.now();
+      window.clearTimeout(longPressTimeoutId.current);
 
-    longPressTimeoutId.current = window.setTimeout(() => {
-      dispatch({ type: GAME_ACTION.TOGGLE_QUESTION_MARK, index });
-    }, LONG_PRESS_THRESHOLD);
+      longPressTimeoutId.current = window.setTimeout(() => {
+        dispatch({ type: GAME_ACTION.TOGGLE_QUESTION_MARK, index });
+      }, LONG_PRESS_THRESHOLD);
+    }
+
+    canHandlePointerUp.current = true;
   };
 
-  const handleTouchEnd = (): void => {
-    const touchDuration = Date.now() - touchStartTime.current;
-    window.clearTimeout(longPressTimeoutId.current);
-    if (touchDuration >= LONG_PRESS_THRESHOLD) return;
+  const handlePointerUp = (event: PointerEvent): void => {
+    if (!canHandlePointerUp.current) return;
+    canHandlePointerUp.current = false;
 
-    if (touchDuration < SHORT_PRESS_THRESHOLD) {
-      dispatch({
-        type: isRevealed ? GAME_ACTION.AUTO_REVEAL : GAME_ACTION.REVEAL,
-        index,
-      });
-    } else {
-      dispatch({
-        type: isRevealed ? GAME_ACTION.AUTO_FLAG : GAME_ACTION.TOGGLE_FLAG,
-        index,
-      });
+    if (event.pointerType === "touch" || event.pointerType === "pen") {
+      const touchDuration = Date.now() - pointerDownTime.current;
+
+      if (touchDuration >= LONG_PRESS_THRESHOLD) return;
+      window.clearTimeout(longPressTimeoutId.current);
+
+      if (touchDuration >= SHORT_PRESS_THRESHOLD) {
+        dispatch({
+          type: isRevealed ? GAME_ACTION.AUTO_FLAG : GAME_ACTION.TOGGLE_FLAG,
+          index,
+        });
+      } else {
+        // Single tap detected
+        dispatch({
+          type: isRevealed ? GAME_ACTION.AUTO_REVEAL : GAME_ACTION.REVEAL,
+          index,
+        });
+      }
+
+      return;
+    }
+
+    if (event.pointerType === "mouse") {
+      switch (event.button) {
+        case 0: // Main button (left click)
+          dispatch({
+            type: isRevealed ? GAME_ACTION.AUTO_REVEAL : GAME_ACTION.REVEAL,
+            index,
+          });
+          break;
+        case 1: // Auxiliary button (middle click)
+          dispatch({
+            type: GAME_ACTION.TOGGLE_QUESTION_MARK,
+            index,
+          });
+          break;
+        case 2: // Secondary button (right click)
+          dispatch({
+            type: isRevealed ? GAME_ACTION.AUTO_FLAG : GAME_ACTION.TOGGLE_FLAG,
+            index,
+          });
+          break;
+      }
     }
   };
 
-  const handleTouchCancel = (): void => {
+  const handlePointerCancel = (): void => {
     window.clearTimeout(longPressTimeoutId.current);
+  };
+
+  const handlePointerLeave = (): void => {
+    canHandlePointerUp.current = false;
   };
 
   if (isWon && !isRevealed) {
@@ -138,31 +176,10 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
         isWon && isMined && "bg-amber-50",
         isLost && isRevealed && isMined && "bg-rose-50",
       )}
-      onClick={() => {
-        dispatch({
-          type: isRevealed ? GAME_ACTION.AUTO_REVEAL : GAME_ACTION.REVEAL,
-          index,
-        });
-      }}
-      onContextMenu={() => {
-        if (isTouchDevice.current) return;
-
-        dispatch({
-          type: isRevealed ? GAME_ACTION.AUTO_FLAG : GAME_ACTION.TOGGLE_FLAG,
-          index,
-        });
-      }}
-      onMouseUp={(event) => {
-        if (event.button === 1) {
-          dispatch({
-            type: GAME_ACTION.TOGGLE_QUESTION_MARK,
-            index,
-          });
-        }
-      }}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onTouchCancel={handleTouchCancel}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
+      onPointerLeave={handlePointerLeave}
     >
       {content}
     </div>
