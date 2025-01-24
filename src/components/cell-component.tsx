@@ -1,7 +1,8 @@
 import NumberIcon from "@/components/number-icon";
 import { useContextGameDispatch } from "@/hooks/use-context-game-dispatch";
 import { useContextGameStatus } from "@/hooks/use-context-game-status";
-import { CellState } from "@/types/cell-state";
+import { Cell } from "@/types/cell";
+import { GAME_ACTION } from "@/types/game-action";
 import {
   Bomb,
   FlagPennant,
@@ -13,30 +14,29 @@ import clsx from "clsx";
 import { JSX, memo } from "react";
 
 type Props = Readonly<{
+  cell: Cell;
   borderColor: string;
   size: string;
-  state: CellState;
 }>;
 
-const Cell = ({
-  borderColor,
-  size,
-  state: {
-    index,
-    adjacentMines,
-    isMined,
-    hasQuestionMark,
-    isFlagged,
-    isRevealed,
-  },
-}: Props) => {
+const CellComponent = ({ cell, borderColor, size }: Props) => {
   const status = useContextGameStatus();
   const dispatch = useContextGameDispatch();
+  const { isLost, isWon } = status;
+  const {
+    adjacentMineCount,
+    hasQuestionMark,
+    index,
+    isFlagged,
+    isMined,
+    isRevealed,
+  } = cell;
   const ICON_SIZE = "50%";
-  const isNotPlayable = (isRevealed && adjacentMines === 0) || status.isOver;
   let content: JSX.Element | null;
+  const isNotPlayable =
+    (isRevealed && adjacentMineCount === 0) || status.isOver;
 
-  if (status.isWon && !isRevealed) {
+  if (isWon && !isRevealed) {
     content = (
       <Trophy
         weight="fill"
@@ -45,7 +45,7 @@ const Cell = ({
       />
     );
   } else if (isFlagged) {
-    if (status.isLost) {
+    if (isLost) {
       if (isMined) {
         content = (
           <Trophy
@@ -62,7 +62,7 @@ const Cell = ({
         <FlagPennant className="animate-icon text-red-600" size={ICON_SIZE} />
       );
     }
-  } else if (status.isLost && isMined) {
+  } else if (isLost && isMined) {
     content = (
       <Bomb
         weight="fill"
@@ -75,13 +75,13 @@ const Cell = ({
       />
     );
   } else if (hasQuestionMark) {
-    content = status.isLost ? null : <QuestionMark size={ICON_SIZE} />;
-  } else if (isRevealed && adjacentMines) {
+    content = isLost ? null : <QuestionMark size={ICON_SIZE} />;
+  } else if (isRevealed && adjacentMineCount) {
     content = (
       <NumberIcon
         className="animate-icon"
         size={ICON_SIZE}
-        value={adjacentMines}
+        value={adjacentMineCount}
       />
     );
   } else {
@@ -96,14 +96,28 @@ const Cell = ({
         size,
         isNotPlayable || "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50",
         isRevealed ? "bg-white" : "bg-zinc-200",
-        status.isWon && isMined && "bg-amber-50",
-        status.isLost && isRevealed && isMined && "bg-rose-50",
+        isWon && isMined && "bg-amber-50",
+        isLost && isRevealed && isMined && "bg-rose-50",
       )}
       onClick={() => {
-        dispatch({ type: isRevealed ? "AUTO_REVEAL" : "REVEAL", index });
+        dispatch({
+          type: isRevealed ? GAME_ACTION.AUTO_REVEAL : GAME_ACTION.REVEAL,
+          index,
+        });
       }}
       onContextMenu={() => {
-        dispatch({ type: isRevealed ? "AUTO_FLAG" : "SWITCH_MARK", index });
+        dispatch({
+          type: isRevealed ? GAME_ACTION.AUTO_FLAG : GAME_ACTION.TOGGLE_FLAG,
+          index,
+        });
+      }}
+      onMouseUp={(event) => {
+        if (event.button === 1) {
+          dispatch({
+            type: GAME_ACTION.TOGGLE_QUESTION_MARK,
+            index,
+          });
+        }
       }}
     >
       {content}
@@ -111,4 +125,4 @@ const Cell = ({
   );
 };
 
-export default memo(Cell);
+export default memo(CellComponent);

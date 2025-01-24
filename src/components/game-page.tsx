@@ -1,4 +1,4 @@
-import Game from "@/components/game";
+import GameComponent from "@/components/game-component";
 import { GameMode } from "@/types/game-mode";
 import { CompassRose } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
@@ -22,7 +22,7 @@ const GamePage = ({ mode }: Props) => {
           <CompassRose />
         </Link>
       </div>
-      <Game mode={mode} />
+      <GameComponent mode={mode} />
     </div>
   );
 };

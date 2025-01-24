@@ -1,5 +1,6 @@
 import { useContextGameDispatch } from "@/hooks/use-context-game-dispatch";
 import { useContextGameStatus } from "@/hooks/use-context-game-status";
+import { GAME_ACTION } from "@/types/game-action";
 import { memo } from "react";
 
 const ButtonReplay = () => {
@@ -22,7 +23,7 @@ const ButtonReplay = () => {
       {text && (
         <button
           type="button"
-          onClick={() => dispatch({ type: "RESTART" })}
+          onClick={() => dispatch({ type: GAME_ACTION.RESTART })}
           className="absolute left-1/2 -translate-x-1/2 uppercase tracking-wide"
         >
           {text}

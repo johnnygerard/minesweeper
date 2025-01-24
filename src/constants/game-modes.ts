@@ -1,25 +1,25 @@
 import { GameMode } from "@/types/game-mode";
 
-export const GAME_MODES: Record<"EASY" | "MEDIUM" | "HARD", GameMode> = {
+export const GAME_MODES: Record<"EASY" | "MEDIUM" | "EXPERT", GameMode> = {
   EASY: {
     name: "Easy",
     urlPath: "/",
-    columns: 9,
-    rows: 9,
-    mines: 10,
+    columnCount: 9,
+    rowCount: 9,
+    mineCount: 10,
   },
   MEDIUM: {
     name: "Medium",
     urlPath: "/medium",
-    columns: 16,
-    rows: 16,
-    mines: 40,
+    columnCount: 16,
+    rowCount: 16,
+    mineCount: 40,
   },
-  HARD: {
+  EXPERT: {
     name: "Expert",
     urlPath: "/expert",
-    columns: 30,
-    rows: 16,
-    mines: 99,
+    columnCount: 30,
+    rowCount: 16,
+    mineCount: 99,
   },
 };

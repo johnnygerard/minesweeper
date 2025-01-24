@@ -1,7 +1,7 @@
 import { immerable } from "immer";
 
-export const enum GAME_STATUS {
-  INITIAL = "INITIAL",
+const enum GAME_STATUS {
+  NOT_STARTED = "NOT_STARTED",
   IN_PROGRESS = "IN_PROGRESS",
   LOST = "LOST",
   WON = "WON",
@@ -9,22 +9,34 @@ export const enum GAME_STATUS {
 
 export class GameStatus {
   [immerable] = true;
-  value: GAME_STATUS = GAME_STATUS.INITIAL;
+  private _value = GAME_STATUS.NOT_STARTED;
 
   get isNotStarted(): boolean {
-    return this.value === GAME_STATUS.INITIAL;
+    return this._value === GAME_STATUS.NOT_STARTED;
   }
 
   get isInProgress(): boolean {
-    return this.value === GAME_STATUS.IN_PROGRESS;
+    return this._value === GAME_STATUS.IN_PROGRESS;
+  }
+
+  set isInProgress(_: true) {
+    this._value = GAME_STATUS.IN_PROGRESS;
   }
 
   get isLost(): boolean {
-    return this.value === GAME_STATUS.LOST;
+    return this._value === GAME_STATUS.LOST;
+  }
+
+  set isLost(_: true) {
+    this._value = GAME_STATUS.LOST;
   }
 
   get isWon(): boolean {
-    return this.value === GAME_STATUS.WON;
+    return this._value === GAME_STATUS.WON;
+  }
+
+  set isWon(_: true) {
+    this._value = GAME_STATUS.WON;
   }
 
   get isOver(): boolean {
