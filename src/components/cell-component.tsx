@@ -11,7 +11,7 @@ import {
   X,
 } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
-import { JSX, memo, useEffect, useRef } from "react";
+import { JSX, memo, useRef } from "react";
 
 type Props = Readonly<{
   cell: Cell;
@@ -36,61 +36,44 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
   const isNotPlayable =
     (isRevealed && adjacentMineCount === 0) || status.isOver;
 
+  // Detect touchscreen devices to prevent emulated mouse events
+  const isTouchDevice = useRef(false);
   const touchStartTime = useRef(0);
   const longPressTimeoutId = useRef(0);
-  const targetRef = useRef<HTMLDivElement>(null);
+  const SHORT_PRESS_THRESHOLD = 100;
+  const LONG_PRESS_THRESHOLD = 500;
 
-  useEffect(() => {
-    const SHORT_PRESS_THRESHOLD = 100;
-    const LONG_PRESS_THRESHOLD = 500;
+  const handleTouchStart = (): void => {
+    isTouchDevice.current = true;
+    touchStartTime.current = Date.now();
+    window.clearTimeout(longPressTimeoutId.current);
 
-    const handleTouchStart = (event: TouchEvent): void => {
-      event.preventDefault(); // Prevent emulated mouse events
-      touchStartTime.current = Date.now();
-      window.clearTimeout(longPressTimeoutId.current);
+    longPressTimeoutId.current = window.setTimeout(() => {
+      dispatch({ type: GAME_ACTION.TOGGLE_QUESTION_MARK, index });
+    }, LONG_PRESS_THRESHOLD);
+  };
 
-      longPressTimeoutId.current = window.setTimeout(() => {
-        dispatch({ type: GAME_ACTION.TOGGLE_QUESTION_MARK, index });
-      }, LONG_PRESS_THRESHOLD);
-    };
+  const handleTouchEnd = (): void => {
+    const touchDuration = Date.now() - touchStartTime.current;
+    window.clearTimeout(longPressTimeoutId.current);
+    if (touchDuration >= LONG_PRESS_THRESHOLD) return;
 
-    const handleTouchEnd = (): void => {
-      const touchDuration = Date.now() - touchStartTime.current;
-      window.clearTimeout(longPressTimeoutId.current);
-      if (touchDuration >= LONG_PRESS_THRESHOLD) return;
+    if (touchDuration < SHORT_PRESS_THRESHOLD) {
+      dispatch({
+        type: isRevealed ? GAME_ACTION.AUTO_REVEAL : GAME_ACTION.REVEAL,
+        index,
+      });
+    } else {
+      dispatch({
+        type: isRevealed ? GAME_ACTION.AUTO_FLAG : GAME_ACTION.TOGGLE_FLAG,
+        index,
+      });
+    }
+  };
 
-      if (touchDuration < SHORT_PRESS_THRESHOLD) {
-        dispatch({
-          type: isRevealed ? GAME_ACTION.AUTO_REVEAL : GAME_ACTION.REVEAL,
-          index,
-        });
-      } else {
-        dispatch({
-          type: isRevealed ? GAME_ACTION.AUTO_FLAG : GAME_ACTION.TOGGLE_FLAG,
-          index,
-        });
-      }
-    };
-
-    const handleTouchCancel = (): void => {
-      window.clearTimeout(longPressTimeoutId.current);
-    };
-
-    const targetElement = targetRef.current;
-    if (targetElement === null) return;
-
-    targetElement.addEventListener("touchstart", handleTouchStart, {
-      passive: false, // Required to prevent emulated mouse events
-    });
-    targetElement.addEventListener("touchend", handleTouchEnd);
-    targetElement.addEventListener("touchcancel", handleTouchCancel);
-
-    return () => {
-      targetElement.removeEventListener("touchstart", handleTouchStart);
-      targetElement.removeEventListener("touchend", handleTouchEnd);
-      targetElement.removeEventListener("touchcancel", handleTouchCancel);
-    };
-  }, [dispatch, index, isRevealed]);
+  const handleTouchCancel = (): void => {
+    window.clearTimeout(longPressTimeoutId.current);
+  };
 
   if (isWon && !isRevealed) {
     content = (
@@ -146,7 +129,6 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
 
   return (
     <div
-      ref={targetRef}
       className={clsx(
         "grid place-items-center border-b border-r text-xl shadow-sm transition-colors",
         borderColor,
@@ -163,6 +145,8 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
         });
       }}
       onContextMenu={() => {
+        if (isTouchDevice.current) return;
+
         dispatch({
           type: isRevealed ? GAME_ACTION.AUTO_FLAG : GAME_ACTION.TOGGLE_FLAG,
           index,
@@ -176,6 +160,9 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
           });
         }
       }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchCancel}
     >
       {content}
     </div>
