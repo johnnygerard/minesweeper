@@ -1,3 +1,4 @@
+import typographyPlugin from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -29,5 +30,5 @@ export default {
       sans: ["var(--font-aldrich)"],
     },
   },
-  plugins: [],
+  plugins: [typographyPlugin],
 } satisfies Config;

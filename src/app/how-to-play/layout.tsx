@@ -5,7 +5,7 @@ type Props = Readonly<{
 }>;
 
 const Layout = ({ children }: Props) => {
-  return <div>{children}</div>;
+  return <div className="prose lg:prose-xl">{children}</div>;
 };
 
 export default memo(Layout);
