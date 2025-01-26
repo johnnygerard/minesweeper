@@ -1,4 +1,4 @@
-import { CompassRose } from "@phosphor-icons/react/dist/ssr";
+import { BookBookmark, CompassRose } from "@phosphor-icons/react/dist/ssr";
 import "./globals.css";
 import clsx from "clsx";
 import type { Metadata } from "next";
@@ -59,14 +59,24 @@ const RootLayout = ({ children }: Props) => {
             >
               Minesweeper
             </Link>
-            <Link
-              className="transition-colors transition-transform hover:scale-110 hover:text-blue-500"
-              href="/game-modes"
-              title="Game Modes"
-              aria-label="Game Modes"
-            >
-              <CompassRose size={"2rem"} />
-            </Link>
+            <div className="flex gap-4">
+              <Link
+                className="transition-colors transition-transform hover:scale-110 hover:text-blue-500"
+                href="/game-modes"
+                title="Game Modes"
+                aria-label="Game Modes"
+              >
+                <CompassRose size="2rem" />
+              </Link>
+              <Link
+                className="transition-colors transition-transform hover:scale-110 hover:text-blue-500"
+                href="/how-to-play"
+                title="How to Play"
+                aria-label="How to Play"
+              >
+                <BookBookmark size="2rem" />
+              </Link>
+            </div>
           </div>
         </nav>
         <main className="grid flex-1 place-items-center px-4 py-8">
