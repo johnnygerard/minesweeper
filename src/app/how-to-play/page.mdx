@@ -1,55 +1,57 @@
 # How to Play Minesweeper
 
-Minesweeper is a timeless single-player puzzle game that combines strategy with a touch of luck. Ready to become a minesweeping pro? Let's dive in!
+Minesweeper is a timeless single-player puzzle game that combines strategy with a touch of luck.
 
-## Goal
+## Board
 
-Your mission: uncover all the safe squares on the board to win. But beware—some squares hide sneaky mines. Step on one, and it's game over. Let's stay sharp and avoid those mines, shall we?
+The game board is a grid of squares. Each square on the board may or may not conceal a mine.
 
-## Key Concepts
+## Game Mechanics
 
-- **Square**: A piece of the board that can either be safe or hiding a mine.
-- **Surroundings**: All the squares directly around a square (including diagonals).
+Each time you reveal a square, the game decides what happens next:
 
-## How It Works
+- You stepped on a mine! The game ends.
+- There is at least one mine somewhere around it. The square displays the total number of mines in the neighboring squares to help you plan your next move.
+- There are no mines nearby. The square is empty, and all its neighboring squares are automatically revealed in a chain reaction.
 
-When you reveal a square, one of four things happens:
-
-- **You hit a mine**: Boom! Game over.
-- **You reveal a safe square**:
-  - **Victory!** If it's the last safe square, you win the game. Cheers!
-  - **Mine alert!** The square shows the number of mines in its surroundings to help you decide your next move.
-  - **Clear area**: If there are no nearby mines, the square is empty, and the game automatically reveals all its surroundings.
+You win the game by revealing all safe squares without stepping on a mine.
 
 ### First Move
 
-Good news—your first revealed square is always safe and empty. Phew!
+The first square you reveal is always a safe, empty square.
 
 ### Flags
 
-If you think a square has a mine, you can mark it with a flag. Not sure? Add a question mark instead. Don't worry—flagged or marked squares can't be revealed by accident.
+To help you keep track of potential mine locations, you can:
+
+- Flag a square if you are certain it contains a mine.
+- Place a question mark if you suspect it might be mined but aren't sure.
+
+Squares marked with a flag or a question mark cannot be revealed until the marker is removed.
 
 ### Mine Counter
 
-The mine counter at the start of the game shows the total number of hidden mines. Each time you place a flag, the counter decreases. Use it to track your progress!
+At the start of a game, the mine counter displays the total count of concealed mines. Each time you flag a square, that counter is decreased by one unit.
 
 ## Game Controls
 
-### Basic Actions (for hidden squares)
+### Basic Controls (Hidden Squares)
 
 1. **Single Tap or Left Click**: Reveal the square.
 2. **Short Press or Right Click**: Place or remove a flag.
 3. **Long Press or Middle Click**: Place or remove a question mark.
 
-### Advanced Actions (for revealed squares)
+### Advanced Controls (Revealed Squares)
 
-1. **Single Tap or Left Click**: Automatically reveal surrounding squares when the number of nearby flags matches the square's mine count.
-2. **Short Press or Right Click**: When the number of hidden surrounding squares matches the square's mine count, automatically flag them.
+1. **Single Tap or Left Click**: Automatically reveal neighboring squares when the number of flagged squares matches the square's mine count.
+2. **Short Press or Right Click**: Automatically flag neighboring squares when the number of hidden squares matches the square's mine count.
 
-## Tips for Success
+## Tips for Beginners
 
-- Take your time and think carefully about each move.
-- Use flags and question marks to keep track of potential mines.
-- Pay close attention to the numbers—they're your best clue to stay safe.
+1. Start in a corner or an edge to minimize initial risk.
+2. Use the numbers on revealed squares to logically deduce where mines are.
+3. Don't guess unless you absolutely must. Take your time to analyze the board.
 
-Now you're ready to sweep mines like a pro. Good luck and have fun!
+Minesweeper is a game of patience and strategy. The more you play, the better you'll become at spotting patterns and avoiding mines.
+
+Enjoy the challenge and have fun playing Minesweeper!
