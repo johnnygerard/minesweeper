@@ -1,7 +1,9 @@
+import { CompassRose } from "@phosphor-icons/react/dist/ssr";
+import "./globals.css";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Aldrich } from "next/font/google";
-import "./globals.css";
+import Link from "next/link";
 import { memo, ReactNode } from "react";
 
 const aldrich = Aldrich({
@@ -48,8 +50,28 @@ const RootLayout = ({ children }: Props) => {
       className={clsx("font-sans antialiased", aldrich.variable)}
       lang="en-US"
     >
-      <body className="bg-zinc-50">
-        <main className="grid min-h-screen place-items-center">{children}</main>
+      <body className="flex min-h-screen min-w-min flex-col bg-zinc-50">
+        <nav className="border-b border-zinc-200 bg-white">
+          <div className="mx-auto flex max-w-7xl justify-between p-4">
+            <Link
+              href="/"
+              className="text-2xl uppercase tracking-widest transition-colors hover:text-blue-500"
+            >
+              Minesweeper
+            </Link>
+            <Link
+              className="transition-colors transition-transform hover:scale-110 hover:text-blue-500"
+              href="/game-modes"
+              title="Game Modes"
+              aria-label="Game Modes"
+            >
+              <CompassRose size={"2rem"} />
+            </Link>
+          </div>
+        </nav>
+        <main className="grid flex-1 place-items-center px-4 py-8">
+          {children}
+        </main>
         <noscript>
           <div
             style={{

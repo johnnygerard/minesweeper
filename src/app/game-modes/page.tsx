@@ -26,7 +26,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="px-4 py-8">
+    <div>
       <h1 className="mb-12 text-4xl uppercase tracking-widest">Game Modes</h1>
       <div className="grid gap-4 lg:auto-cols-fr lg:grid-flow-col">
         {modes.map(({ className, mode }) => {
