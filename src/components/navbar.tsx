@@ -7,8 +7,10 @@ const Navbar = () => {
     <nav className="border-b border-zinc-200 bg-white">
       <div className="mx-auto flex max-w-7xl justify-between p-4">
         <Link
-          href="/"
           className="text-2xl uppercase tracking-widest transition-colors hover:text-blue-500"
+          href="/"
+          title="Home"
+          aria-label="Home"
         >
           Minesweeper
         </Link>
