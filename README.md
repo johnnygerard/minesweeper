@@ -17,6 +17,18 @@ This project is a recreation of the classic Minesweeper game.
 
 - **CDN**: Static assets served from [Vercel Edge Network](https://vercel.com/docs/edge-network/overview).
 
+## Screenshots
+
+### Mobile Home Page
+
+![mobile home page](docs/screenshots/home-mobile.avif)
+
+### Desktop Expert Page
+
+![desktop expert page](docs/screenshots/expert-desktop.avif)
+
+###
+
 ## Dev Environment & Tools
 
 - System: [Ubuntu](https://ubuntu.com/desktop)
