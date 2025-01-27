@@ -17,7 +17,7 @@ const MineCounter = () => {
   }
 
   return (
-    <p className="flex gap-2 tracking-wider">
+    <p className="flex items-center gap-2 tracking-wider">
       {count}
       <Bomb weight="fill" />
     </p>

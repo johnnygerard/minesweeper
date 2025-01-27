@@ -1,5 +1,6 @@
 import typographyPlugin from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 
 export default {
   content: [
@@ -14,6 +15,9 @@ export default {
         trophy: "fadeIn 1s ease-in-out",
         explosion: "explosion 0.5s ease-out",
       },
+      colors: {
+        accent: colors.blue[500],
+      },
       keyframes: {
         fadeIn: {
           "0%": { opacity: "0" },
@@ -27,7 +31,7 @@ export default {
       },
     },
     fontFamily: {
-      sans: ["var(--font-aldrich)"],
+      sans: ["var(--font-space-grotesk)"],
     },
   },
   plugins: [typographyPlugin],
