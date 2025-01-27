@@ -1,4 +1,5 @@
 import "./globals.css";
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import clsx from "clsx";
 import type { Metadata } from "next";
@@ -53,6 +54,7 @@ const RootLayout = ({ children }: Props) => {
         <main className="grid flex-1 place-items-center px-4 py-8">
           {children}
         </main>
+        <Footer />
         <noscript>
           <div
             style={{
