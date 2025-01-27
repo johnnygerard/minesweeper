@@ -3,10 +3,10 @@ import Home from "@/app/page";
 import { render, screen } from "@testing-library/react";
 
 describe("Home page", () => {
-  it("renders a heading", () => {
+  it("displays the correct number of mines in the easy mode", () => {
     render(<Home />);
-    const heading = screen.getByRole("heading", { level: 1 });
+    const mines = screen.getByText(/10/);
 
-    expect(heading).toBeInTheDocument();
+    expect(mines).toBeInTheDocument();
   });
 });
