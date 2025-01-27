@@ -2,14 +2,13 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import clsx from "clsx";
 import type { Metadata } from "next";
-import { Aldrich } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import { memo, ReactNode } from "react";
 
-const aldrich = Aldrich({
-  weight: "400",
+const spaceGrotesk = Space_Grotesk({
   display: "swap",
   subsets: ["latin"],
-  variable: "--font-aldrich",
+  variable: "--font-space-grotesk",
 });
 
 const APP_NAME = "Minesweeper";
@@ -46,7 +45,7 @@ type Props = Readonly<{
 const RootLayout = ({ children }: Props) => {
   return (
     <html
-      className={clsx("font-sans antialiased", aldrich.variable)}
+      className={clsx("font-sans antialiased", spaceGrotesk.variable)}
       lang="en-US"
     >
       <body className="flex min-h-screen min-w-min flex-col bg-zinc-50">

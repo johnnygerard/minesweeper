@@ -31,7 +31,7 @@ export default {
       },
     },
     fontFamily: {
-      sans: ["var(--font-aldrich)"],
+      sans: ["var(--font-space-grotesk)"],
     },
   },
   plugins: [typographyPlugin],
