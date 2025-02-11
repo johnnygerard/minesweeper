@@ -2,7 +2,7 @@
 
 This project is a recreation of the classic Minesweeper game.
 
-![project status](https://img.shields.io/badge/status-active_development-success?style=for-the-badge)
+![project status](https://img.shields.io/badge/status-published-success?style=for-the-badge)
 [![live site](https://img.shields.io/badge/live_site-blue?style=for-the-badge)](https://minesweeper.jgerard.dev/)
 [![Lighthouse report](https://img.shields.io/badge/lighthouse-%23F44B21?style=for-the-badge&logo=lighthouse&logoColor=fff)](https://googlechrome.github.io/lighthouse/viewer/?gist=4f2b54f8a0d5466a608d3423796dd0b1)
 
