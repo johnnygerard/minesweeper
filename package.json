@@ -6,7 +6,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "clsx": "^2.1.1",
     "immer": "^10.2.0",
-    "next": "15.1.2",
+    "next": "^15.5.7",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "use-immer": "^0.11.0"
