@@ -1,11 +1,5 @@
-import type { FC } from "react";
+import { GamePage } from "~/components/game-page";
+import { GAME_MODES } from "~/constants/game-modes";
 
-const HomePage: FC = () => {
-  return (
-    <div className="grid min-h-screen place-items-center">
-      <h1>Deployment successful!</h1>
-    </div>
-  );
-};
-
-export default HomePage;
+const Page = () => <GamePage mode={GAME_MODES.EASY} />;
+export default Page;
