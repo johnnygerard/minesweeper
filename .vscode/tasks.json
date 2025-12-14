@@ -1,0 +1,27 @@
+{
+  "tasks": [
+    {
+      "detail": "next dev --turbo --hostname localhost",
+      "isBackground": true,
+      "label": "npm: dev",
+      "problemMatcher": [
+        {
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": {
+              "regexp": "▲ Next.js"
+            },
+            "endsPattern": {
+              "regexp": "✓ Ready"
+            }
+          },
+          "owner": "typescript",
+          "pattern": "$tsc"
+        }
+      ],
+      "script": "dev",
+      "type": "npm"
+    }
+  ],
+  "version": "2.0.0"
+}

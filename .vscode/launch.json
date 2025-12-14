@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "Start Chrome",
+      "preLaunchTask": "npm: dev",
+      "request": "launch",
+      "resolveSourceMapLocations": ["${workspaceFolder}/.next/static/chunks"],
+      "runtimeArgs": [
+        "--auto-open-devtools-for-tabs",
+        "--user-data-dir=${userHome}/.config/google-chrome-vscode"
+      ],
+      "sourceMaps": true,
+      "type": "chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
+    }
+  ],
+  "version": "0.2.0"
+}
