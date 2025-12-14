@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @layer base {
   button:enabled,
@@ -32,5 +33,36 @@
 /* `@theme inline` is required when referencing CSS custom properties */
 /* @see https://tailwindcss.com/docs/theme#referencing-other-variables */
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-*: initial;
+  --font-sans: var(--font-space-grotesk);
+
+  --animate-icon: fadeIn 0.15s ease-in-out;
+  --animate-trophy: fadeIn 1s ease-in-out;
+  --animate-explosion: explosion 0.5s ease-out;
+
+  --color-accent: #3b82f6;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes explosion {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }
