@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import type { FC, ReactNode } from "react";
-import "./globals.css";
+import "~/app/globals.css";
+import { Footer } from "~/components/footer";
+import { Navbar } from "~/components/navbar";
 
-const geistSans = Geist({
+const spaceGrotesk = Space_Grotesk({
   display: "swap",
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-space-grotesk",
 });
 
-const APP_NAME = "appName";
-const TITLE = "title";
-const DESCRIPTION = "description";
+const APP_NAME = "Minesweeper";
+const TITLE = APP_NAME;
+const DESCRIPTION =
+  "A modern recreation of the classic Minesweeper game from Microsoft Windows.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://placeholder.example"),
+  metadataBase: new URL("https://minesweeper.jgerard.dev"),
   title: {
     template: `%s | ${APP_NAME}`,
     default: TITLE,
@@ -36,11 +39,17 @@ type Props = {
 const RootLayout: FC<Props> = ({ children }) => {
   return (
     <html
-      className={geistSans.variable}
+      className={spaceGrotesk.variable}
       data-scroll-behavior="smooth"
       lang="en-US"
     >
-      <body className="font-sans">{children}</body>
+      <body className="flex min-h-screen min-w-min flex-col bg-zinc-50 font-sans">
+        <Navbar />
+        <main className="grid flex-1 place-items-center px-4 py-8">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   );
 };
