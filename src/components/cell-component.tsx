@@ -1,25 +1,25 @@
-import NumberIcon from "@/components/number-icon";
-import { useContextGameDispatch } from "@/hooks/use-context-game-dispatch";
-import { useContextGameStatus } from "@/hooks/use-context-game-status";
-import { Cell } from "@/types/cell";
-import { GAME_ACTION } from "@/types/game-action";
 import {
-  Bomb,
-  FlagPennant,
-  QuestionMark,
-  Trophy,
-  X,
+  BombIcon,
+  FlagPennantIcon,
+  QuestionMarkIcon,
+  TrophyIcon,
+  XIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
-import { JSX, memo, PointerEvent, useRef } from "react";
+import { useRef, type FC, type JSX, type PointerEventHandler } from "react";
+import { NumberIcon } from "~/components/number-icon";
+import { useContextGameDispatch } from "~/hooks/use-context-game-dispatch";
+import { useContextGameStatus } from "~/hooks/use-context-game-status";
+import type { Cell } from "~/types/cell";
+import { GAME_ACTION } from "~/types/game-action";
 
-type Props = Readonly<{
+type Props = {
   cell: Cell;
   borderColor: string;
   size: string;
-}>;
+};
 
-const CellComponent = ({ cell, borderColor, size }: Props) => {
+export const CellComponent: FC<Props> = ({ cell, borderColor, size }) => {
   const status = useContextGameStatus();
   const dispatch = useContextGameDispatch();
   const { isLost, isWon } = status;
@@ -42,7 +42,7 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
   const SHORT_PRESS_THRESHOLD = 100;
   const LONG_PRESS_THRESHOLD = 500;
 
-  const handlePointerDown = (event: PointerEvent): void => {
+  const handlePointerDown: PointerEventHandler<HTMLDivElement> = (event) => {
     if (event.pointerType === "touch" || event.pointerType === "pen") {
       pointerDownTime.current = Date.now();
       window.clearTimeout(longPressTimeoutId.current);
@@ -55,7 +55,7 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
     canHandlePointerUp.current = true;
   };
 
-  const handlePointerUp = (event: PointerEvent): void => {
+  const handlePointerUp: PointerEventHandler<HTMLDivElement> = (event) => {
     if (!canHandlePointerUp.current) return;
     canHandlePointerUp.current = false;
 
@@ -115,7 +115,7 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
 
   if (isWon && !isRevealed) {
     content = (
-      <Trophy
+      <TrophyIcon
         weight="fill"
         className="animate-trophy text-amber-500"
         size={ICON_SIZE}
@@ -125,23 +125,28 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
     if (isLost) {
       if (isMined) {
         content = (
-          <Trophy
+          <TrophyIcon
             weight="regular"
             size={ICON_SIZE}
             className="animate-icon text-amber-500"
           />
         );
       } else {
-        content = <X className="animate-icon text-rose-600" size={ICON_SIZE} />;
+        content = (
+          <XIcon className="animate-icon text-rose-600" size={ICON_SIZE} />
+        );
       }
     } else {
       content = (
-        <FlagPennant className="animate-icon text-red-600" size={ICON_SIZE} />
+        <FlagPennantIcon
+          className="animate-icon text-red-600"
+          size={ICON_SIZE}
+        />
       );
     }
   } else if (isLost && isMined) {
     content = (
-      <Bomb
+      <BombIcon
         weight="fill"
         size={ICON_SIZE}
         className={
@@ -152,7 +157,7 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
       />
     );
   } else if (hasQuestionMark) {
-    content = isLost ? null : <QuestionMark size={ICON_SIZE} />;
+    content = isLost ? null : <QuestionMarkIcon size={ICON_SIZE} />;
   } else if (isRevealed && adjacentMineCount) {
     content = (
       <NumberIcon
@@ -168,7 +173,7 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
   return (
     <div
       className={clsx(
-        "grid place-items-center border-b border-r text-xl shadow-sm transition-colors",
+        "grid place-items-center border-r border-b text-xl shadow-xs transition-colors",
         borderColor,
         size,
         isNotPlayable || "cursor-pointer hover:bg-zinc-100 active:bg-zinc-50",
@@ -185,5 +190,3 @@ const CellComponent = ({ cell, borderColor, size }: Props) => {
     </div>
   );
 };
-
-export default memo(CellComponent);

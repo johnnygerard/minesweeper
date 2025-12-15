@@ -1,5 +1,5 @@
-import { AdjacentMineCount } from "@/types/adjacent-mine-count";
 import { immerable } from "immer";
+import type { AdjacentMineCount } from "~/types/adjacent-mine-count";
 
 const enum CELL_STATE {
   INITIAL = "INITIAL",

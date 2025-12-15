@@ -10,14 +10,33 @@ This project is a recreation of the classic Minesweeper game.
 
 ### Frontend
 
-- **React Framework**: [Next.js](https://nextjs.org/)
-- **Icon Library**: [Phosphor](https://phosphoricons.com/)
-- **Style**: [Tailwind CSS](https://tailwindcss.com/)
-- **State Management**: React APIs and [Immer](https://immerjs.github.io/immer/)
+- **UI library**: [React 19](https://react.dev/)
+- **Framework**: [Next.js 16](https://nextjs.org/)
+- **State management**: React APIs and [Immer](https://immerjs.github.io/immer/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Icon library**: [Phosphor](https://phosphoricons.com/)
 
 ### Backend
 
-- **CDN**: Static assets served from [Vercel Edge Network](https://vercel.com/docs/edge-network/overview).
+- **CDN**: [Vercel](https://vercel.com/docs/cdn)
+
+## How to Update
+
+To check for outdated packages, run `npm outdated`.
+
+```bash
+# Update dependencies (this will rewrite package-lock.json and package.json)
+npm update --save
+npm install --save-exact --save-dev prettier@latest prettier-plugin-tailwindcss@latest
+```
+
+## Dev Environment & Tools
+
+- **System**: [Ubuntu](https://ubuntu.com/desktop)
+- **Editor**: [VS Code](https://code.visualstudio.com/)
+- **Formatter**: [Prettier](https://prettier.io/)
+- **Linter**: [ESLint](https://eslint.org/)
+- **AI assistant**: [GitHub Copilot](https://github.com/features/copilot)
 
 ## Screenshots
 
@@ -28,16 +47,6 @@ This project is a recreation of the classic Minesweeper game.
 ### Desktop Expert Page
 
 ![desktop expert page](docs/screenshots/expert-desktop.avif)
-
-###
-
-## Dev Environment & Tools
-
-- System: [Ubuntu](https://ubuntu.com/desktop)
-- Editor: [WebStorm](https://www.jetbrains.com/webstorm/)
-- Formatter: [Prettier](https://prettier.io/)
-- Linter: [ESLint](https://eslint.org/)
-- AI assistants: [GitHub Copilot](https://github.com/features/copilot), [Bolt](https://bolt.new/)
 
 ## Copyright
 

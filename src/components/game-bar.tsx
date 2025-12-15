@@ -1,16 +1,12 @@
-import ButtonReplay from "@/components/button-replay";
-import MineCounter from "@/components/mine-counter";
-import Stopwatch from "@/components/stopwatch";
-import { memo } from "react";
+import type { FC } from "react";
+import { ButtonReplay } from "~/components/button-replay";
+import { MineCounter } from "~/components/mine-counter";
+import { Stopwatch } from "~/components/stopwatch";
 
-const GameBar = () => {
-  return (
-    <div className="relative flex w-full justify-between text-xl">
-      <Stopwatch />
-      <MineCounter />
-      <ButtonReplay />
-    </div>
-  );
-};
-
-export default memo(GameBar);
+export const GameBar: FC = () => (
+  <div className="relative flex w-full justify-between text-xl">
+    <Stopwatch />
+    <MineCounter />
+    <ButtonReplay />
+  </div>
+);

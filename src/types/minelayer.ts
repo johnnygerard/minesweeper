@@ -1,5 +1,5 @@
-import { Cell } from "@/types/cell";
 import { immerable } from "immer";
+import type { Cell } from "~/types/cell";
 
 export class Minelayer {
   [immerable] = true;

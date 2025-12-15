@@ -1,13 +1,9 @@
-import GameComponent from "@/components/game-component";
-import { GameMode } from "@/types/game-mode";
-import { memo } from "react";
+import type { FC } from "react";
+import { GameComponent } from "~/components/game-component";
+import type { GameMode } from "~/types/game-mode";
 
-type Props = Readonly<{
+type Props = {
   mode: GameMode;
-}>;
-
-const GamePage = ({ mode }: Props) => {
-  return <GameComponent mode={mode} />;
 };
 
-export default memo(GamePage);
+export const GamePage: FC<Props> = ({ mode }) => <GameComponent mode={mode} />;

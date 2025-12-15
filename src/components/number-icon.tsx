@@ -1,34 +1,38 @@
 import {
-  NumberEight,
-  NumberFive,
-  NumberFour,
-  NumberOne,
-  NumberSeven,
-  NumberSix,
-  NumberThree,
-  NumberTwo,
+  NumberEightIcon,
+  NumberFiveIcon,
+  NumberFourIcon,
+  NumberOneIcon,
+  NumberSevenIcon,
+  NumberSixIcon,
+  NumberThreeIcon,
+  NumberTwoIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import clsx from "clsx";
-import { memo } from "react";
+import type { FC } from "react";
+import type { AdjacentMineCount } from "~/types/adjacent-mine-count";
 
-type Props = Readonly<{
+type Props = {
   className: string;
   size: string;
-  value: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-}>;
+  value: Exclude<AdjacentMineCount, 0>;
+};
 
-const NumberIcon = ({ className, size, value }: Props) => {
+export const NumberIcon: FC<Props> = ({ className, size, value }) => {
   let icon;
 
   switch (value) {
     case 1:
       icon = (
-        <NumberOne className={clsx("text-blue-600", className)} size={size} />
+        <NumberOneIcon
+          className={clsx("text-blue-600", className)}
+          size={size}
+        />
       );
       break;
     case 2:
       icon = (
-        <NumberTwo
+        <NumberTwoIcon
           className={clsx("text-emerald-600", className)}
           size={size}
         />
@@ -36,12 +40,15 @@ const NumberIcon = ({ className, size, value }: Props) => {
       break;
     case 3:
       icon = (
-        <NumberThree className={clsx("text-red-600", className)} size={size} />
+        <NumberThreeIcon
+          className={clsx("text-red-600", className)}
+          size={size}
+        />
       );
       break;
     case 4:
       icon = (
-        <NumberFour
+        <NumberFourIcon
           className={clsx("text-indigo-700", className)}
           size={size}
         />
@@ -49,17 +56,23 @@ const NumberIcon = ({ className, size, value }: Props) => {
       break;
     case 5:
       icon = (
-        <NumberFive className={clsx("text-amber-700", className)} size={size} />
+        <NumberFiveIcon
+          className={clsx("text-amber-700", className)}
+          size={size}
+        />
       );
       break;
     case 6:
       icon = (
-        <NumberSix className={clsx("text-teal-600", className)} size={size} />
+        <NumberSixIcon
+          className={clsx("text-teal-600", className)}
+          size={size}
+        />
       );
       break;
     case 7:
       icon = (
-        <NumberSeven
+        <NumberSevenIcon
           className={clsx("text-violet-700", className)}
           size={size}
         />
@@ -67,7 +80,10 @@ const NumberIcon = ({ className, size, value }: Props) => {
       break;
     case 8:
       icon = (
-        <NumberEight className={clsx("text-rose-700", className)} size={size} />
+        <NumberEightIcon
+          className={clsx("text-rose-700", className)}
+          size={size}
+        />
       );
       break;
     default:
@@ -76,5 +92,3 @@ const NumberIcon = ({ className, size, value }: Props) => {
 
   return <>{icon}</>;
 };
-
-export default memo(NumberIcon);

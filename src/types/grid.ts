@@ -1,5 +1,5 @@
-import { Cell } from "@/types/cell";
 import { immerable } from "immer";
+import { Cell } from "~/types/cell";
 
 export class Grid {
   [immerable] = true;

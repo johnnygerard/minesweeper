@@ -1,21 +1,21 @@
 "use client";
-import GameBar from "@/components/game-bar";
-import GridComponent from "@/components/grid-component";
-import { GameContext } from "@/contexts/game-context";
-import { GameDispatchContext } from "@/contexts/game-dispatch-context";
-import { GameStatusContext } from "@/contexts/game-status-context";
-import { gameReducer } from "@/game-reducer";
-import { Game } from "@/types/game";
-import { GameMode } from "@/types/game-mode";
-import { GameStatus } from "@/types/game-status";
-import { memo } from "react";
+import type { FC } from "react";
 import { useImmerReducer } from "use-immer";
+import { GameBar } from "~/components/game-bar";
+import { GridComponent } from "~/components/grid-component";
+import { GameContext } from "~/contexts/game-context";
+import { GameDispatchContext } from "~/contexts/game-dispatch-context";
+import { GameStatusContext } from "~/contexts/game-status-context";
+import { gameReducer } from "~/game-reducer";
+import { Game } from "~/types/game";
+import type { GameMode } from "~/types/game-mode";
+import { GameStatus } from "~/types/game-status";
 
-type Props = Readonly<{
+type Props = {
   mode: GameMode;
-}>;
+};
 
-const GameComponent = ({ mode }: Props) => {
+export const GameComponent: FC<Props> = ({ mode }) => {
   const [{ game, status }, dispatch] = useImmerReducer(gameReducer, {
     game: new Game(mode),
     status: new GameStatus(),
@@ -34,5 +34,3 @@ const GameComponent = ({ mode }: Props) => {
     </GameContext.Provider>
   );
 };
-
-export default memo(GameComponent);

@@ -1,20 +1,20 @@
-import CellComponent from "@/components/cell-component";
-import { GameMode } from "@/types/game-mode";
-import { Grid } from "@/types/grid";
 import clsx from "clsx";
-import { memo } from "react";
+import type { FC } from "react";
+import { CellComponent } from "~/components/cell-component";
+import type { GameMode } from "~/types/game-mode";
+import type { Grid } from "~/types/grid";
 
-type Props = Readonly<{
+type Props = {
   grid: Grid;
   mode: GameMode;
-}>;
+};
 
-const GridComponent = ({ grid, mode }: Props) => {
+export const GridComponent: FC<Props> = ({ grid, mode }) => {
   const BORDER_COLOR = "border-zinc-300";
 
   return (
     <div
-      className={clsx("grid border-l border-t", BORDER_COLOR)}
+      className={clsx("grid border-t border-l", BORDER_COLOR)}
       style={{ gridTemplateColumns: `repeat(${grid.columnCount}, 1fr)` }}
       onContextMenu={(e) => e.preventDefault()}
     >
@@ -29,5 +29,3 @@ const GridComponent = ({ grid, mode }: Props) => {
     </div>
   );
 };
-
-export default memo(GridComponent);

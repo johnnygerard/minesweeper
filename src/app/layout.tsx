@@ -1,10 +1,9 @@
-import "./globals.css";
-import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
-import clsx from "clsx";
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
-import { memo, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
+import "~/app/globals.css";
+import { Footer } from "~/components/footer";
+import { Navbar } from "~/components/navbar";
 
 const spaceGrotesk = Space_Grotesk({
   display: "swap",
@@ -13,83 +12,46 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const APP_NAME = "Minesweeper";
+const TITLE = APP_NAME;
 const DESCRIPTION =
   "A modern recreation of the classic Minesweeper game from Microsoft Windows.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://minesweeper.jgerard.dev"),
   title: {
     template: `%s | ${APP_NAME}`,
-    default: APP_NAME,
+    default: TITLE,
   },
   description: DESCRIPTION,
-  icons: [
-    {
-      rel: "icon",
-      sizes: "32x32",
-      type: "image/png",
-      url: "/images/favicon-32x32.png",
-    },
-  ],
   openGraph: {
     type: "website",
-    url: "https://minesweeper.jgerard.dev/",
+    url: "/",
     siteName: APP_NAME,
-    title: APP_NAME,
+    title: TITLE,
     description: DESCRIPTION,
   },
 };
 
-type Props = Readonly<{
+type Props = {
   children: ReactNode;
-}>;
+};
 
-const RootLayout = ({ children }: Props) => {
+const RootLayout: FC<Props> = ({ children }) => {
   return (
     <html
-      className={clsx("font-sans antialiased", spaceGrotesk.variable)}
+      className={spaceGrotesk.variable}
+      data-scroll-behavior="smooth"
       lang="en-US"
     >
-      <body className="flex min-h-screen min-w-min flex-col bg-zinc-50">
+      <body className="flex min-h-screen min-w-min flex-col bg-zinc-50 font-sans">
         <Navbar />
         <main className="grid flex-1 place-items-center px-4 py-8">
           {children}
         </main>
         <Footer />
-        <noscript>
-          <div
-            style={{
-              position: "fixed",
-              zIndex: 1000,
-              top: 0,
-              left: 0,
-              right: 0,
-              padding: "1rem",
-              backgroundColor: "#fff4f4",
-              color: "#d32f2f",
-              borderBottom: "2px solid currentColor",
-              textAlign: "center",
-            }}
-            role="alert"
-          >
-            <p>
-              JavaScript is required for this website to function properly.
-              Please ensure that it is supported and enabled in your browser
-              settings.
-              <br />
-              To learn more, check out{" "}
-              <a
-                style={{ textDecorationLine: "underline", color: "LinkText" }}
-                href="https://enable-javascript.com/"
-              >
-                How to enable JavaScript in your browser
-              </a>
-              .
-            </p>
-          </div>
-        </noscript>
       </body>
     </html>
   );
 };
 
-export default memo(RootLayout);
+export default RootLayout;

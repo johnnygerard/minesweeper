@@ -1,11 +1,11 @@
-import { memo, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 
-type Props = Readonly<{
+type Props = {
   children: ReactNode;
-}>;
-
-const Layout = ({ children }: Props) => {
-  return <div className="prose lg:prose-xl">{children}</div>;
 };
 
-export default memo(Layout);
+const Layout: FC<Props> = ({ children }) => (
+  <div className="prose lg:prose-xl">{children}</div>
+);
+
+export default Layout;

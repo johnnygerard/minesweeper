@@ -1,9 +1,9 @@
-import { useContextGame } from "@/hooks/use-context-game";
-import { useContextGameStatus } from "@/hooks/use-context-game-status";
-import { Bomb } from "@phosphor-icons/react/dist/ssr";
-import { memo } from "react";
+import { BombIcon } from "@phosphor-icons/react/dist/ssr";
+import type { FC } from "react";
+import { useContextGame } from "~/hooks/use-context-game";
+import { useContextGameStatus } from "~/hooks/use-context-game-status";
 
-const MineCounter = () => {
+export const MineCounter: FC = () => {
   const game = useContextGame();
   const status = useContextGameStatus();
   let count: number;
@@ -19,9 +19,7 @@ const MineCounter = () => {
   return (
     <p className="flex items-center gap-2 tracking-wider">
       {count}
-      <Bomb weight="fill" />
+      <BombIcon weight="fill" />
     </p>
   );
 };
-
-export default memo(MineCounter);

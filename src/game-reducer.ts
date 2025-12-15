@@ -1,7 +1,7 @@
-import { Game } from "@/types/game";
-import { GAME_ACTION, GameAction } from "@/types/game-action";
-import { GameStatus } from "@/types/game-status";
-import { Draft } from "immer";
+import type { Draft } from "immer";
+import { Game } from "~/types/game";
+import { GAME_ACTION, type GameAction } from "~/types/game-action";
+import { GameStatus } from "~/types/game-status";
 
 export const gameReducer = (
   draft: Draft<{ game: Game; status: GameStatus }>,

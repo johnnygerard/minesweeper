@@ -1,4 +1,4 @@
-import { GameMode } from "@/types/game-mode";
+import type { GameMode } from "~/types/game-mode";
 
 export const GAME_MODES: Record<"EASY" | "MEDIUM" | "EXPERT", GameMode> = {
   EASY: {

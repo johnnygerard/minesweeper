@@ -1,5 +1,5 @@
-import { GameStatusContext } from "@/contexts/game-status-context";
 import { useContext } from "react";
+import { GameStatusContext } from "~/contexts/game-status-context";
 
 export const useContextGameStatus = () => {
   const context = useContext(GameStatusContext);

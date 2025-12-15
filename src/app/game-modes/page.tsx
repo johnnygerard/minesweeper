@@ -1,15 +1,15 @@
-import { GAME_MODES } from "@/constants/game-modes";
 import clsx from "clsx";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { memo } from "react";
+import type { FC } from "react";
+import { GAME_MODES } from "~/constants/game-modes";
 
 export const metadata: Metadata = {
   title: "Game Modes",
   description: "Select a game mode",
 };
 
-const Page = () => {
+const Page: FC = () => {
   const modes = [
     {
       className: "bg-emerald-50 hover:bg-emerald-100 border-emerald-200",
@@ -27,7 +27,7 @@ const Page = () => {
 
   return (
     <div>
-      <h1 className="mb-12 text-4xl uppercase tracking-widest">Game Modes</h1>
+      <h1 className="mb-12 text-4xl tracking-widest uppercase">Game Modes</h1>
       <div className="grid gap-4 lg:auto-cols-fr lg:grid-flow-col">
         {modes.map(({ className, mode }) => {
           const { name, urlPath, columnCount, rowCount, mineCount } = mode;
@@ -37,7 +37,7 @@ const Page = () => {
               key={name}
               href={urlPath}
               className={clsx(
-                "group rounded-lg border p-6 shadow-sm transition-colors",
+                "group rounded-lg border p-6 shadow-xs transition-colors",
                 className,
               )}
             >
@@ -56,4 +56,4 @@ const Page = () => {
   );
 };
 
-export default memo(Page);
+export default Page;

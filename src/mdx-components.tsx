@@ -1,10 +1,11 @@
 import type { MDXComponents } from "mdx/types";
 
+const components: MDXComponents = {};
+
 /**
- * @see https://nextjs.org/docs/app/api-reference/file-conventions/mdx-components
+ * Note that this component is required even for Markdown files.
+ * @see https://nextjs.org/docs/app/guides/mdx#add-an-mdx-componentstsx-file
  */
-export function useMDXComponents(components: MDXComponents): MDXComponents {
-  return {
-    ...components,
-  };
-}
+export const useMDXComponents = (): MDXComponents => {
+  return components;
+};

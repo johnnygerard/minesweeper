@@ -1,9 +1,9 @@
-import { GAME_MODES } from "@/constants/game-modes";
-import { AdjacentMineCount } from "@/types/adjacent-mine-count";
-import { Cell } from "@/types/cell";
-import { Grid } from "@/types/grid";
-import { Minelayer } from "@/types/minelayer";
 import { immerable } from "immer";
+import { GAME_MODES } from "~/constants/game-modes";
+import type { AdjacentMineCount } from "~/types/adjacent-mine-count";
+import type { Cell } from "~/types/cell";
+import { Grid } from "~/types/grid";
+import { Minelayer } from "~/types/minelayer";
 
 export class Game {
   [immerable] = true;
