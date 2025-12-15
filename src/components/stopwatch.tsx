@@ -5,10 +5,17 @@ import { formatTime } from "~/utils/format-time";
 export const Stopwatch: FC = () => {
   const status = useContextGameStatus();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const displaySeconds = status.isNotStarted ? 0 : elapsedSeconds;
 
   useEffect(() => {
     if (status.isNotStarted) {
-      setElapsedSeconds(0);
+      const id = window.setTimeout(() => {
+        setElapsedSeconds(0);
+      }, 0);
+
+      return () => {
+        window.clearTimeout(id);
+      };
     } else if (status.isInProgress) {
       const id = window.setInterval(() => {
         setElapsedSeconds((prev) => prev + 1);
@@ -20,5 +27,5 @@ export const Stopwatch: FC = () => {
     }
   }, [status]);
 
-  return <p className="tracking-wider">{formatTime(elapsedSeconds)}</p>;
+  return <p className="tracking-wider">{formatTime(displaySeconds)}</p>;
 };
