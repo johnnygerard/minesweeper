@@ -26,4 +26,4 @@ As this is a personal website, updates to this Privacy Policy are rare. However,
 
 ## Contact
 
-If you have any questions about this Privacy Policy, feel free to reach out to me at [john@jgerard.dev](mailto:john@jgerard.dev).
+If you have any questions about this Privacy Policy, feel free to reach out via the [contact page](https://www.jgerard.dev/en-us/contact).
